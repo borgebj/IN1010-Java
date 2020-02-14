@@ -1,0 +1,8 @@
+Hvilken datastruktur passer til følgende problemer?
+
+1. En billettkø
+- ArrayList passer best for å holde styr på billetter. Dette er best fordi en billettkø vil ikke nødvendigvis ha en gitt mengde.
+
+
+2. Et Hundregister hvor Hunder har en unik id
+- HashMap mener jeg er best å bruke her, for å binde sammen Hunden sitt navn / objekt med deres unike id. Altså Hunden som nøkkel og unike id som innhold.

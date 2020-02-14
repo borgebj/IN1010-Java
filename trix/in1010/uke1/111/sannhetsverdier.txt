@@ -1,0 +1,27 @@
+boolean b = false
+int x = 0
+------------------
+
+b && x == 0
+-false
+
+b || x == 0;
+- true
+
+!b && x == 0
+- true
+
+!b || x == 0
+- true
+
+b && x != 0
+- true
+
+b || x != 0
+- false
+
+!b && x != 0
+- false
+
+!b || x != 0
+- true

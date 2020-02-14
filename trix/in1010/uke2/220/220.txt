@@ -1,0 +1,19 @@
+
+Anta at du har et HashMap studenter, deklarert og initialisert slik:
+
+HashMap studenter = new HashMap();
+
+Nøkkelen er navnet til studenten. Du kan anta at Student har en .toString()-metode som henter ut navn.
+
+// > {"navn" : objekt}
+
+
+a) Bruk en for each-løkke til å skrive ut alle nøkkelverdiene. Hva skrives ut?
+- for (String navn : studenter.keySet()) {
+        System.out.println("Studentnavn: " + navn); }
+- Alle nøkkelverdiene, altså alle navnene blir skrevet ut.
+
+
+b) Bruk en for each-løkke til å igjennom alle Student-objektene(verdiene), for å skrive ut navnet til studentene.
+- for (Student navn : studenter.values()) {
+        System.out.println("Studentnavn: " + navn); }

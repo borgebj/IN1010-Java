@@ -1,0 +1,78 @@
+
+a) Gitt følgende programkode:
+
+class X {}
+class Y extends X {}
+class Z extends Y {}
+Hvilke av de følgende programsetningene er lovlige?
+
+X x1 = (X) new Y();
+Y y1 = new Y();
+Y y2 = new X();
+Y y3 = new Z();
+Z z1 = new Z();
+Z z2 = (Z) new X();
+
+lovlige:
+- Y y1 = new Y(); - peker på objekt av egen klasse
+- Y y3 = new z(); - subklasse av X peker på subklasse av Y ( seg selv )
+- Z z1 = new Z(); - peker på objekt av egen klasse
+- X x1 = (X) new Y();
+
+ulovlige:
+- Y y2 = new X(); - fordi subklasse kan ikke peke på superklasse
+- Z z2 = (Z) new X();
+
+
+b) Gitt følgende programkode:
+
+class S {}
+class G extends S {}
+class Q extends B {}
+class B extends S {}
+
+/* anta at resten av koden er inne i en metode */
+S q = new G();
+Q b = new Q();
+B s = new Q();
+B g = new B();
+S p = new B();
+Hvilke av de følgende boolske uttrykkene returnerer true?
+
+q instanceof B
+q instanceof G
+q instanceof S
+b instanceof B
+b instanceof S
+s instanceof B
+g instanceof Q
+g instanceof S
+p instanceof Q
+p instanceof S
+p instanceof G
+
+
+
+c) Forklar hvilke av setningene A-E i programmet nedenfor som er lovlige.
+
+class Person {   }
+class Student extends Person {   }
+class BachelorStudent extends Student {   }
+
+class StudentRegister {
+    public static void main(String [] args) {
+        Person pers, pers2;
+        Student stud, stud2;
+        BachelorStudent bachelor, bachelor2;
+
+        pers = new Person();
+        stud = new Student();
+        bachelor = new BachelorStudent();
+
+        pers2 = stud;                                 // (A)
+        bachelor2 = (BachelorStudent) stud;           // (B)
+        stud2 = (BachelorStudent) stud;               // (C)
+        stud2 = (Person) stud;                        // (D)
+        stud2 = (Student) bachelor; bachelor = stud2; // (E)
+    }
+}

@@ -1,0 +1,34 @@
+
+a) Koden under printer ut "Navnene er ikke like!". Hva er feil?
+
+class LikeStrenger{
+    public static void main(String [] args){
+        String navn1 = new String("Maria");
+        String navn2 = new String("Maria");
+
+        if(navn1 == navn2){
+            System.out.println("Navnene er like!");
+        } else {
+            System.out.println("Navnene er ikke like!");
+        }
+    }
+}
+
+- Navnene er ikke like fordi begge objektene er hver sine objekter, altså ikke like (fordi det står new foran)
+- navn1 == navn2 sjekker om navn1 ER navn 2
+
+
+b) Endre programmet slik at det fungerer.
+
+class LikeStrenger {
+    public static void main(String [] args){
+        String navn1 = "Maria";
+        String navn2 = "Maria";
+
+        if(navn1 == navn2){
+            System.out.println("Navnene er like!");
+        } else {
+            System.out.println("Navnene er ikke like!");
+        }
+    }
+}

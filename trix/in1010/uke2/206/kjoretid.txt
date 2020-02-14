@@ -1,0 +1,20 @@
+
+import java.util.Scanner;
+
+class HarKjoretidsfeil {
+    public static void main(String[] args) {
+        int x = 0;
+        int y = 0;
+// første feil: Syntax error, skriver System.in som string
+        Scanner tastatur = new Scanner("System.in");
+
+// andre feil: logisk feil, får to input fra bruker, men setter begge i variabel x
+        System.out.println("Tast inn to heltall");
+        x = Integer.parseInt(tastatur.nextLine());
+        x = Integer.parseInt(tastatur.nextLine());
+
+// tredje feil: syntax feil, forsøker å addere x og y i print, men sammen med String på begynnelsen vil dette bli tolket som String, og vil dermed ikke regnes.
+        System.out.println("Summen av tallene er: " + x + y);
+    }
+}
+

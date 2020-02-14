@@ -1,0 +1,19 @@
+
+
+Vi har fire klasser:
+ - Virveldyr
+ - Pattedyr,
+ - Primat
+ - Fisk.
+
+ Noen klasser skal være subklasser av andre klasser. Vis forholdet mellom klassene ved å tegne et klassediagram.
+
+
+            | virveldyr |
+             /        \
+            /          \
+    | pattedyr |      | fisk |
+         |
+    | primat |
+
+    - her er "Virveldyr" superklassen, med resten som subklasser av den

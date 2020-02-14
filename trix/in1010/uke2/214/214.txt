@@ -1,0 +1,17 @@
+
+public static void main(String[] args) {
+    int x = 3;
+    int y = 4;
+    variabelBytte(x, y);
+    System.out.println(x + " " +y);
+}
+
+public static void variabelBytte(int a, int b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+// hvorfor fungerer ikke metoden som den skal:
+// metoden returnerer ikke de nye verdiene til x og y, siden vi må tenke på scopen til variablene. x og y tilhører
+// main metoden, og kan dermed ikke endres i en annen metode.

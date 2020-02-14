@@ -1,0 +1,20 @@
+
+Gitt følgende programkode:
+
+class A {
+    int x, y;
+}
+
+class C {
+    int i, j;
+}
+
+class B extends A {
+    int q;
+}
+
+
+Hvilken av klassene vil ha tilgang på flest variabler?
+- Klasse B vil ha tilgang til flest variabler
+
+- B er en utvidelse av A (class b extends A), så dermed vil den ha både variabler fra A og B = 3 variabler, mens klassen C bare har 2.
