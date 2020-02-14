@@ -42,7 +42,6 @@ public class Dataklynge {
             // linjen blir gjort om til en liste med hvert ord som element
             String[] biter = lesFil.nextLine().split(" ");
 
-            e ord er antall prosessorer
             int antall = Integer.parseInt(biter[0]);
             int minne = Integer.parseInt(biter[1]);
             int antPros = Integer.parseInt(biter[2]);
