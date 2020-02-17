@@ -6,12 +6,11 @@ public class Hovedprogram {
         // oppretter 2 lege-objekter og 2 spesialist-objekter
         Lege navn1 = new Lege("Doktor Shwartz");
         Lege navn2 = new Lege("Doktor Mahmud");
-        Lege navn3 = new Spesialist("Doktor Arne", 58);
-        Lege navn4 = new Spesialist("Doktor Kaal", 18);
+        Spesialist navn3 = new Spesialist("Doktor Arne", 58);
+        Spesialist navn4 = new Spesialist("Doktor Kaal", 18);
 
 
         // oppretter 4 objekter av legemiddel-typen
-
         Narkotisk middel1 = new Narkotisk("Cannabis", 149.90, 300.0, 4);
         Vanedannende middel2 = new Vanedannende("Zlpidem", 45.90, 100.0, 2);
         Vanlig middel3 = new Vanlig("Paracet", 29.00, 500.0);
@@ -68,6 +67,5 @@ public class Hovedprogram {
         System.out.println("\n-Vi bruker resept 4 2 ganger til-");
         res4.bruk();
         System.out.println("Resept 4 - antall reit igjen: " + res4.antallReit);
-
     }
 }

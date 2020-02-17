@@ -5,10 +5,12 @@ public class Hvit extends Resept {
         super(legemiddel, utskrivendeLege, pasientid, reit);
     }
 
+    // returner fargen til klassen
     public String farge() {
         return ("Hvit");
     }
 
+    // returnerer prisen paa legemiddelet
     public double prisAaBetale() {
         double pris = middel.hentPris();
         if (pris < 0) {
