@@ -21,7 +21,7 @@ class Lenkeliste<T>  implements Liste<T>  {
     
 public class LenkelisteIterator implements Iterator<T>{
     
-    Node current = start;
+    Node current = forste;
     public boolean hasNext(){
         if (current == null){
             return false;
