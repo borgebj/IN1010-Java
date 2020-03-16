@@ -12,14 +12,14 @@ abstract class Resept {
     protected int id = 0;
 
     // Del B b) - Endrer "int pasId" til "Pasient pasient"
-    protected int pasId;
+    protected Pasient pasient;
 
     // Del B b) - Endrer "int pasientid" til "Pasient pasient"
-    public Resept(Legemiddel legemiddel, Lege utskrivendeLege, int pasientid, int reit){
+    public Resept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit){
         this.legemiddel = legemiddel;
         this.utskrivendeLege = utskrivendeLege;
         this.reit = reit;
-        pasId = pasientid;
+        this.pasient = pasient;
         id = idCount;
         idCount++;
     }
@@ -36,9 +36,10 @@ abstract class Resept {
         return utskrivendeLege;
     }
 
-    public int hentPasientId() {
-        return pasId;
-    }
+    // fungerer ikke lenger
+    /* public int hentPasientId() {
+        return pasient;
+    } */
 
     public int hentReit() {
         return reit;
@@ -62,7 +63,7 @@ abstract class Resept {
     @Override // overskriver original toString() metode med kode som returnerer variablene med tilsvarende tekst
     public String toString() {
         return (legemiddel + "\n" + utskrivendeLege +
-                "\nPasient-ID: " + pasId +
+                "\nPasient: " + pasient +
                 "\nResept-ID: " + id +
                 "\nAntall reit: " + reit);
     }

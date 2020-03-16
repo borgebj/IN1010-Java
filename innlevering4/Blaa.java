@@ -1,8 +1,9 @@
 
 public class Blaa extends Resept {
 
-    public Blaa(Legemiddel legemiddel, Lege utskrivendeLege, int pasientid, int reit) {
-        super(legemiddel, utskrivendeLege, pasientid, reit);
+    // Del B b) - Endrer "int pasientid" til "Pasient pasient"
+    public Blaa(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit) {
+        super(legemiddel, utskrivendeLege, pasient, reit);
     }
 
     // returner fargen til klassen
@@ -12,7 +13,7 @@ public class Blaa extends Resept {
 
     // returnerer prisen paa legemiddelet
     public double prisAaBetale() {
-        double pris = middel.hentPris();
+        double pris = legemiddel.hentPris();
         if (pris < 0) {
             pris = 0;
         } return ( pris * 0.25);

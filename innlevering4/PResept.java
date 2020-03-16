@@ -1,8 +1,9 @@
 
 public class PResept extends Hvit {
 
-    public PResept(Legemiddel legemiddel, Lege utskrivendeLege, int pasientid) {
-        super(legemiddel, utskrivendeLege, pasientid, 3);
+    // Del B b) - Endrer "int pasientid" til "Pasient pasient"
+    public PResept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient) {
+        super(legemiddel, utskrivendeLege, pasient, 3);
     }
 
     @Override // returner fargen til klassen
@@ -12,7 +13,7 @@ public class PResept extends Hvit {
 
     @Override // returnerer prisen paa legemiddelet, som har en statisk rabatt paa 108kr
     public double prisAaBetale() {
-        double pris = middel.hentPris();
+        double pris = legemiddel.hentPris();
         pris = pris-108;
         if (pris < 0) {
             pris = 0;
