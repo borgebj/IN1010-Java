@@ -16,7 +16,11 @@ class Lenkeliste<T>  implements Liste<T>  {
 
     // instansvariabler - en som holder forste node, og en counter for antall noder
     protected Node forste;
+   
     
+public Iterator<T> iterator(){
+        return new LenkelisteIterator();
+    }
     
     
 public class LenkelisteIterator implements Iterator<T>{
@@ -40,10 +44,6 @@ public class LenkelisteIterator implements Iterator<T>{
         else{
             return null;
         }
-    }
-
-    public Iterator<T> iterator(){
-        return new LenkelisteIterator();
     }
 
     public void remove(){
