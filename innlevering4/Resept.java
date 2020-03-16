@@ -1,10 +1,9 @@
 
 abstract class Resept {
 
-    protected Legemiddel middel;
-    protected Lege lege;
-    protected int pasId;
-    protected int antallReit;
+    protected Legemiddel legemiddel;
+    protected Lege utskrivendeLege;
+    protected int reit;
 
     // id-teller - okes for hvert objekt
     protected static int idCount = 0;
@@ -12,10 +11,14 @@ abstract class Resept {
     // id for et objekt
     protected int id = 0;
 
+    // Del B b) - Endrer "int pasId" til "Pasient pasient"
+    protected int pasId;
+
+    // Del B b) - Endrer "int pasientid" til "Pasient pasient"
     public Resept(Legemiddel legemiddel, Lege utskrivendeLege, int pasientid, int reit){
-        middel = legemiddel;
-        lege = utskrivendeLege;
-        antallReit = reit;
+        this.legemiddel = legemiddel;
+        this.utskrivendeLege = utskrivendeLege;
+        this.reit = reit;
         pasId = pasientid;
         id = idCount;
         idCount++;
@@ -26,11 +29,11 @@ abstract class Resept {
     }
 
     public Legemiddel hentLegemiddel(){
-        return middel;
+        return legemiddel;
     }
 
     public Lege hentLege() {
-        return lege;
+        return utskrivendeLege;
     }
 
     public int hentPasientId() {
@@ -38,12 +41,12 @@ abstract class Resept {
     }
 
     public int hentReit() {
-        return antallReit;
+        return reit;
     }
 
     public boolean bruk() {
-        if (antallReit > 0) {
-            antallReit--;
+        if (reit > 0) {
+            reit--;
             return true;
         } else {
             return false;
@@ -58,9 +61,9 @@ abstract class Resept {
 
     @Override // overskriver original toString() metode med kode som returnerer variablene med tilsvarende tekst
     public String toString() {
-        return (middel + "\n" + lege +
+        return (legemiddel + "\n" + utskrivendeLege +
                 "\nPasient-ID: " + pasId +
                 "\nResept-ID: " + id +
-                "\nAntall reit: " + antallReit);
+                "\nAntall reit: " + reit);
     }
 }
