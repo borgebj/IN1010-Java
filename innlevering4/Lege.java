@@ -1,3 +1,4 @@
+//TODO: Del D: Klassen lege 
 
 public class Lege {
 
