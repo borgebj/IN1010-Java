@@ -16,6 +16,46 @@ class Lenkeliste<T>  implements Liste<T>  {
 
     // instansvariabler - en som holder forste node, og en counter for antall noder
     protected Node forste;
+    
+    
+    
+public class LenkelisteIterator implements Iterator<T>{
+    
+    Node current = start;
+    public boolean hasNext(){
+        if (current == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public T next(){
+        if (hasNext()){
+            T data = current.data;
+            current = current.neste;
+            return data;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Iterator<T> iterator(){
+        return new LenkelisteIterator();
+    }
+
+    public void remove(){
+        throw new UnsupportedOperationException("Remove har ikke blitt implementert");
+    }
+}
+    
+    
+    
+    
+    
+    
 
 
     @Override // legger inn ny nod paa slutten
