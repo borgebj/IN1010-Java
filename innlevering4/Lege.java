@@ -52,6 +52,9 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
         return hvit;
 
     }
+    
+    
+    /** Akkurat naa saa kan hverken LEGE eller SPESIALIST skrive ut narkotiske, dette maa endres **/
 
     // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "MillitaerResept"
     public MillitaerResept skrivMillitaerResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
