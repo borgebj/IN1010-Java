@@ -1,5 +1,6 @@
+import java.util.Iterator;
 
-class Lenkeliste<T>  implements Liste<T>  {
+class Lenkeliste<T> implements Liste<T>  {
 
     // node-klasse som skal lenkes sammen i listen
     protected class Node {
@@ -16,23 +17,19 @@ class Lenkeliste<T>  implements Liste<T>  {
 
     // instansvariabler - en som holder forste node, og en counter for antall noder
     protected Node forste;
-   
-    
-    // DEL C: Itererbare lister
-    public Iterator<T> iterator(){
-            return new LenkelisteIterator();
-        }
 
 
-    public class LenkelisteIterator implements Iterator<T>{
+
+    // indre klasse "LenkelisteIterator" brukt for aa iterere gjennom Lenkeliste
+    public class LenkelisteIterator implements Iterator<T> {
 
         Node current = forste;
 
         // sjekker om lenkelisten har en til node
-        public boolean hasNext(){
-            
+        public boolean hasNext() {
+
             // neste finnes
-            if (current == null){
+            if (current == null) {
                 return false;
             }
             // neste finnes ikke
@@ -43,10 +40,10 @@ class Lenkeliste<T>  implements Liste<T>  {
 
         // sjekker og returner om det finnes en neste node (returner data fra noden)
         public T next(){
-            
+
             // om neste node finnes, return data
             if (hasNext()){
-                T data = current.data;
+                T data = current.innhold;
                 current = current.neste;
                 return data;
             }
@@ -62,7 +59,14 @@ class Lenkeliste<T>  implements Liste<T>  {
         }
     }
 
-    
+    // C3 - metode som returner nytt LenkelisteIterator-objekt
+    public Iterator<T> iterator() {
+        return new LenkelisteIterator();
+    }
+
+
+
+
     @Override // legger inn ny nod paa slutten
     public void leggTil(T x) {
 
@@ -91,7 +95,6 @@ class Lenkeliste<T>  implements Liste<T>  {
             return verdi;
         }
     }
-
 
     @Override // bytter ut element fra parameter med node i gitt posisjon
     public void sett(int pos, T x) {

@@ -1,5 +1,5 @@
 
-public class PResept extends Hvit {
+public class PResept extends HvitResept {
 
     // Del B b) - Endrer "int pasientid" til "Pasient pasient"
     public PResept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient) {
