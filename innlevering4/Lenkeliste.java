@@ -18,46 +18,51 @@ class Lenkeliste<T>  implements Liste<T>  {
     protected Node forste;
    
     
-public Iterator<T> iterator(){
-        return new LenkelisteIterator();
-    }
-    
-    
-public class LenkelisteIterator implements Iterator<T>{
-    
-    Node current = forste;
-    public boolean hasNext(){
-        if (current == null){
-            return false;
+    // DEL C: Itererbare lister
+    public Iterator<T> iterator(){
+            return new LenkelisteIterator();
         }
-        else{
-            return true;
+
+
+    public class LenkelisteIterator implements Iterator<T>{
+
+        Node current = forste;
+
+        // sjekker om lenkelisten har en til node
+        public boolean hasNext(){
+            
+            // neste finnes
+            if (current == null){
+                return false;
+            }
+            // neste finnes ikke
+            else {
+                return true;
+            }
+        }
+
+        // sjekker og returner om det finnes en neste node (returner data fra noden)
+        public T next(){
+            
+            // om neste node finnes, return data
+            if (hasNext()){
+                T data = current.data;
+                current = current.neste;
+                return data;
+            }
+            // om neste er tom
+            else {
+                return null;
+            }
+        }
+
+        // metode som kaster unntak
+        public void remove(){
+            throw new UnsupportedOperationException("Remove har ikke blitt implementert");
         }
     }
 
-    public T next(){
-        if (hasNext()){
-            T data = current.data;
-            current = current.neste;
-            return data;
-        }
-        else{
-            return null;
-        }
-    }
-
-    public void remove(){
-        throw new UnsupportedOperationException("Remove har ikke blitt implementert");
-    }
-}
     
-    
-    
-    
-    
-    
-
-
     @Override // legger inn ny nod paa slutten
     public void leggTil(T x) {
 
