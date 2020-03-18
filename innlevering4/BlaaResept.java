@@ -24,3 +24,5 @@ public class BlaaResept extends Resept {
 // test 2
 
 // bruh
+
+// bruh 2
