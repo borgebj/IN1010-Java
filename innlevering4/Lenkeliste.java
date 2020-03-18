@@ -108,7 +108,7 @@ public class Lenkeliste<T> implements Liste<T>  {
         }
         naaNode.innhold = x;
     }
-u
+
     @Override // legger til nytt element til posisjon fra parameter
     public void leggTil(int pos, T x) {
 

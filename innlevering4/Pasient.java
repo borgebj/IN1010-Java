@@ -10,7 +10,7 @@ public class Pasient extends Stabel<Resept> {
 
 
     // stabel med resepter for pasienten
-    Stabel resepter = new Stabel<Resept>();
+    Stabel<Resept> resepter = new Stabel<Resept>();
 
     public Pasient(String navn, String fNr /* mer? */ ) {
         this.navn = navn;

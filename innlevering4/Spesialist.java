@@ -17,6 +17,8 @@ public class Spesialist extends Lege implements Godkjenningsfritak{
     @Override // metode som overskriver toString()-metoden og returner relevant info
     public String toString() {
         return ("Spesialistnavn: " + navn +
+                "\nKontrollID: " + kontrollID);
+    }
 
     @Override // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "MillitaerResept"
     public MillitaerResept skrivMillitaerResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
