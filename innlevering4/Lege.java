@@ -1,4 +1,3 @@
-// test
 
 public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
 
