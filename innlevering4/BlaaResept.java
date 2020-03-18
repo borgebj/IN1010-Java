@@ -1,5 +1,5 @@
 
-class BlaaResept extends Resept {
+public class BlaaResept extends Resept {
 
     // Del B b) - Endrer "int pasientid" til "Pasient pasient"
     public BlaaResept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit) {

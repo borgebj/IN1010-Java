@@ -1,5 +1,5 @@
 
-class SortertLenkeliste<T extends Comparable<T>> extends Lenkeliste<T> {
+public class SortertLenkeliste<T extends Comparable<T>> extends Lenkeliste<T> {
 
     @Override // legger inn ny node og sorterer den inn i listen
     public void leggTil(T x) {

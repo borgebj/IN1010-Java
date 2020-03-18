@@ -1,5 +1,5 @@
 
-class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
+public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
 
     // instansvariabel legeNavn fra parameter for navnet til legen
     String navn;

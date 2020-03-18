@@ -1,5 +1,5 @@
 
-class Stabel<T> extends Lenkeliste<T> {
+public class Stabel<T> extends Lenkeliste<T> {
 
     // legger til nytt element paa slutten
     public void leggPaa(T x) {

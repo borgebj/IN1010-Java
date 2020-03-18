@@ -1,6 +1,6 @@
 import java.util.Iterator;
 
-class Lenkeliste<T> implements Liste<T>  {
+public class Lenkeliste<T> implements Liste<T>  {
 
     // node-klasse som skal lenkes sammen i listen
     protected class Node {
@@ -108,7 +108,7 @@ class Lenkeliste<T> implements Liste<T>  {
         }
         naaNode.innhold = x;
     }
-
+u
     @Override // legger til nytt element til posisjon fra parameter
     public void leggTil(int pos, T x) {
 

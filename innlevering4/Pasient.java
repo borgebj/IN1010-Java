@@ -1,5 +1,5 @@
 
-class Pasient extends Stabel<Resept> {
+public class Pasient extends Stabel<Resept> {
 
     String navn;
     String fNr;
@@ -17,3 +17,5 @@ class Pasient extends Stabel<Resept> {
         this.fNr = fNr;
     }
 }
+
+
