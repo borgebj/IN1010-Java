@@ -19,12 +19,3 @@ public class BlaaResept extends Resept {
         } return ( pris * 0.25);
     }
 }
-
-
-// test 2
-
-// bruh
-
-// bruh 2
-
-// bruh 3?
