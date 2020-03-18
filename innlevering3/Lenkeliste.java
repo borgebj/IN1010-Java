@@ -1,4 +1,3 @@
-package obligFire;
 
 class Lenkeliste<T>  implements Liste<T>  {
 

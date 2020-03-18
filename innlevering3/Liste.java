@@ -1,4 +1,3 @@
-package obligFire;
 
 interface Liste<T> {
     public int stoerrelse();

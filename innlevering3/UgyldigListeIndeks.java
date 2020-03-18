@@ -1,4 +1,3 @@
-package obligFire;
 
 class UgyldigListeIndeks extends RuntimeException {
     UgyldigListeIndeks(int indeks){

@@ -17,7 +17,10 @@ public class Legesystem {
         // scanner + fil objekt
         Scanner lesFil = new Scanner(new File(fil));
 
+
         while (lesFil.hasNextLine()) {
+
+            // for hver linje som IKKE starter med #
 
             // lager pasient-objekter
             if (lesFil.nextLine().equals("# Pasienter (navn, fnr)")) {

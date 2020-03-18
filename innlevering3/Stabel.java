@@ -1,4 +1,3 @@
-package obligFire;
 
 class Stabel<T> extends Lenkeliste<T> {
 

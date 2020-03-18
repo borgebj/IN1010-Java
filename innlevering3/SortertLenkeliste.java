@@ -1,4 +1,3 @@
-package legeStuff;
 
 class SortertLenkeliste<T extends Comparable<T>> extends Lenkeliste<T> {
 
