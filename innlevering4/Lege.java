@@ -1,4 +1,5 @@
 
+//test test sjekk sjekk
 public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
 
     // instansvariabel legeNavn fra parameter for navnet til legen
