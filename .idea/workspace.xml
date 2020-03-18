@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="42cad2b3-5088-4763-988d-76325aebf91a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/innlevering4/Legemiddel.java" beforeDir="false" afterPath="$PROJECT_DIR$/innlevering4/Legemiddel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/innlevering4/Legesystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/innlevering4/Legesystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/innlevering4/Lenkeliste.java" beforeDir="false" afterPath="$PROJECT_DIR$/innlevering4/Lenkeliste.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/innlevering4/Pasient.java" beforeDir="false" afterPath="$PROJECT_DIR$/innlevering4/Pasient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/innlevering4/BlaaResept.java" beforeDir="false" afterPath="$PROJECT_DIR$/innlevering4/BlaaResept.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +35,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1584555094234</updated>
-      <workItem from="1584555095713" duration="851000" />
+      <workItem from="1584555095713" duration="1224000" />
     </task>
     <servers />
   </component>
