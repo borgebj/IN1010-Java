@@ -19,7 +19,6 @@ public class Lenkeliste<T> implements Liste<T>  {
     protected Node forste;
 
 
-
     // indre klasse "LenkelisteIterator" brukt for aa iterere gjennom Lenkeliste
     public class LenkelisteIterator implements Iterator<T> {
 
@@ -63,8 +62,6 @@ public class Lenkeliste<T> implements Liste<T>  {
     public Iterator<T> iterator() {
         return new LenkelisteIterator();
     }
-
-
 
 
     @Override // legger inn ny nod paa slutten

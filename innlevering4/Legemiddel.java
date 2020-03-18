@@ -53,6 +53,4 @@ abstract class Legemiddel {
                 " kr.\nMengde: " + virkestoff + " mg." +
                 "\nID: " + id + ".");
     }
-
-
 }
