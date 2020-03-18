@@ -5,3 +5,5 @@ IN1010 - Objektorientert-programmering - Java. Her ligger filer tilknyttet emne 
 Prosjektoppgaver er Innleveringer fra 4 +
 
 Individoppgaver er Innlevering 0 - 3
+
+atasdased
