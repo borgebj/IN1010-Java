@@ -16,6 +16,6 @@ public class BlaaResept extends Resept {
         double pris = legemiddel.hentPris();
         if (pris < 0) {
             pris = 0;
-        } return ( pris * 0.25);
+        } return (pris * 0.25);
     }
 }

@@ -23,24 +23,24 @@ public class Legesystem {
             // for hver linje som IKKE starter med #
 
             // lager pasient-objekter
-            if (lesFil.nextLine().equals("# Pasienter (navn, fnr)")) {
+            if (lesFil.nextLine().startsWith("# Pasienter")) {
                 while (lesFil.nextLine().startsWith("#")) {
                     System.out.println(lesFil.nextLine());
                 }
             }
 
             // lager legemiddel-objekter
-            if (lesFil.nextLine().equals("# Legemidler (navn,type,pris,virkestoff,[styrke])")) {
+            if (lesFil.nextLine().startsWith("# Legemidler")) {
                 System.out.println("legemiddel");
             }
 
             // lager lege-objekter
-            if (lesFil.nextLine().equals("# Leger (navn,kontrollid / 0 hvis vanlig lege)")) {
+            if (lesFil.nextLine().startsWith("# Leger")) {
                 System.out.println("lege");
             }
 
             // lager resept-objekter
-            if (lesFil.nextLine().equals("# Resepter (legemiddelNummer,legeNavn,pasientID,type,[reit])")) {
+            if (lesFil.nextLine().startsWith("# Resepter")) {
                 System.out.println("resept");
             }
 

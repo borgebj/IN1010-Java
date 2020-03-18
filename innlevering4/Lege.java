@@ -80,5 +80,3 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
     }
 
 }
-
-// siste test
