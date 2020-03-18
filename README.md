@@ -6,4 +6,3 @@ Prosjektoppgaver er Innleveringer fra 4 +
 
 Individoppgaver er Innlevering 0 - 3
 
-atasdased
