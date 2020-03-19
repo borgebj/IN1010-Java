@@ -11,4 +11,13 @@ public class Vanedannende extends Legemiddel {
     public int hentVanedannendeStyrke() {
         return styrke;
     }
+
+    @Override // A4 - toString-metode som returner relevant info med 1 metode
+    public String toString() {
+        return ("Navn: " + navn +
+                ".\nPris: " + pris +
+                " kr.\nMengde: " + virkestoff + " mg." +
+                "\nID: " + id +
+                "\nStyrke: " + styrke + ".");
+    }
 }

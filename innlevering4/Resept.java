@@ -20,8 +20,7 @@ abstract class Resept {
         this.utskrivendeLege = utskrivendeLege;
         this.reit = reit;
         this.pasient = pasient;
-        id = idCount;
-        idCount++;
+        id = idCount++;
     }
 
     public int hentId() {
