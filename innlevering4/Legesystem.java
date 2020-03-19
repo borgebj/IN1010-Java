@@ -163,30 +163,54 @@ public class Legesystem {
 
     // skriver ut alle pasienter
     public void skrivPasienter() {
+        System.out.println("-------- [ Pasienter ] -----------");
         for (Pasient x : pasienter) {
-            System.out.println(x.toString() + "\n");
+            System.out.println("\n- - - - - - - - - - - - - - - ");
+
+            System.out.println(x.toString());
+
+            System.out.println("- - - - - - - - - - - - - - - \n");
         }
+        System.out.println("----------------------------------\n");
     }
 
     // skriver ut alle legemidler
     public void skrivLegemidler() {
+        System.out.println("-------- [ Legemidler ] ----------");
         for (Legemiddel x : legemidler) {
-            System.out.println(x.toString() + "\n");
+            System.out.println("\n- - - - - - - - - - - - ");
+
+            System.out.println(x.toString());
+
+            System.out.println("- - - - - - - - - - - - \n");
         }
+        System.out.println("----------------------------------\n");
     }
 
     // skriver ut alle leger
     public void skrivLeger() {
+        System.out.println("----------- [ leger ] --------------");
         for (Lege x : leger) {
-            System.out.println(x.toString() + "\n");
+            System.out.println("\n- - - - - - - - - - - - - - - ");
+
+            System.out.println(x.toString());
+
+            System.out.println("- - - - - - - - - - - - - - - \n");
         }
+        System.out.println("----------------------------------\n");
     }
 
     // skriver ut alle resepter
     public void skrivResepter() {
+        System.out.println("---------- [ Resepter ] ------------");
         for (Resept x : resepter) {
-            System.out.println(x.toString() + "\n");
+            System.out.println("\n- - - - - - - - - - - - - - - - ");
+
+            System.out.println(x.toString());
+
+            System.out.println("- - - - - - - - - - - - - - - - \n");
         }
+        System.out.println("----------------------------------\n");
     }
 }
 

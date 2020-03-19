@@ -5,7 +5,11 @@ public class Main {
         Legesystem lege = new Legesystem("LitenEksempelFil.txt");
 
 
-        lege.skrivResepter();
+        lege.skrivPasienter(); System.out.println("\n");
+        lege.skrivLegemidler(); System.out.println("\n");
+        lege.skrivLeger(); System.out.println("\n\n");
+
+        lege.skrivResepter(); System.out.println("\n");
 
     }
 }
