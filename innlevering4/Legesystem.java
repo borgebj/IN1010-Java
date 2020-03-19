@@ -22,7 +22,7 @@ public class Legesystem {
 
 
             // kode
-            
+
         }
         System.out.println();
     }

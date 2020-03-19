@@ -32,6 +32,8 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
     // + om a er større enn b
     // 0 om a er lik b
 
+    //TODO: lage en metode som returner lenkelisten (D2)
+
 
     // (D3) skriv-metoder for aa skrive ut resepter for legen
 
