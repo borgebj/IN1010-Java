@@ -32,10 +32,11 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
     // + om a er større enn b
     // 0 om a er lik b
 
-    //TODO: lage en metode som returner lenkelisten (D2)
 
-
-    // (D3) skriv-metoder for aa skrive ut resepter for legen
+    // metode som returner lenkelisten med resepter til legen
+    public Lenkeliste hentResepter() {
+        return utskrevedeResepter;
+    }
 
     // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "HvitResept"
     public HvitResept skrivHvitResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
