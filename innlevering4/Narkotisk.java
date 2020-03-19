@@ -1,5 +1,5 @@
 
-public class Narkotisk extends Leg emiddel {
+public class Narkotisk extends Legemiddel {
 
     private int styrke;
 
