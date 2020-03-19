@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-
+// testtets
 public class Legesystem {
 
     // lister som holder styr paa pasienter, legemidler, leger og resepter
