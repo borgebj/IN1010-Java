@@ -22,11 +22,15 @@ public class Legesystem {
 
             // for hver linje som IKKE starter med #
 
+            // tips for oppgaven:
+            // - https://developer.salesforce.com/forums/?id=906F000000091yyIAA
+            // - https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html
+            // ^ bruke (if lesfil.hasNext("# Pasienter")) { ... }
+            // Bruke metoden:    " hasNext(Pattern pattern) "
+
             // lager pasient-objekter
             if (lesFil.nextLine().startsWith("# Pasienter")) {
-                while (lesFil.nextLine().startsWith("#")) {
-                    System.out.println(lesFil.nextLine());
-                }
+                System.out.println("Pasient");
             }
 
             // lager legemiddel-objekter
