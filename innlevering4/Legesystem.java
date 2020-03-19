@@ -10,7 +10,7 @@ public class Legesystem {
     SortertLenkeliste<Lege> leger = new SortertLenkeliste<Lege>();
     Lenkeliste<Resept> resepter = new Lenkeliste<Resept>();
 
-    // konstruktoer - initierer listene
+    // konstruktoer gaar gjennom filen, oppretter objekter og legger de til i listen
     public Legesystem(String fil) throws FileNotFoundException {
         System.out.println();
 
