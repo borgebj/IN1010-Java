@@ -130,7 +130,7 @@ public class Legesystem {
                                             }
 
                                             if (type.equals("millitaer")) { // endre til en L !
-                                                MillitaerResept militaer = new MillitaerResept(a, b, c, reit);
+                                                MillitaerResept millitaer = new MillitaerResept(a, b, c, reit);
                                             }
                                         } else if (type.equals("p")) {
                                             PResept p = new PResept(a, b, c);
