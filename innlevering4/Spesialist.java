@@ -21,7 +21,7 @@ public class Spesialist extends Lege implements Godkjenningsfritak{
     }
 
     @Override // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "MillitaerResept"
-    public MillitaerResept skrivMillitaerResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
+    public MillitaerResept skrivMillitaerResept(Legemiddel legemiddel, Pasient pasient, int reit) {
 
         // lager, legger til og returner
         MillitaerResept millitaer = new MillitaerResept(legemiddel, this, pasient, reit);
@@ -30,7 +30,7 @@ public class Spesialist extends Lege implements Godkjenningsfritak{
     }
 
     @Override // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "PResept"
-    public PResept skrivPResept(Legemiddel legemiddel, Pasient pasient) throws UlovligUtskrift {
+    public PResept skrivPResept(Legemiddel legemiddel, Pasient pasient)  {
 
         // lager, legger til og returner
         PResept PResept = new PResept(legemiddel, this, pasient);
@@ -39,7 +39,7 @@ public class Spesialist extends Lege implements Godkjenningsfritak{
     }
 
     @Override // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "BlaaResept"
-    public BlaaResept skrivBlaaResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
+    public BlaaResept skrivBlaaResept(Legemiddel legemiddel, Pasient pasient, int reit) {
 
         // lager, legger til og returner
         BlaaResept Blaa = new BlaaResept(legemiddel, this, pasient, reit);
