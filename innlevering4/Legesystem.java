@@ -105,35 +105,50 @@ public class Legesystem {
                 int id = Integer.parseInt(biter[2]);
                 String type = biter[3];
 
+                // for hvert legemiddel:
                 for (Legemiddel a : legemidler) {
                     int legemiddelId = a.hentId();
 
+                    // hvis legemiddel matcher id fra fil:
                     if (middelId == legemiddelId) {
+
+                        // for hver lege:
                         for (Lege b : leger) {
                             String legeNavn = b.hentNavn(); // finner navn
 
-                            if (navn == legeNavn) { // sjekker om lege finnes
+                            // hvis legenavnet matcher navn fra fil:
+                            if (legeNavn.equals(navn)) {
+
+                                // for hver pasient:
                                 for (Pasient c : pasienter) {
                                     int pasientId = c.hentId(); // finner ID
 
+                                    // om pasient-id matcher id fra fil:
                                     if (id == pasientId) { // sjekker om pasient-id finnes
 
-                                        if (biter.length > 4) { // sjekker om filen har reit
+                                        // om filen har over fire indekser (IKKE lag PResept)
+                                        if (biter.length == 5) { // sjekker om filen har reit
                                             int reit = Integer.parseInt(biter[4]);  // sjekk om index 4 finnes !
 
                                             if (type.equals("hvit")) {
                                                 HvitResept hvit = new HvitResept(a, b, c, reit);
+                                                resepter.leggTil(hvit);
                                             }
 
                                             if (type.equals("blaa")) {
                                                 BlaaResept blaa = new BlaaResept(a, b, c, reit);
+                                                resepter.leggTil(blaa);
                                             }
 
                                             if (type.equals("millitaer")) { // endre til en L !
                                                 MillitaerResept millitaer = new MillitaerResept(a, b, c, reit);
+                                                resepter.leggTil(millitaer);
                                             }
-                                        } else if (type.equals("p")) {
+                                        }
+                                        // ellers om den har 4 indekser: lag KUN PResept
+                                        else if (type.equals("p")) {
                                             PResept p = new PResept(a, b, c);
+                                            resepter.leggTil(p);
                                         }
                                     }
                                 }
