@@ -3,9 +3,9 @@ public class Vanedannende extends Legemiddel {
 
     private int styrke;
 
-    public Vanedannende(String midNavn, double midPris, double midVirk, int midStyrke) {
-        super(midNavn, midPris, midVirk);
-        styrke = midStyrke;
+    public Vanedannende(String navn, double pris, double virkestoff, int styrke) {
+        super(navn, pris, virkestoff);
+        this..styrke = styrke;
     }
 
     public int hentVanedannendeStyrke() {

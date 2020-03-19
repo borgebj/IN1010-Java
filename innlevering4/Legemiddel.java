@@ -13,10 +13,10 @@ abstract class Legemiddel {
     protected int id = 0;
 
     // konstruktor som gir instansvariabler verider fra parameter
-    public Legemiddel(String midNavn, double midPris, double midVirk) {
-        navn = midNavn;
-        pris = midPris;
-        virkestoff = midVirk;
+    public Legemiddel(String navn, double pris, double virkestoff) {
+        this.navn = navn;
+        this.pris = pris;
+        this. virkestoff = virkestoff;
         id = idCount;
         idCount++;
     }
