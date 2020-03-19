@@ -95,6 +95,7 @@ public class Legesystem {
         }
 
 
+        // IKKE FERDIG! Problem med storEksempelFil.txt
         if (lesFil.nextLine().startsWith("# Resepter")) {
 
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
@@ -140,9 +141,9 @@ public class Legesystem {
                                                 resepter.leggTil(blaa);
                                             }
 
-                                            if (type.equals("millitaer")) { // endre til en L !
-                                                MillitaerResept millitaer = new MillitaerResept(a, b, c, reit);
-                                                resepter.leggTil(millitaer);
+                                            if (type.equals("militaer")) { // endre til en L !
+                                                MilitaerResept militaer = new MilitaerResept(a, b, c, reit);
+                                                resepter.leggTil(militaer);
                                             }
                                         }
                                         // ellers om den har 4 indekser: lag KUN PResept
@@ -160,25 +161,28 @@ public class Legesystem {
         }
     }
 
-    // egne metoder
+    // skriver ut alle pasienter
     public void skrivPasienter() {
         for (Pasient x : pasienter) {
             System.out.println(x.toString() + "\n");
         }
     }
 
+    // skriver ut alle legemidler
     public void skrivLegemidler() {
         for (Legemiddel x : legemidler) {
             System.out.println(x.toString() + "\n");
         }
     }
 
+    // skriver ut alle leger
     public void skrivLeger() {
         for (Lege x : leger) {
             System.out.println(x.toString() + "\n");
         }
     }
 
+    // skriver ut alle resepter
     public void skrivResepter() {
         for (Resept x : resepter) {
             System.out.println(x.toString() + "\n");

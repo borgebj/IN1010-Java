@@ -20,13 +20,13 @@ public class Spesialist extends Lege implements Godkjenningsfritak{
                 "\nKontrollID: " + kontrollID);
     }
 
-    @Override // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "MillitaerResept"
-    public MillitaerResept skrivMillitaerResept(Legemiddel legemiddel, Pasient pasient, int reit) {
+    @Override // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "MilitaerResept"
+    public MilitaerResept skrivMilitaerResept(Legemiddel legemiddel, Pasient pasient, int reit) {
 
         // lager, legger til og returner
-        MillitaerResept millitaer = new MillitaerResept(legemiddel, this, pasient, reit);
-        utskrevedeResepter.leggTil(millitaer);
-        return millitaer;
+        MilitaerResept militaer = new MilitaerResept(legemiddel, this, pasient, reit);
+        utskrevedeResepter.leggTil(militaer);
+        return militaer;
     }
 
     @Override // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "PResept"

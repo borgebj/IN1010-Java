@@ -52,14 +52,14 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
         return hvit;
     }
 
-    // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "MillitaerResept"
-    public MillitaerResept skrivMillitaerResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
+    // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "MilitaerResept"
+    public MilitaerResept skrivMilitaerResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
         if (legemiddel instanceof Narkotisk && this instanceof Lege) { throw new UlovligUtskrift(this, legemiddel, pasient.ID); }
 
         // lager, legger til og returner
-        MillitaerResept millitaer = new MillitaerResept(legemiddel, this, pasient, reit);
-        utskrevedeResepter.leggTil(millitaer);
-        return millitaer;
+        MilitaerResept militaer = new MilitaerResept(legemiddel, this, pasient, reit);
+        utskrevedeResepter.leggTil(militaer);
+        return militaer;
     }
 
     // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "PResept"

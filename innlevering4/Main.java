@@ -2,7 +2,7 @@ import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        Legesystem lege = new Legesystem("storEksempelFil.txt");
+        Legesystem lege = new Legesystem("LitenEksempelFil.txt");
 
 
         lege.skrivResepter();
