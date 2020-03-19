@@ -1,0 +1,23 @@
+
+
+Planer for programmer å lage for å øve:
+
+- "Insult generator"
+Program som legger sammen 3 tilfeldig (eller mer) ord sammen til en endelig setning
+
+- "Reverse string"
+Program som reverserer en string, enkelt sagt.
+
+- "Movie store"
+Program som bruker klasser for å holde styr på filmer som kan leies osv med metoder og ting
+
+- "Hangman"
+Spillet hangman
+
+https://www.reddit.com/r/dailyprogrammer/comments/aphavc/20190211_challenge_375_easy_print_a_new_number_by/
+
+
+
+
+https://smartbear.com/blog/test-and-monitor/7-silly-programming-challenges-to-do-for-fun/
+^ mange ideer
