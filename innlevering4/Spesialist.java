@@ -1,3 +1,4 @@
+package innlevering4;
 
 public class Spesialist extends Lege implements Godkjenningsfritak{
 

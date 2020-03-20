@@ -1,3 +1,5 @@
+package innlevering4;
+
 import java.io.FileNotFoundException;
 
 public class Main {

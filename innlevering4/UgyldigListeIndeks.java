@@ -1,3 +1,4 @@
+package innlevering4;
 
 public class UgyldigListeIndeks extends RuntimeException {
     UgyldigListeIndeks(int indeks){

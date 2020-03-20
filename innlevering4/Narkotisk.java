@@ -1,3 +1,4 @@
+package innlevering4;
 
 public class Narkotisk extends Legemiddel {
 

@@ -1,3 +1,4 @@
+package innlevering4;
 
 public class MilitaerResept extends HvitResept {
 

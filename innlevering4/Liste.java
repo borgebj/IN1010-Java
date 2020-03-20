@@ -1,3 +1,4 @@
+package innlevering4;
 
 interface Liste<T> extends Iterable<T> {
     public int stoerrelse();
