@@ -15,9 +15,3 @@ public class Main {
         }
     }
 }
-
-
-//TODO:
-// endre slik at   [  RESEPTNAVN  ]   skrives på RESEPTEN sin toString, og ikke LEGEMIDDELET!
-
-// nye endringer!
