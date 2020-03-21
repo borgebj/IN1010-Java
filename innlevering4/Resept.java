@@ -64,7 +64,7 @@ abstract class Resept {
                 "\n" + utskrivendeLege +
                 "\n" + pasient +
                 "\nResept-ID: " + id +
-                "\nAntall reit: " + reit + );
+                "\nAntall reit: " + reit);
     }
 
 

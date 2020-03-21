@@ -1,6 +1,8 @@
 
 import java.io.FileNotFoundException;
 
+// fil for testing av legesystem! Midlertidig (?)
+
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
