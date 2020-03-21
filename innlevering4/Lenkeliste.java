@@ -1,4 +1,3 @@
-
 import java.util.Iterator;
 
 public class Lenkeliste<T> implements Liste<T>  {
