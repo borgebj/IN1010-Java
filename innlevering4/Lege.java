@@ -19,7 +19,7 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
 
     @Override // metode som overskriver toString()-metoden og returner relevant info
     public String toString() {
-        return ("Legenavn: " + navn);
+        return ("Lege: " + navn);
     }
 
     @Override // Sammenligner navn fra klassen med navnet til objektet i parameter
@@ -27,16 +27,11 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
         return navn.compareTo(lege.navn);
     }
 
-    // navn.compareTo(lege.navn) = a.compareTo(b)
-    // - om a er mindrte enn b
-    // + om a er større enn b
-    // 0 om a er lik b
-
-
     // metode som returner lenkelisten med resepter til legen
     public Lenkeliste hentResepter() {
         return utskrevedeResepter;
     }
+
 
     // metode for aa  skrive ut (lage > legge til liste > returne) resept av typen "HvitResept"
     public HvitResept skrivHvitResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
