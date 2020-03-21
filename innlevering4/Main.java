@@ -1,6 +1,8 @@
 
 import java.io.FileNotFoundException;
 
+// fil for testing av legesystem! Midlertidig (?)
+
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -15,9 +17,3 @@ public class Main {
         }
     }
 }
-
-
-//TODO:
-// endre slik at   [  RESEPTNAVN  ]   skrives på RESEPTEN sin toString, og ikke LEGEMIDDELET!
-
-// nye endringer!
