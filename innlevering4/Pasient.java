@@ -1,6 +1,7 @@
 
 public class Pasient extends Stabel<Resept> {
 
+    // navn og foedselsnummer
     String navn;
     String fNr;
 
@@ -8,14 +9,26 @@ public class Pasient extends Stabel<Resept> {
     static int idCount = 0;
     int ID = 0;
 
-
     // stabel med resepter for pasienten
     Stabel<Resept> resepter = new Stabel<Resept>();
 
+
+    // konstruktoer - gir globale variabler verdier fra parameter
     public Pasient(String navn, String fNr) {
         this.navn = navn;
         this.fNr = fNr;
         ID = idCount++;
+    }
+
+
+    // returner navn til pasient
+    public String hentNavn() {
+        return navn;
+    }
+
+    // returner foedselsnummer til pasient
+    public String hentfNr() {
+        return fNr;
     }
 
     // returner ID'en til pasienten

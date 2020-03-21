@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,10 +10,9 @@ public class Legesystem {
     SortertLenkeliste<Lege> leger = new SortertLenkeliste<Lege>();
     Lenkeliste<Resept> resepter = new Lenkeliste<Resept>();
 
-    int pasientFeil = 0;
-    int middelFeil = 0;
-    int legeFeil = 0;
-    int reseptFeil = 0;
+    // test
+    int pasientFeil = 0, middelFeil = 0, legeFeil = 0, reseptFeil = 0;
+
 
     // konstruktoer gaar gjennom filen, oppretter objekter og legger de til i listen
     public Legesystem(String fil) throws FileNotFoundException {
@@ -115,7 +113,7 @@ public class Legesystem {
         }
 
 
-        // IKKE FERDIG! Problem med storEksempelFil.txt
+        // om linjen har "# Resepter" - lag Resept-objekter og legg til
         if (lesFil.nextLine().startsWith("# Resepter")) {
 
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
@@ -187,6 +185,7 @@ public class Legesystem {
             }
         }
     }
+
 
     // skriver ut alle pasienter
     public void skrivPasienter() {

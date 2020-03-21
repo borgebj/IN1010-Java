@@ -14,10 +14,11 @@ public class Vanedannende extends Legemiddel {
 
     @Override // A4 - toString-metode som returner relevant info med 1 metode
     public String toString() {
-        return ("Navn: " + navn +
-                ".\nPris: " + pris +
-                " kr.\nMengde: " + virkestoff + " mg." +
-                "\nID: " + id +
-                "\nStyrke: " + styrke + ".");
+        return ("      [ " + navn + " ]  \n\n" +
+                "Navn: " + navn + "\n" +
+                "Pris: " + pris + " kr\n" +
+                "Mengde: " + virkestoff + " mg." + "\n" +
+                "ID: " + id + "\n" +
+                "Styrke: " + styrke + "");
     }
 }

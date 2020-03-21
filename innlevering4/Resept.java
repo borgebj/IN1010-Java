@@ -1,20 +1,18 @@
 
 abstract class Resept {
 
+    // globale verdier - alt et resept skal inneholde
     protected Legemiddel legemiddel;
     protected Lege utskrivendeLege;
     protected int reit;
-
-    // id-teller - okes for hvert objekt
-    protected static int idCount = 0;
-
-    // id for et objekt
-    protected int id = 0;
-
-    // Del B b) - Endrer "int pasId" til "Pasient pasient"
     protected Pasient pasient;
 
-    // Del B b) - Endrer "int pasientid" til "Pasient pasient"
+    // unik ID for resepten
+    protected static int idCount = 0;
+    protected int id = 0;
+
+
+    // Konstruktoer - lager globale variabler med verdier fra parameter
     public Resept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit){
         this.legemiddel = legemiddel;
         this.utskrivendeLege = utskrivendeLege;
@@ -23,27 +21,33 @@ abstract class Resept {
         id = idCount++;
     }
 
+
+    // returner id fra resepten
     public int hentId() {
         return id;
     }
 
+    // returner legemiddel-objekt
     public Legemiddel hentLegemiddel(){
         return legemiddel;
     }
 
+    // returne lege-objekt
     public Lege hentLege() {
         return utskrivendeLege;
     }
 
-    // fungerer ikke lenger
-    /* public int hentPasientId() {
+    // returnerer pasient-objekt
+    public Pasient hentPasientId() {
         return pasient;
-    } */
+    }
 
+    // returner antall reit i resepten
     public int hentReit() {
         return reit;
     }
 
+    // "bruk" metode som fjerner antall reit for hver bruk
     public boolean bruk() {
         if (reit > 0) {
             reit--;
@@ -53,17 +57,17 @@ abstract class Resept {
         }
     }
 
+    @Override // overskriver original toString() metode med kode som returnerer variablene med tilsvarende tekst
+    public String toString() {
+        return (legemiddel + "\n" + utskrivendeLege + "\n" + pasient +
+                "\nResept-ID: " + id +
+                "\nAntall reit: " + reit);
+    }
+
+
     // overrides i subklassene
     abstract public String farge();
 
     // overrides i subklassene
     abstract public double prisAaBetale();
-
-    @Override // overskriver original toString() metode med kode som returnerer variablene med tilsvarende tekst
-    public String toString() {
-        return (legemiddel + "\n" + utskrivendeLege +
-                "\nPasient: " + pasient +
-                "\nResept-ID: " + id +
-                "\nAntall reit: " + reit);
-    }
 }
