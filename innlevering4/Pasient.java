@@ -38,8 +38,9 @@ public class Pasient extends Stabel<Resept> {
 
     @Override // egen to-String metode
     public String toString() {
-        return ("Pasientnavn: " + navn +
-                "\nFoedselsnummer: " + fNr);
+        return ("Pasientnavn: " + navn + "\n" +
+                "Foedselsnummer: " + fNr + "\n" +
+                "Pasient-ID: " + ID);
     }
 }
 

@@ -22,7 +22,6 @@ public class Legesystem {
         Scanner lesFil = new Scanner(new File(fil));
 
 
-
         // om linjen har "# Pasienter" - lag pasient-objekter og legg til i liste
         if (lesFil.nextLine().startsWith("# Pasienter")) {
 
@@ -187,59 +186,52 @@ public class Legesystem {
     }
 
 
+    // (E3 ?)
+
     // skriver ut alle pasienter
     public void skrivPasienter() {
-        System.out.println("-------- [ Pasienter ] -----------");
+        System.out.println("-------- [ Pasienter ] -----------\n");
         for (Pasient x : pasienter) {
-            System.out.println("\n- - - - - - - - - - - - - - - ");
-
-            System.out.println(x.toString());
-
-            System.out.println("- - - - - - - - - - - - - - - \n");
+            System.out.println(x + "\n");
         }
         System.out.println("----------------------------------\n");
     }
 
     // skriver ut alle legemidler
     public void skrivLegemidler() {
-        System.out.println("-------- [ Legemidler ] ----------");
+        System.out.println("-------- [ Legemidler ] ----------\n");
         for (Legemiddel x : legemidler) {
-            System.out.println("\n- - - - - - - - - - - - ");
+            System.out.println("- - - - - - - - - - - - ");
 
-            System.out.println(x.toString());
+            System.out.println(x);
 
             System.out.println("- - - - - - - - - - - - \n");
         }
-        System.out.println("----------------------------------\n");
+        System.out.println("----------------------------------");
     }
 
     // skriver ut alle leger
     public void skrivLeger() {
-        System.out.println("----------- [ leger ] --------------");
+        System.out.println("----------- [ leger ] --------------\n");
         for (Lege x : leger) {
-            System.out.println("\n- - - - - - - - - - - - - - - ");
-
-            System.out.println(x.toString());
-
-            System.out.println("- - - - - - - - - - - - - - - \n");
+            System.out.println(x + "\n");
         }
         System.out.println("----------------------------------\n");
     }
 
     // skriver ut alle resepter
     public void skrivResepter() {
-        System.out.println("---------- [ Resepter ] ------------");
+        System.out.println("------- [ Resepter ] ---------------\n");
         for (Resept x : resepter) {
-            System.out.println("\n- - - - - - - - - - - - - - - - ");
+            System.out.println("- - - - - - - - - - - - - - - - ");
 
-            System.out.println(x.toString());
+            System.out.println(x);
 
             System.out.println("- - - - - - - - - - - - - - - - \n");
         }
-        System.out.println("Pasient-feil: "+pasientFeil+"\n");
-        System.out.println("Middel-feil: "+middelFeil+"\n");
-        System.out.println("Lege-feil: "+legeFeil+"\n");
-        System.out.println("----------------------------------\n");
+        System.out.println("Pasient-feil: "+pasientFeil);
+        System.out.println("Middel-feil: "+middelFeil);
+        System.out.println("Lege-feil: "+legeFeil);
+        System.out.println("\n----------------------------------");
     }
 }
-

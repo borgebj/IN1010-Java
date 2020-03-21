@@ -16,7 +16,7 @@ public class Spesialist extends Lege implements Godkjenningsfritak{
 
     @Override // metode som overskriver toString()-metoden og returner relevant info
     public String toString() {
-        return ("Spesialistnavn: " + navn +
+        return ("Spesialist: " + navn +
                 "\nKontrollID: " + kontrollID);
     }
 
