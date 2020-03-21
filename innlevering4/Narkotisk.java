@@ -14,8 +14,7 @@ public class Narkotisk extends Legemiddel {
 
     @Override // A4 - toString-metode som returner relevant info med 1 metode
     public String toString() {
-        return ("      [ " + navn + " ]  \n\n" +
-                "Navn: " + navn + "\n" +
+        return ("Navn: " + navn + "\n" +
                 "Pris: " + pris + " kr\n" +
                 "Mengde: " + virkestoff + " mg." + "\n" +
                 "ID: " + id + "\n" +
