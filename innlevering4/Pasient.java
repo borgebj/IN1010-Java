@@ -1,4 +1,3 @@
-package innlevering4;
 
 public class Pasient extends Stabel<Resept> {
 

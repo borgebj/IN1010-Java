@@ -24,7 +24,7 @@ class HighLow {
             } else if (input > tall) {
                 System.out.print("  " + input + " er for hoyt! Prov igjen: ");
                 input = scanner.nextInt();
-            } else if (input < tall) {
+            } else {
                 System.out.print("  " + input + " er for lavt! Prov igjen: ");
                 input = scanner.nextInt();
             }

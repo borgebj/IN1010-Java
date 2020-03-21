@@ -1,4 +1,3 @@
-package innlevering4;
 
 import java.util.Iterator;
 

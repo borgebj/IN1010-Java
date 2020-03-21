@@ -1,4 +1,3 @@
-package innlevering4;
 
 public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
 

@@ -1,4 +1,3 @@
-package innlevering4;
 
 public class SortertLenkeliste<T extends Comparable<T>> extends Lenkeliste<T> {
 
@@ -31,14 +30,3 @@ public class SortertLenkeliste<T extends Comparable<T>> extends Lenkeliste<T> {
         throw new UnsupportedOperationException("Denne operasjonen stottes ikke");
     }
 }
-
-
-// 0 om likt
-// - om argument er storre ( < 0) // om i er mindre enn x
-// + om argument er mindre ( > 0) // om i er storre enn x
-
-// a = x.compareTo(y)
-// a < 0 - x er mindre enn y
-// a = 0 - x er lik y
-// a > 0 - x er større enn y
-

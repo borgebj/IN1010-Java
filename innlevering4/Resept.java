@@ -1,4 +1,3 @@
-package innlevering4;
 
 abstract class Resept {
 
