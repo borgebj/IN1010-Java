@@ -59,9 +59,12 @@ abstract class Resept {
 
     @Override // overskriver original toString() metode med kode som returnerer variablene med tilsvarende tekst
     public String toString() {
-        return (legemiddel + "\n" + utskrivendeLege + "\n" + pasient +
+        return ("   [  "+legemiddel.navn.toUpperCase()+"  ]\n" +
+                "\n" + legemiddel +
+                "\n" + utskrivendeLege +
+                "\n" + pasient +
                 "\nResept-ID: " + id +
-                "\nAntall reit: " + reit);
+                "\nAntall reit: " + reit + );
     }
 
 
