@@ -5,6 +5,10 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
+
 
 public class Legesystem {
 
@@ -19,44 +23,54 @@ public class Legesystem {
     long time = date.getTime();
     Timestamp timestamp = new Timestamp(time);
 
-
-    // test
+    // variabler som holder antall feil paa de ulike objektene
     int pasientFeil = 0, middelFeil = 0, legeFeil = 0, reseptFeil = 0;
 
 
-    // konstruktoer gaar gjennom filen, oppretter objekter og legger de til i listen
-    public Legesystem(String fil) throws FileNotFoundException {
-        System.out.println();
+    // konstruktoer gaar gjennom filen, oppretter objekter og legger de til i listen (kaster 2 unntak)
+    public Legesystem(String fil) throws FileNotFoundException, IOException {
 
-        // test-objekt for error-meldinger
-        PrintWriter writer = new PrintWriter("fileError.txt");
+        // objekt som lager en tekstfil "ErrorLog.txt"
+        PrintWriter writer = new PrintWriter("ErrorLog.txt");
 
         // scanner + fil objekt
         Scanner lesFil = new Scanner(new File(fil));
-        int linjer = 0;
 
+        // linjer-counter for antall linjer
+        int linjer = 0;
 
         // om linjen har "# Pasienter" - lag pasient-objekter og legg til i liste
         if (lesFil.nextLine().startsWith("# Pasienter")) {
 
+            // skriver typen i error-log og inkrementerer antall linjer (pga nextLine i if-sjekket tar opp en linje)
             writer.write("\n# Pasient-feil\n");
+            linjer++;
 
             // mens filen har neste linje og ikke inneholder "#", fortsetter den
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
+                linjer++;
 
                 // forsoker aa lage variabler av de ulike ordene i hver linje
                 try {
+                    //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
                     String navn = biter[0];
                     String fnr = biter[1];
 
+                    // sjekker om navn eller foedselsnummer finnes - kaster unntak
+                    for (Pasient x : pasienter) {
+                        if (x.hentfNr().equals(fnr) || x.hentNavn().equals(navn)) {
+                            throw new Exception("Navn/fNr ugyldig");
+                        }
+                    }
                     // oppretter objekt og legger til i lenkeliste
                     Pasient pasient = new Pasient(navn, fnr);
                     pasienter.leggTil(pasient);
                 }
-                // om det ikke fungerer, skriv feilmeldingen i en error-log
+                // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
                 catch (Exception e) {
-                    writer.format("%s %s %d %s", timestamp, "Linje:", linjer, lesFil.nextLine() + "\n");
+                    String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
+                    writer.format("%s %7s %-4d %s", timestamp, "Linje:", linjer,  line + "\n");
                     pasientFeil++;
                 }
             }
@@ -66,11 +80,17 @@ public class Legesystem {
         // om linjen har "# Legemidler" - lag legemiddel-objekter og legg til i liste
         if (lesFil.nextLine().startsWith("# Legemidler")) {
 
+            // skriver typen i error-log og inkrementerer antall linjer
             writer.write("\n# Legemiddel-feil\n");
+            linjer++;
 
             // mens filen har neste linje og ikke inneholder "#", fortsetter den
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
+                linjer++;
+
+                // forsoker aa lage variabler av de ulike ordene i hver linje
                 try {
+                    //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
 
                     String navn = biter[0];
@@ -100,8 +120,11 @@ public class Legesystem {
                         Vanlig vanlig = new Vanlig(navn, pris, virkestoff);
                         legemidler.leggTil(vanlig);  // legger til legemiddel i lenkelisten
                     }
-                } catch (Exception e) {
-                    writer.format("%s %5s %d %s", timestamp, "Linje:", linjer, lesFil.nextLine() + "\n");
+                }
+                // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
+                catch (Exception e) {
+                    String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
+                    writer.format("%s %7s %-4d %s", timestamp, "Linje:", linjer,  line + "\n");
                     middelFeil++;
                 }
             }
@@ -111,14 +134,27 @@ public class Legesystem {
         // om linjen har "# Leger" - lag lege-objekter og legg til
         if (lesFil.nextLine().startsWith("# Leger")) {
 
+            // skriver typen i error-log og inkrementerer antall linjer
             writer.write("\n# Lege-feil\n");
+            linjer++;
+
 
             // mens filen har neste linje og ikke inneholder "#", fortsetter den
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
+                linjer++;
+
+                // forsoker aa lage variabler av de ulike ordene i hver linje
                 try {
+                    //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
                     String navn = biter[0];
 
+                    // sjekker om navn finnes - kaster unntak
+                    for (Lege x : leger) {
+                        if (x.hentNavn().equals(navn)) {
+                            throw new Exception("Navn ugyldig");
+                        }
+                    }
                     // om andre indeks er 0 - lag vanlige leger
                     if (biter[1].equals("0")) {
                         Lege lege = new Lege(navn);
@@ -131,21 +167,34 @@ public class Legesystem {
                         Spesialist spesialist = new Spesialist(navn, kontrollID);
                         leger.leggTil(spesialist);
                     }
-                } catch (Exception e) {
-                    writer.format("%s %5s %d %s", timestamp, "Linje:", linjer, lesFil.nextLine() + "\n");
+                }
+                // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
+                catch (Exception e) {
+                    String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
+                    writer.format("%s %7s %-4d %s", timestamp, "Linje:", linjer,  line + "\n");
                     legeFeil++;
                 }
             }
         }
 
 
+        // TODO: Remake denne X_X - Les oppgavetekst - FUCK
+        // programmet registrerer ikke feil som skjer naar man forsoker aa opprette resepter!
+
         // om linjen har "# Resepter" - lag Resept-objekter og legg til
         if (lesFil.nextLine().startsWith("# Resepter")) {
 
+            // skriver typen i error-log og inkrementerer antall linjer
             writer.write("\n# Resept-feil\n");
+            linjer++;
+
 
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
+                linjer++;
+
+                // forsoker aa lage variabler av de ulike ordene i hver linje
                 try {
+                    //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
                     int middelId = Integer.parseInt(biter[0]);
                     String navn = biter[1];
@@ -207,16 +256,19 @@ public class Legesystem {
                             }
                         }
                     }
-                } catch (Exception e) {
-                    writer.format("%s %5s %d %s", timestamp, "Linje:", linjer, lesFil.nextLine() + "\n");
+                }
+                // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
+                catch (Exception e) {
+                    String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
+                    writer.format("%s %7s %-4d %s", timestamp, "Linje:", linjer,  line + "\n");
                     reseptFeil++;
                 }
             }
         }
 
+        // lukker writer-objektet som lager errorlog.txt
         writer.close();
     }
-
 
     // (E3 ?)
 
@@ -264,6 +316,7 @@ public class Legesystem {
         System.out.println("Pasient-feil: "+pasientFeil);
         System.out.println("Middel-feil: "+middelFeil);
         System.out.println("Lege-feil: "+legeFeil);
+        System.out.println("Resept-feil: "+reseptFeil);
         System.out.println("\nFor aa se disse feilene, aapne filen 'error.txt'");
         System.out.println("\n----------------------------------");
     }

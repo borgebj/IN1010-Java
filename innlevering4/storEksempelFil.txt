@@ -378,6 +378,7 @@ Vedangini Sahajpal,977
 97,Annika Willlock Olstad,71,p,
 137,Marlen Jarholt,93,blaa,648
 90,Marlen Jarholt,55,hvit,649
+90,Marlen Jarholt,55,hvit,649
 123,Annika Willlock Olstad,75,blaa,301
 126,Christoffer Bjelke,16,p,
 41,Annika Willlock Olstad,53,hvit,786

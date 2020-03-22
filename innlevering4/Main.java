@@ -1,21 +1,28 @@
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.io.PrintWriter;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
+
+
+import java.util.List;
 // fil for testing av legesystem! Midlertidig (?)
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nHva onsker du aa skrive ut? (Pasienter/Leger/Legemidler/Resepter/a): ");
-        String kommando = scanner.nextLine().toLowerCase().trim(); System.out.println();
+        String kommando = scanner.nextLine().toLowerCase().trim();
+        System.out.println();
         TimeUnit.MILLISECONDS.sleep(750);
 
 
-        if (Integer.parseInt(args[0])==1) {
+        if (Integer.parseInt(args[0]) == 1) {
             System.out.println("\n\n - Liten eksempelfil - \n\n");
 
             Legesystem lege = new Legesystem("LitenEksempelFil.txt");
@@ -38,12 +45,11 @@ public class Main {
                         System.out.println("\nUgyldig kommando - prov igjen\n");
                 }
                 System.out.print("Hva onsker du aa skrive ut? (Pasienter/Leger/Legemidler/Resepter/a): ");
-                kommando = scanner.nextLine().toLowerCase().trim(); System.out.println();
+                kommando = scanner.nextLine().toLowerCase().trim();
+                System.out.println();
                 TimeUnit.MILLISECONDS.sleep(750);
             }
-        }
-
-        else if (Integer.parseInt(args[0])==2) {
+        } else if (Integer.parseInt(args[0]) == 2) {
             System.out.println("\n\n - Stor eksempelfil - \n\n");
 
             Legesystem lege = new Legesystem("StorEksempelFil.txt");
@@ -66,12 +72,11 @@ public class Main {
                         System.out.println("\nUgyldig kommando - prov igjen\n");
                 }
                 System.out.print("Hva onsker du aa skrive ut? (Pasienter/Leger/Legemidler/Resepter/a): ");
-                kommando = scanner.nextLine().toLowerCase().trim(); System.out.println();
+                kommando = scanner.nextLine().toLowerCase().trim();
+                System.out.println();
                 TimeUnit.MILLISECONDS.sleep(750);
             }
-        }
-
-        else if (Integer.parseInt(args[0])==3) {
+        } else if (Integer.parseInt(args[0]) == 3) {
             System.out.println("\n\n - Test-eksempler - \n\n");
 
             PrintWriter writer = new PrintWriter("error.txt");
@@ -87,9 +92,17 @@ public class Main {
 
                 writer.close();
             }
+        } else if (Integer.parseInt(args[0]) == 4) {
+            System.out.println("\n\n - Test-eksempler - \n\n");
 
+            String fil = "LitenEksempelFil.txt";
+
+            String line32 = Files.readAllLines(Paths.get(fil)).get(5);
+            System.out.println(line32);
+
+            System.out.println("Avslutter ...\n");
+            TimeUnit.MILLISECONDS.sleep(1200);
+            System.out.println();
         }
-        System.out.println("Avslutter ...\n");
-        TimeUnit.MILLISECONDS.sleep(1200); System.out.println();
     }
 }
