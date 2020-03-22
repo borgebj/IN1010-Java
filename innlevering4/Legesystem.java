@@ -178,8 +178,10 @@ public class Legesystem {
         }
 
 
-        // TODO: Remake denne X_X - Les oppgavetekst - FUCK
-        // programmet registrerer ikke feil som skjer naar man forsoker aa opprette resepter!
+        /**
+         * TODO: Remake denne X_X - Les oppgavetekst - FUCK
+         * programmet registrerer ikke feil som skjer naar man forsoker aa opprette resepter!
+         **/
 
         // om linjen har "# Resepter" - lag Resept-objekter og legg til
         if (lesFil.nextLine().startsWith("# Resepter")) {
