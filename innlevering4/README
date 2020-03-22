@@ -5,6 +5,7 @@
  
  - Hele Del A: Gruppearbeid
  - Hele Del F: Erfaringsnotat
+ - Resept-delen av E1
  - E2 
  - E3 (tror jeg har gjort den?)
  - E4
@@ -17,3 +18,7 @@ Filer som ikke har noe med oblig å gjøre:
 - HierarkiOversikt.png
 - README
 - notater.txt
+- *.class
+
+TOOD: 
+-fjern alle .class filer
