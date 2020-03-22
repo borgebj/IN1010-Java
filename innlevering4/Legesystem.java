@@ -179,7 +179,7 @@ public class Legesystem {
 
 
         /**
-         * TODO: Remake denne X_X - Les oppgavetekst - FUCK
+         * TODO: Remake denne X_X - Les oppgavetekst - E1 ...
          * programmet registrerer ikke feil som skjer naar man forsoker aa opprette resepter!
          **/
 
