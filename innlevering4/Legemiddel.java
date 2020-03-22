@@ -48,7 +48,8 @@ abstract class Legemiddel {
 
     @Override // A4 - toString-metode som returner relevant info med 1 metode
     public String toString() {
-        return ("Navn: " + navn + "\n" +
+        return ("Type: [Vanlig] \n" +
+                "Navn: " + navn + "\n" +
                 "Pris: " + pris + " kr\n" +
                 "Mengde: " + virkestoff + " mg." + "\n" +
                 "ID: " + id);

@@ -178,11 +178,6 @@ public class Legesystem {
         }
 
 
-        /**
-         * TODO: Remake denne X_X - Les oppgavetekst - E1 ...
-         * programmet registrerer ikke feil som skjer naar man forsoker aa opprette resepter!
-         **/
-
         // om linjen har "# Resepter" - lag Resept-objekter og legg til
         if (lesFil.nextLine().startsWith("# Resepter")) {
 
@@ -198,31 +193,26 @@ public class Legesystem {
                 try {
                     //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
-                    int middelId = Integer.parseInt(biter[0]);
-                    String navn = biter[1];
-                    int id = Integer.parseInt(biter[2]);
+                    int legemiddelNummer = Integer.parseInt(biter[0]);
+                    String legeNavn = biter[1];
+                    int pasientID = Integer.parseInt(biter[2]);
                     String type = biter[3];
 
-                    // for hvert legemiddel:
-                    for (Legemiddel a : legemidler) {
-                        int legemiddelId = a.hentId();
+                    for (Legemiddel legemiddel : legemidler) {
+                        if (legemiddel.hentId() == legemiddelNummer) {
 
-                        // hvis legemiddel matcher id fra fil:
-                        if (middelId == legemiddelId) {
+                            for (Lege lege : leger) {
+                                if (lege.hentNavn().equals(legeNavn)) {
 
-                            // for hver lege:
-                            for (Lege b : leger) {
-                                String legeNavn = b.hentNavn(); // finner navn
+                                    for (Pasient pasient : pasienter) {
+                                        if (pasient.hentId() == pasientID) {
 
-                                // sjekker om navn fra fil matcher navn i lenkelisten
-                                if (legeNavn.equals(navn)) {
+                                            int godMiddelId = legemiddel.hentId();
+                                            String godLegeNavn = lege.hentNavn();
+                                            int godPasientId = pasient.hentId();
 
-                                    // for hver pasient:
-                                    for (Pasient c : pasienter) {
-                                        int pasientId = c.hentId(); // finner ID
-
-                                        // sjekker om id fra fil matcher id fra fil
-                                        if (id == pasientId) {
+                                            System.out.println("Skal ha:     " + legemiddelNummer + " - " + legeNavn + " - " + pasientID + " - " + type);
+                                            System.out.println("Funnet:      " + godMiddelId + " - " + godLegeNavn + " - " + godPasientId + " - " + type + "\n");
 
                                             // omt alt matcher > sjekk om filen har over fire indekser (IKKE lag PResept) (om den har reit)
                                             if (biter.length > 4) {
@@ -230,27 +220,23 @@ public class Legesystem {
 
                                                 // om typen er "hvit" - lag hvit resept og legg til
                                                 if (type.equals("hvit")) {
-                                                    HvitResept hvit = new HvitResept(a, b, c, reit);
-                                                    resepter.leggTil(hvit);
+                                                    resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
                                                 }
 
                                                 // om typen er "blaa" - lag blaa resept og legg til
                                                 if (type.equals("blaa")) {
-                                                    BlaaResept blaa = new BlaaResept(a, b, c, reit);
-                                                    resepter.leggTil(blaa);
+                                                    resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
                                                 }
 
                                                 // om typen er "militaer" - lag militaer resept og legg til
                                                 if (type.equals("militaer")) {
-                                                    MilitaerResept militaer = new MilitaerResept(a, b, c, reit);
-                                                    resepter.leggTil(militaer);
+                                                    resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
                                                 }
                                             }
 
                                             // ellers om den har 4 indekser: lag KUN PResept
                                             else if (type.equals("p")) {
-                                                PResept p = new PResept(a, b, c);
-                                                resepter.leggTil(p);
+                                                resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
                                             }
                                         }
                                     }
