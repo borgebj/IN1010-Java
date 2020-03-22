@@ -26,7 +26,6 @@ public class Legesystem {
 
     // konstruktoer gaar gjennom filen, oppretter objekter og legger de til i listen
     public Legesystem(String fil) throws FileNotFoundException {
-        System.out.println();
 
         // test-objekt for error-meldinger
         PrintWriter writer = new PrintWriter("fileError.txt");
