@@ -20,10 +20,6 @@ public class Legesystem {
     Timestamp timestamp = new Timestamp(time);
 
 
-
-    // MOGN OT EST
-
-
     // test
     int pasientFeil = 0, middelFeil = 0, legeFeil = 0, reseptFeil = 0;
 
