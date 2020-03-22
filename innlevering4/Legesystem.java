@@ -207,13 +207,6 @@ public class Legesystem {
                                     for (Pasient pasient : pasienter) {
                                         if (pasient.hentId() == pasientID) {
 
-                                            int godMiddelId = legemiddel.hentId();
-                                            String godLegeNavn = lege.hentNavn();
-                                            int godPasientId = pasient.hentId();
-
-                                            System.out.println("Skal ha:     " + legemiddelNummer + " - " + legeNavn + " - " + pasientID + " - " + type);
-                                            System.out.println("Funnet:      " + godMiddelId + " - " + godLegeNavn + " - " + godPasientId + " - " + type + "\n");
-
                                             // omt alt matcher > sjekk om filen har over fire indekser (IKKE lag PResept) (om den har reit)
                                             if (biter.length > 4) {
                                                 int reit = Integer.parseInt(biter[4]);
@@ -258,13 +251,22 @@ public class Legesystem {
         writer.close();
     }
 
-    // (E3 ?)
+    // (E3)
+
+    // egen sleep-metode for "artifical-delay"
+    public static void delay(long t) {
+        try {
+            Thread.sleep(t);
+        } catch (InterruptedException e) {}
+    }
 
     // skriver ut alle pasienter
     public void skrivPasienter() {
         System.out.println("-------- [ Pasienter ] -----------\n");
         for (Pasient x : pasienter) {
+
             System.out.println(x + "\n");
+            delay(25);
         }
         System.out.println("----------------------------------\n");
     }
@@ -276,6 +278,7 @@ public class Legesystem {
             System.out.println("- - - - - - - - - - - - ");
 
             System.out.println(x);
+            delay(25);
 
             System.out.println("- - - - - - - - - - - - \n");
         }
@@ -286,7 +289,9 @@ public class Legesystem {
     public void skrivLeger() {
         System.out.println("----------- [ leger ] --------------\n");
         for (Lege x : leger) {
+
             System.out.println(x + "\n");
+            delay(25);
         }
         System.out.println("----------------------------------\n");
     }
@@ -298,9 +303,10 @@ public class Legesystem {
             System.out.println("- - - - - - - - - - - - - - - - ");
 
             System.out.println(x);
+            delay(25);
 
             System.out.println("- - - - - - - - - - - - - - - - \n");
-        }
+        } delay(800);
         System.out.println("Pasient-feil: "+pasientFeil);
         System.out.println("Middel-feil: "+middelFeil);
         System.out.println("Lege-feil: "+legeFeil);
