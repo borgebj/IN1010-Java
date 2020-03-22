@@ -1,6 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
+
 
 public class Legesystem {
 
@@ -10,6 +14,12 @@ public class Legesystem {
     SortertLenkeliste<Lege> leger = new SortertLenkeliste<Lege>();
     Lenkeliste<Resept> resepter = new Lenkeliste<Resept>();
 
+    // timestamp-objekter
+    Date date= new Date();
+    long time = date.getTime();
+    Timestamp timestamp = new Timestamp(time);
+
+
     // test
     int pasientFeil = 0, middelFeil = 0, legeFeil = 0, reseptFeil = 0;
 
@@ -18,15 +28,23 @@ public class Legesystem {
     public Legesystem(String fil) throws FileNotFoundException {
         System.out.println();
 
+        // test-objekt for error-meldinger
+        PrintWriter writer = new PrintWriter("fileError.txt");
+
         // scanner + fil objekt
         Scanner lesFil = new Scanner(new File(fil));
+        int linjer = 0;
 
 
         // om linjen har "# Pasienter" - lag pasient-objekter og legg til i liste
         if (lesFil.nextLine().startsWith("# Pasienter")) {
 
+            writer.write("\n# Pasient-feil\n");
+
             // mens filen har neste linje og ikke inneholder "#", fortsetter den
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
+
+                // forsoker aa lage variabler av de ulike ordene i hver linje
                 try {
                     String[] biter = lesFil.nextLine().split(",");
                     String navn = biter[0];
@@ -35,7 +53,10 @@ public class Legesystem {
                     // oppretter objekt og legger til i lenkeliste
                     Pasient pasient = new Pasient(navn, fnr);
                     pasienter.leggTil(pasient);
-                } catch (Exception e) {
+                }
+                // om det ikke fungerer, skriv feilmeldingen i en error-log
+                catch (Exception e) {
+                    writer.format("%s %s %d %s", timestamp, "Linje:", linjer, lesFil.nextLine() + "\n");
                     pasientFeil++;
                 }
             }
@@ -44,6 +65,8 @@ public class Legesystem {
 
         // om linjen har "# Legemidler" - lag legemiddel-objekter og legg til i liste
         if (lesFil.nextLine().startsWith("# Legemidler")) {
+
+            writer.write("\n# Legemiddel-feil\n");
 
             // mens filen har neste linje og ikke inneholder "#", fortsetter den
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
@@ -78,6 +101,7 @@ public class Legesystem {
                         legemidler.leggTil(vanlig);  // legger til legemiddel i lenkelisten
                     }
                 } catch (Exception e) {
+                    writer.format("%s %5s %d %s", timestamp, "Linje:", linjer, lesFil.nextLine() + "\n");
                     middelFeil++;
                 }
             }
@@ -86,6 +110,8 @@ public class Legesystem {
 
         // om linjen har "# Leger" - lag lege-objekter og legg til
         if (lesFil.nextLine().startsWith("# Leger")) {
+
+            writer.write("\n# Lege-feil\n");
 
             // mens filen har neste linje og ikke inneholder "#", fortsetter den
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
@@ -106,6 +132,7 @@ public class Legesystem {
                         leger.leggTil(spesialist);
                     }
                 } catch (Exception e) {
+                    writer.format("%s %5s %d %s", timestamp, "Linje:", linjer, lesFil.nextLine() + "\n");
                     legeFeil++;
                 }
             }
@@ -114,6 +141,8 @@ public class Legesystem {
 
         // om linjen har "# Resepter" - lag Resept-objekter og legg til
         if (lesFil.nextLine().startsWith("# Resepter")) {
+
+            writer.write("\n# Resept-feil\n");
 
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
                 try {
@@ -179,10 +208,13 @@ public class Legesystem {
                         }
                     }
                 } catch (Exception e) {
+                    writer.format("%s %5s %d %s", timestamp, "Linje:", linjer, lesFil.nextLine() + "\n");
                     reseptFeil++;
                 }
             }
         }
+
+        writer.close();
     }
 
 
@@ -232,6 +264,7 @@ public class Legesystem {
         System.out.println("Pasient-feil: "+pasientFeil);
         System.out.println("Middel-feil: "+middelFeil);
         System.out.println("Lege-feil: "+legeFeil);
+        System.out.println("\nFor aa se disse feilene, aapne filen 'error.txt'");
         System.out.println("\n----------------------------------");
     }
 }
