@@ -70,7 +70,7 @@ public class Main {
         delay(1500);
     }
 
-    public static void opprettDel(Legesystem lege) {
+    public static void opprettDel(Legesystem lege) throws UlovligUtskrift {
         Scanner scanner = new Scanner(System.in);
 
         // viser meny og spoer bruker om input
@@ -99,6 +99,7 @@ public class Main {
 
                 // om input er 3 - opprett resept (skrivResept ...)
                 case "3":
+                    lege.leggTilResept();
                     delay(500);
                     break;
 
@@ -162,7 +163,9 @@ public class Main {
 
 
 
-    public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
+    public static void main(String[] args)
+    throws FileNotFoundException, IOException, InterruptedException, UlovligUtskrift {
+
 
         // lager null-objekt slik at "default" kan slaa av
          Legesystem lege = null;
@@ -253,7 +256,78 @@ public class Main {
 
 
 
+    // objekt for input
+    Scanner scanner = new Scanner(System.in);
+
+    // console-interface
+    delay(500);
+        System.out.println("\n ---[Oppretting]---");
+                System.out.print ( " | 1. Pasient     |" +
+                "\n | - - - -  - - - |" +
+                "\n | a. Tilbake     |" +
+                "\n ------------------\n");
+
+                System.out.print("Hva onsker du aa gjoere? \n > ");
+                String pasientKommando = scanner.nextLine().toLowerCase();
+
+
+                // fortsetter til bruekren avbryter eller legger til pasient
+                while (!pasientKommando.equals("a")) {
+
+                // om bruker velger pasient - spoer om navn og fNr, opprett og legg til
+                if (pasientKommando.equals("1")) {
+                delay(500);
+                System.out.print("\nNavn paa pasient: ");
+                String pasientNavn = scanner.nextLine();
+
+                delay(500);
+                System.out.print("\nFoedselsnummer: ");
+                String fNr = scanner.nextLine().toLowerCase();
+
+                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
+
+                Pasient pasient = new Pasient(pasientNavn, fNr);
+                pasienter.leggTil(pasient);
+
+                delay(750);
+                System.out.println("\n" + pasientNavn + " er lagt til\n");
+                delay(1000);
+
+                // gaar ut av loekke
+                pasientKommando = "a";
+                }
+
+                else {
+
+                System.out.println("\nUgyldig input, proev igjen");
+
+                delay(1000);
+                System.out.println("\n ---[Oppretting]---");
+                System.out.print ( " | 1. Pasient     |" +
+                "\n | - - - -  - - - |" +
+                "\n | a. Tilbake     |" +
+                "\n ------------------\n");
+                pasientKommando = scanner.nextLine().toLowerCase();
+                }
+                }
+
+                delay(750);
+                System.out.println("\n\nGaar tilbake...");
+                delay(1500);
 
 
 
+                // console-interface
+                delay(500);
+                System.out.println("\n -----[Resept]------");
+                System.out.print( " | 1. Hvite        |" +
+                "\n | 2. Millitaer    |" +
+                "\n | 3. PResept      |" +
+                "\n | 4. Blaa         |" +
+                "\n | - - - - - - - - |" +
+                "\n | a. Tilbake      |" +
+                "\n -------------------\n");
+
+                System.out.print("Hva onsker du aa gjoere? \n > ");
+                String reseptKommando = scanner.nextLine().toLowerCase();
 
