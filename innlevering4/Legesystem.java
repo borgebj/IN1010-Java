@@ -251,7 +251,7 @@ public class Legesystem {
         writer.close();
     }
 
-    // (E3)
+
 
     // egen sleep-metode for "artifical-delay"
     public static void delay(long t) {
@@ -259,6 +259,8 @@ public class Legesystem {
             Thread.sleep(t);
         } catch (InterruptedException e) {}
     }
+
+    // E3
 
     // skriver ut alle pasienter
     public void skrivPasienter() {
@@ -313,5 +315,224 @@ public class Legesystem {
         System.out.println("Resept-feil: "+reseptFeil);
         System.out.println("\nFor aa se disse feilene, aapne filen 'error.txt'");
         System.out.println("\n----------------------------------");
+    }
+
+    // E4
+
+    // metode for aa legge til lege
+    public void leggTilLege() {
+
+        // objekt for input
+        Scanner scanner = new Scanner(System.in);
+
+        // console-interface
+        delay(500);
+        System.out.println("\n ---[Oppretting]----");
+        System.out.print( " | 1. Lege         |" +
+                         "\n | 2. Spesialist   |" +
+                         "\n | - - - - - - - - |" +
+                         "\n | a. Tilbake      |" +
+                         "\n -------------------\n");
+
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String legeKommando = scanner.nextLine().toLowerCase();
+
+
+        // fortsetter til bruekren avbryter eller legger til lege
+        while (!legeKommando.equals("a")) {
+
+            // om bruker velger lege - spoer om navn, opprett og legg til
+            if (legeKommando.equals("1")) {
+                delay(500);
+                System.out.print("\nNavn paa lege: ");
+                String legeNavn = scanner.nextLine().toLowerCase();
+
+                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
+
+                delay(500);
+                Lege lege = new Lege(legeNavn);
+                leger.leggTil(lege);
+
+                delay(750);
+                System.out.println("\n" + legeNavn + " er lagt til\n");
+                delay(1000);
+
+                // gaar ut av loekke
+                legeKommando = "a";
+            }
+
+            // ellers om bruker velger spesialis - spoer om navn + kontrollId, opprett og legg til
+            else if (legeKommando.equals("2")) {
+                delay(500);
+                System.out.print("\nNavn paa spesialist: ");
+                String spesialistNavn = scanner.nextLine().toLowerCase();
+
+                delay(500);
+                System.out.print("\nKontrollID?: ");
+                int kontrollID = scanner.nextInt();
+
+                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
+
+                Spesialist spesialist = new Spesialist(spesialistNavn, kontrollID);
+                leger.leggTil(spesialist);
+
+                delay(750);
+                System.out.println("\n" + spesialistNavn + " er lagt til\n");
+                delay(1000);
+
+                // gaar ut av loekke
+                legeKommando = "a";
+            }
+
+            else {
+
+                System.out.println("\nUgyldig input, proev igjen");
+
+                delay(750);
+                System.out.print("\nLege / spesialist / Avbryt ?: ");
+                legeKommando = scanner.nextLine().toLowerCase();
+            }
+        }
+
+        delay(750);
+        System.out.println("\n\nGaar tilbake...");
+        delay(1500);
+    }
+
+    public void leggTilPasient() {
+
+        // objekt for input
+        Scanner scanner = new Scanner(System.in);
+
+        // console-interface
+        delay(500);
+        System.out.println("\n ---[Oppretting]---");
+        System.out.print (" | 1. Pasient     |" +
+                         "\n | - - - -  - - - |" +
+                         "\n | a. Tilbake     |" +
+                         "\n ------------------\n");
+
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String pasientKommando = scanner.nextLine().toLowerCase();
+
+
+        // fortsetter til bruekren avbryter eller legger til lege
+        while (!pasientKommando.equals("a")) {
+
+            // om bruker velger lege - spoer om navn, opprett og legg til
+            if (pasientKommando.equals("1")) {
+                delay(500);
+                System.out.print("\nNavn paa pasient: ");
+                String pasientNavn = scanner.nextLine().toLowerCase();
+
+                delay(500);
+                System.out.print("\nFoedselsnummer: ");
+                String fNr = scanner.nextLine().toLowerCase();
+
+                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
+
+                Pasient pasient = new Pasient(pasientNavn, fNr);
+                pasienter.leggTil(pasient);
+
+                delay(750);
+                System.out.println("\n" + pasientNavn + " er lagt til\n");
+                delay(1000);
+
+                // gaar ut av loekke
+                pasientKommando = "a";
+            }
+
+            else {
+
+                System.out.println("\nUgyldig input, proev igjen");
+
+                delay(750);
+                System.out.print("\nLege / spesialist / Avbryt ?: ");
+                pasientKommando = scanner.nextLine().toLowerCase();
+            }
+        }
+
+        delay(750);
+        System.out.println("\n\nGaar tilbake...");
+        delay(1500);
+    }
+
+    public void leggTilLegemiddel() {
+
+        // objekt for input
+        Scanner scanner = new Scanner(System.in);
+
+        // console-interface
+        delay(500);
+        System.out.println("\n ---[Oppretting]----");
+        System.out.print( " | 1. Lege         |" +
+                        "\n | 2. Spesialist   |" +
+                        "\n | - - - - - - - - |" +
+                        "\n | a. Tilbake      |" +
+                        "\n -------------------\n");
+
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String legeKommando = scanner.nextLine().toLowerCase();
+
+
+        // fortsetter til bruekren avbryter eller legger til lege
+        while (!legeKommando.equals("a")) {
+
+            // om bruker velger lege - spoer om navn, opprett og legg til
+            if (legeKommando.equals("1")) {
+                delay(500);
+                System.out.print("\nNavn paa lege: ");
+                String legeNavn = scanner.nextLine().toLowerCase();
+
+                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
+
+                delay(500);
+                Lege lege = new Lege(legeNavn);
+                leger.leggTil(lege);
+
+                delay(750);
+                System.out.println("\n" + legeNavn + " er lagt til\n");
+                delay(1000);
+
+                // gaar ut av loekke
+                legeKommando = "a";
+            }
+
+            // ellers om bruker velger spesialis - spoer om navn + kontrollId, opprett og legg til
+            else if (legeKommando.equals("2")) {
+                delay(500);
+                System.out.print("\nNavn paa spesialist: ");
+                String spesialistNavn = scanner.nextLine().toLowerCase();
+
+                delay(500);
+                System.out.print("\nKontrollID?: ");
+                int kontrollID = scanner.nextInt();
+
+                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
+
+                Spesialist spesialist = new Spesialist(spesialistNavn, kontrollID);
+                leger.leggTil(spesialist);
+
+                delay(750);
+                System.out.println("\n" + spesialistNavn + " er lagt til\n");
+                delay(1000);
+
+                // gaar ut av loekke
+                legeKommando = "a";
+            }
+
+            else {
+
+                System.out.println("\nUgyldig input, proev igjen");
+
+                delay(750);
+                System.out.print("\nLege / spesialist / Avbryt ?: ");
+                legeKommando = scanner.nextLine().toLowerCase();
+            }
+        }
+
+        delay(750);
+        System.out.println("\n\nGaar tilbake...");
+        delay(1500);
     }
 }
