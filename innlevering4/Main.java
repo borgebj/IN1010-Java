@@ -100,16 +100,25 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
 
+        // lager null-objekt slik at "default" kan slaa av
          Legesystem lege = null;
 
+         // sjekker argument for klassen, og lager legesystem avhengig av tall
         switch(args[0]) {
+
+            // 1 vil si legesystem med LitenEksempelFil
             case "1":
                 lege = new Legesystem("LitenEksempelFil.txt"); break;
+
+            // 2 vil si legesystem med StorEksempelFil
             case "2":
                 lege = new Legesystem("StorEksempelFil.txt"); break;
+
+            // ellers vil feilmelding slaa av pga objekt med null-verdi
             default:
                 throw new NullPointerException("[ Ingen objekt tildelt verdien "+args[0]+", prov igjen med 1 / 2 ]"); }
 
+        // scanner-objekt for aa gi tilgang til bruker-input
         Scanner scanner = new Scanner(System.in);
 
         // viser meny og spoer bruker om input
