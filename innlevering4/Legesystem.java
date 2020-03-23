@@ -319,21 +319,22 @@ public class Legesystem {
 
     // E4
 
-    // metode for aa legge til lege
+    public void legeMeny() {
+        // console-interface
+        delay(500);
+        System.out.println("\n ---[Oppretting]----");
+        System.out.print( " | 1. Lege         |" +
+                "\n | 2. Spesialist   |" +
+                "\n | - - - - - - - - |" +
+                "\n | a. Tilbake      |" +
+                "\n -------------------\n");
+    }
     public void leggTilLege() {
 
         // objekt for input
         Scanner scanner = new Scanner(System.in);
 
-        // console-interface
-        delay(500);
-        System.out.println("\n ---[Oppretting]----");
-        System.out.print( " | 1. Lege         |" +
-                         "\n | 2. Spesialist   |" +
-                         "\n | - - - - - - - - |" +
-                         "\n | a. Tilbake      |" +
-                         "\n -------------------\n");
-
+        legeMeny();
         System.out.print("Hva onsker du aa gjoere? \n > ");
         String legeKommando = scanner.nextLine().toLowerCase();
 
@@ -388,13 +389,9 @@ public class Legesystem {
 
                 System.out.println("\nUgyldig input, proev igjen");
 
-                delay(1000);
-                System.out.println("\n ---[Oppretting]----");
-                System.out.print( " | 1. Lege         |" +
-                        "\n | 2. Spesialist   |" +
-                        "\n | - - - - - - - - |" +
-                        "\n | a. Tilbake      |" +
-                        "\n -------------------\n");
+                delay(500);
+                legeMeny();
+                System.out.print("Hva onsker du aa gjoere? \n > ");
                 legeKommando = scanner.nextLine().toLowerCase();
             }
         }
@@ -404,19 +401,21 @@ public class Legesystem {
         delay(1500);
     }
 
+    public void pasientMeny() {
+        // console-interface
+        delay(500);
+        System.out.println("\n ---[Oppretting]---");
+        System.out.print ( " | 1. Pasient     |" +
+                "\n | - - - -  - - - |" +
+                "\n | a. Tilbake     |" +
+                "\n ------------------\n");
+    }
     public void leggTilPasient() {
 
         // objekt for input
         Scanner scanner = new Scanner(System.in);
 
-        // console-interface
-        delay(500);
-        System.out.println("\n ---[Oppretting]---");
-        System.out.print ( " | 1. Pasient     |" +
-                         "\n | - - - -  - - - |" +
-                         "\n | a. Tilbake     |" +
-                         "\n ------------------\n");
-
+        pasientMeny();
         System.out.print("Hva onsker du aa gjoere? \n > ");
         String pasientKommando = scanner.nextLine().toLowerCase();
 
@@ -451,12 +450,9 @@ public class Legesystem {
 
                 System.out.println("\nUgyldig input, proev igjen");
 
-                delay(1000);
-                System.out.println("\n ---[Oppretting]---");
-                System.out.print ( " | 1. Pasient     |" +
-                                 "\n | - - - -  - - - |" +
-                                 "\n | a. Tilbake     |" +
-                                 "\n ------------------\n");
+                delay(500);
+                pasientMeny();
+                System.out.print("Hva onsker du aa gjoere? \n > ");
                 pasientKommando = scanner.nextLine().toLowerCase();
             }
         }
@@ -466,11 +462,7 @@ public class Legesystem {
         delay(1500);
     }
 
-    //TODO: ikke ferdig!!
-    public void leggTilResept() throws UlovligUtskrift {
-        // objekt for input
-        Scanner scanner = new Scanner(System.in);
-
+    public void reseptMeny() {
         // console-interface
         delay(500);
         System.out.println("\n -----[Resept]------");
@@ -481,7 +473,13 @@ public class Legesystem {
                 "\n | - - - - - - - - |" +
                 "\n | a. Tilbake      |" +
                 "\n -------------------\n");
+    }
+    //TODO: ikke ferdig!!
+    public void leggTilResept() throws UlovligUtskrift {
+        // objekt for input
+        Scanner scanner = new Scanner(System.in);
 
+        reseptMeny();
         System.out.print("Hva onsker du aa gjoere? \n > ");
         String reseptKommando = scanner.nextLine().toLowerCase();
 
@@ -501,17 +499,10 @@ public class Legesystem {
 
                 System.out.println("\nUgyldig input, proev igjen");
 
-                delay(1000);
-                System.out.println("\n -----[Resept]------");
-                System.out.print( " | 1. Hvite        |" +
-                                "\n | 2. Millitaer    |" +
-                                "\n | 3. PResept      |" +
-                                "\n | 4. Blaa         |" +
-                                "\n | - - - - - - - - |" +
-                                "\n | a. Tilbake      |" +
-                                "\n -------------------\n");
+                delay(500);
+                reseptMeny();
                 System.out.print("Hva onsker du aa gjoere? \n > ");
-                String reseptKommando = scanner.nextLine().toLowerCase();
+                reseptKommando = scanner.nextLine().toLowerCase();
             }
         }
 
@@ -520,21 +511,24 @@ public class Legesystem {
         delay(1500);
         }
 
+
+    public void middelMeny() {
+    // console-interface
+    delay(500);
+    System.out.println("\n ---[Oppretting]----");
+    System.out.print( " | 1. Vanlig       |" +
+            "\n | 2. Vanedannende |" +
+            "\n | 3. Narkotisk    |" +
+            "\n | - - - - - - - - |" +
+            "\n | a. Tilbake      |" +
+            "\n -------------------\n");
+    }
     public void leggTilLegemiddel() {
 
         // objekt for input
         Scanner scanner = new Scanner(System.in);
 
-        // console-interface
-        delay(500);
-        System.out.println("\n ---[Oppretting]----");
-        System.out.print( " | 1. Vanlig       |" +
-                        "\n | 2. Vanedannende |" +
-                        "\n | 3. Narkotisk    |" +
-                        "\n | - - - - - - - - |" +
-                        "\n | a. Tilbake      |" +
-                        "\n -------------------\n");
-
+        middelMeny();
         System.out.print("Hva onsker du aa gjoere? \n > ");
         String middelKommando = scanner.nextLine().toLowerCase();
 
@@ -638,15 +632,9 @@ public class Legesystem {
             else {
                 System.out.println("\nUgyldig input, proev igjen");
 
-                delay(1000);
-                System.out.println("\n ---[Oppretting]----");
-                System.out.print( " | 1. Vanlig       |" +
-                                "\n | 2. Vanedannende |" +
-                                "\n | 3. Narkotisk    |" +
-                                "\n | - - - - - - - - |" +
-                                "\n | a. Tilbake      |" +
-                                "\n -------------------\n");
-                System.out.print("\nLege / spesialist / Avbryt ?: ");
+                delay(500);
+                middelMeny();
+                System.out.print("Hva onsker du aa gjoere? \n > ");
                 middelKommando = scanner.nextLine().toLowerCase();
             }
         }
