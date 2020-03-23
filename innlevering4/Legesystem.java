@@ -260,31 +260,31 @@ public static void delay(long t) {
         } catch (InterruptedException e) {}
     }
     //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION
-    // public boolean isFound(String n, String lN) {
-    //   String navn = navn.toLowerCase();
-    //   String listeNavn = lN.toLowerCase();
-    //   if (listeNavn == leger) {
-    //     for (Lege x : leger) {
-    //       if (navn == x.hentNavn()) return true;
-    //     }
-    //   } 
-    //   else if (listeNavn == legemidler) {
-    //     for (Legemiddel x : legemidler) {
-    //       if (navn == x.hentNavn()) return true;
-    //     }
-    //   }
-    //   else if (listeNavn == resepter) {
-    //     for (Resept x : resepter) {
-    //       if (navn == x.hentNavn()) return true;
-    //     }
-    //   }
-    //   else if (listeNavn == pasienter) {
-    //     for (Pasient x : pasienter) {
-    //       if (navn == x.hentNavn()) return true;
-    //     }
-    //   }
-    //   return false;   
-    // }
+    public boolean isFound(String n, String lN) {
+      String navn = navn.toLowerCase();
+      String listeNavn = lN.toLowerCase();
+      if (listeNavn == leger) {
+        for (Lege x : leger) {
+          if (navn == x.hentNavn()) return true;
+        }
+      } 
+      else if (listeNavn == legemidler) {
+        for (Legemiddel x : legemidler) {
+          if (navn == x.hentNavn()) return true;
+        }
+      }
+      else if (listeNavn == resepter) {
+        for (Resept x : resepter) {
+          if (navn == x.hentNavn()) return true;
+        }
+      }
+      else if (listeNavn == pasienter) {
+        for (Pasient x : pasienter) {
+          if (navn == x.hentNavn()) return true;
+        }
+      }
+      return false;   
+    }
     // E3
 
 // skriver ut alle pasienter
