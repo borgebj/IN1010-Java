@@ -151,6 +151,48 @@ public class Main {
         }
     }
 
+    public static void statistikkDel(Legesystem lege) {
+        System.out.println("\nIkke implementert\n");
+
+        Scanner scanner = new Scanner(System.in);
+
+        // viser meny og spoer bruker om input
+        statistikkMeny();
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String kommando = scanner.next().toLowerCase();
+        delay(800);
+
+        while (!kommando.equals("a")) {
+
+            switch(kommando) {
+
+                //  "Se antall utskrevne Vanedannende"
+                case "1":
+                    lege.hentVanedannende();
+                    break;
+
+                // "Se antall utskrevne Narkotiske"
+                case "2":
+                    lege.hentNarkotiske();
+                    break;
+
+                // "Se Mulig misbruk av narkotika"
+                case "3":
+                    lege.muligMisbruk();
+                    break;
+
+
+                default:
+                    System.out.println("\nUgyldig kommando - prov igjen\n");
+            }
+
+            statistikkMeny();
+            System.out.print("Hva onsker du aa gjoere? \n > ");
+            kommando = scanner.next().toLowerCase();
+            delay(800);
+        }
+    }
+
 
     /** Console-interfacer **/
     // Terminal "User-interface" for Hovedmeny
@@ -196,6 +238,16 @@ public class Main {
         System.out.println("| - - - - - - - - - |");
         System.out.println("| a.  Tilbake     - |");
         System.out.println("--------------------\n");
+    }
+
+    public static void statistikkMeny() {
+        System.out.println("\n\n------[Statistikk]---------------------");
+        System.out.println("| 1. Se Resepter m/ Vanedannende   - |");
+        System.out.println("| 2. Se Resepter m/ Narkotiske     - |");
+        System.out.println("| 3. Se Mulig misbruk av narkotika - |");
+        System.out.println("| - - - - - - - - - - - - - - - - - - - - |");
+        System.out.println("| a.  Tilbake                           - |");
+        System.out.println("-------------------------------------------\n");
     }
 
 
@@ -272,7 +324,7 @@ public class Main {
                 // om tall er 4 - kall paa "statistikkDel"
                 case "4":
                     delay(500);
-                    System.out.println("\nIkke implementert\n");
+                    statistikkDel(lege);
 
                     hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
