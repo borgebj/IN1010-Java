@@ -345,7 +345,7 @@ public class Legesystem {
             if (legeKommando.equals("1")) {
                 delay(500);
                 System.out.print("\nNavn paa lege: ");
-                String legeNavn = scanner.nextLine().toLowerCase();
+                String legeNavn = scanner.nextLine();
 
                 //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
 
@@ -365,7 +365,7 @@ public class Legesystem {
             else if (legeKommando.equals("2")) {
                 delay(500);
                 System.out.print("\nNavn paa spesialist: ");
-                String spesialistNavn = scanner.nextLine().toLowerCase();
+                String spesialistNavn = scanner.nextLine();
 
                 delay(500);
                 System.out.print("\nKontrollID?: ");
@@ -388,8 +388,13 @@ public class Legesystem {
 
                 System.out.println("\nUgyldig input, proev igjen");
 
-                delay(750);
-                System.out.print("\nLege / spesialist / Avbryt ?: ");
+                delay(500);
+                System.out.println("\n ---[Oppretting]----");
+                System.out.print( " | 1. Lege         |" +
+                        "\n | 2. Spesialist   |" +
+                        "\n | - - - - - - - - |" +
+                        "\n | a. Tilbake      |" +
+                        "\n -------------------\n");
                 legeKommando = scanner.nextLine().toLowerCase();
             }
         }
@@ -407,7 +412,7 @@ public class Legesystem {
         // console-interface
         delay(500);
         System.out.println("\n ---[Oppretting]---");
-        System.out.print (" | 1. Pasient     |" +
+        System.out.print ( " | 1. Pasient     |" +
                          "\n | - - - -  - - - |" +
                          "\n | a. Tilbake     |" +
                          "\n ------------------\n");
@@ -416,14 +421,14 @@ public class Legesystem {
         String pasientKommando = scanner.nextLine().toLowerCase();
 
 
-        // fortsetter til bruekren avbryter eller legger til lege
+        // fortsetter til bruekren avbryter eller legger til pasient
         while (!pasientKommando.equals("a")) {
 
-            // om bruker velger lege - spoer om navn, opprett og legg til
+            // om bruker velger pasient - spoer om navn og fNr, opprett og legg til
             if (pasientKommando.equals("1")) {
                 delay(500);
                 System.out.print("\nNavn paa pasient: ");
-                String pasientNavn = scanner.nextLine().toLowerCase();
+                String pasientNavn = scanner.nextLine();
 
                 delay(500);
                 System.out.print("\nFoedselsnummer: ");
@@ -446,9 +451,109 @@ public class Legesystem {
 
                 System.out.println("\nUgyldig input, proev igjen");
 
-                delay(750);
-                System.out.print("\nLege / spesialist / Avbryt ?: ");
+                delay(500);
+                System.out.println("\n ---[Oppretting]---");
+                System.out.print ( " | 1. Pasient     |" +
+                                 "\n | - - - -  - - - |" +
+                                 "\n | a. Tilbake     |" +
+                                 "\n ------------------\n");
                 pasientKommando = scanner.nextLine().toLowerCase();
+            }
+        }
+
+        delay(750);
+        System.out.println("\n\nGaar tilbake...");
+        delay(1500);
+    }
+
+    public void leggTilResept() {
+
+        // objekt for input
+        Scanner scanner = new Scanner(System.in);
+
+        // console-interface
+        delay(500);
+        System.out.println("\n ---[Oppretting]----");
+        System.out.print( " | 1. Hvite        |" +
+                        "\n | 2. Millitaer    |" +
+                        "\n | 3. Presept      |" +
+                        "\n | 4. Blaa         |" +
+                        "\n | - - - - - - - - |" +
+                        "\n | a. Tilbake      |" +
+                        "\n -------------------\n");
+
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String reseptKommando = scanner.nextLine().toLowerCase();
+
+
+        // fortsetter til bruekren avbryter eller legger til pasient
+        while (!reseptKommando.equals("a")) {
+
+            // om bruker velger hvite - spoer om legemiddelNummer, legeNavn, pasientID, reit
+            if (reseptKommando.equals("1")) {
+                delay(500);
+                System.out.print("\nLegemiddelNummer: ");
+                int legemiddelNummer = scanner.nextInt();
+
+                delay(500);
+                System.out.print("\nLegeNavn: ");
+                String legeNavn = scanner.nextLine();
+
+                delay(500);
+                System.out.print("\nPasientID: ");
+                int pasientID = scanner.nextInt();
+
+                delay(500);
+                System.out.print("\nReit: ");
+                int reit = scanner.nextInt();
+
+                for (Legemiddel legemiddel : legemidler) {
+                    if (legemiddel.hentId() == legemiddelNummer) {
+
+                        for (Lege lege : leger) {
+                            if (lege.hentNavn().equals(legeNavn)) {
+
+                                for (Pasient pasient : pasienter) {
+                                    if (pasient.hentId() == pasientID) {
+
+                                        // fjern
+                                        System.out.println("Dette er gyldig!");
+
+                                        lege.skrivHvitResept(legemiddel, pasient, reit);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
+
+                Pasient pasient = new Pasient(pasientNavn, fNr);
+                pasienter.leggTil(pasient);
+
+                delay(750);
+                System.out.println("\n" + pasientNavn + " er lagt til\n");
+                delay(1000);
+
+                // gaar ut av loekke
+                reseptKommando = "a";
+            }
+
+            else {
+
+                System.out.println("\nUgyldig input, proev igjen");
+
+                delay(500);
+                System.out.println("\n ---[Oppretting]----");
+                System.out.print( " | 1. Hvite        |" +
+                                "\n | 2. Millitaer    |" +
+                                "\n | 3. Presept      |" +
+                                "\n | 4. Blaa         |" +
+                                "\n | - - - - - - - - |" +
+                                "\n | a. Tilbake      |" +
+                                "\n -------------------\n");
+                reseptKommando = scanner.nextLine().toLowerCase();
             }
         }
 
@@ -465,69 +570,126 @@ public class Legesystem {
         // console-interface
         delay(500);
         System.out.println("\n ---[Oppretting]----");
-        System.out.print( " | 1. Lege         |" +
-                        "\n | 2. Spesialist   |" +
+        System.out.print( " | 1. Vanlig       |" +
+                        "\n | 2. Vanedannende |" +
+                        "\n | 3. Narkotisk    |" +
                         "\n | - - - - - - - - |" +
                         "\n | a. Tilbake      |" +
                         "\n -------------------\n");
 
         System.out.print("Hva onsker du aa gjoere? \n > ");
-        String legeKommando = scanner.nextLine().toLowerCase();
+        String middelKommando = scanner.nextLine().toLowerCase();
 
 
-        // fortsetter til bruekren avbryter eller legger til lege
-        while (!legeKommando.equals("a")) {
+        // fortsetter til bruekren avbryter eller legger til legemiddel
+        while (!middelKommando.equals("a")) {
 
-            // om bruker velger lege - spoer om navn, opprett og legg til
-            if (legeKommando.equals("1")) {
+            // om bruker velger vanlig - spoer om navn, pris og virkestoff
+            if (middelKommando.equals("1")) {
                 delay(500);
-                System.out.print("\nNavn paa lege: ");
-                String legeNavn = scanner.nextLine().toLowerCase();
+                System.out.print("\nNavn paa legemiddel: ");
+                String middelNavn = scanner.nextLine().toLowerCase();
+
+                delay(500);
+                System.out.print("Pris: ");
+                double pris = scanner.nextDouble();
+
+                delay(500);
+                System.out.print("Virkestoff: ");
+                double virkestoff = scanner.nextDouble();
 
                 //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
 
-                delay(500);
-                Lege lege = new Lege(legeNavn);
-                leger.leggTil(lege);
+                Vanlig vanlig = new Vanlig(middelNavn, pris, virkestoff);
+                legemidler.leggTil(vanlig);
 
-                delay(750);
-                System.out.println("\n" + legeNavn + " er lagt til\n");
+
+                delay(500);
+                System.out.println("\n" + middelNavn + " er lagt til\n");
                 delay(1000);
 
                 // gaar ut av loekke
-                legeKommando = "a";
+                middelKommando = "a";
             }
 
-            // ellers om bruker velger spesialis - spoer om navn + kontrollId, opprett og legg til
-            else if (legeKommando.equals("2")) {
+            // ellers om bruker velger vanedannende - spoer om navn, pris, virkestoff og styrke
+            else if (middelKommando.equals("2")) {
                 delay(500);
-                System.out.print("\nNavn paa spesialist: ");
-                String spesialistNavn = scanner.nextLine().toLowerCase();
+                System.out.print("\nNavn paa legemiddel: ");
+                String middelNavn = scanner.nextLine().toLowerCase();
 
                 delay(500);
-                System.out.print("\nKontrollID?: ");
-                int kontrollID = scanner.nextInt();
+                System.out.print("Pris: ");
+                double pris = scanner.nextDouble();
+
+                delay(500);
+                System.out.print("Virkestoff: ");
+                double virkestoff = scanner.nextDouble();
+
+                delay(500);
+                System.out.print("Styrke: ");
+                int styrke = scanner.nextInt();
 
                 //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
 
-                Spesialist spesialist = new Spesialist(spesialistNavn, kontrollID);
-                leger.leggTil(spesialist);
+                Vanedannende vanedannende = new Vanedannende(middelNavn, pris, virkestoff, styrke);
+                legemidler.leggTil(vanedannende);
+
 
                 delay(750);
-                System.out.println("\n" + spesialistNavn + " er lagt til\n");
+                System.out.println("\n" + middelNavn + " er lagt til\n");
                 delay(1000);
 
                 // gaar ut av loekke
-                legeKommando = "a";
+                middelKommando = "a";
             }
 
+            // ellers om bruker velger narkotisk - spoer om navn, pris, virkestoff og styrke
+            else if (middelKommando.equals("3")) {
+                delay(500);
+                System.out.print("\nNavn paa legemiddel: ");
+                String middelNavn = scanner.nextLine().toLowerCase();
+
+                delay(500);
+                System.out.print("Pris: ");
+                double pris = scanner.nextDouble();
+
+                delay(500);
+                System.out.print("Virkestoff: ");
+                double virkestoff = scanner.nextDouble();
+
+                delay(500);
+                System.out.print("Styrke: ");
+                int styrke = scanner.nextInt();
+
+                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
+
+                Narkotisk narkotisk = new Narkotisk(middelNavn, pris, virkestoff, styrke);
+                legemidler.leggTil(narkotisk);
+
+
+                delay(750);
+                System.out.println("\n" + middelNavn + " er lagt til\n");
+                delay(1000);
+
+                // gaar ut av loekke
+                middelKommando = "a";
+            }
+
+            // ellers telles input som ugyldig, og maa prove igjen
             else {
-
                 System.out.println("\nUgyldig input, proev igjen");
 
-                delay(750);
+                delay(500);
+                System.out.println("\n ---[Oppretting]----");
+                System.out.print( " | 1. Vanlig       |" +
+                                "\n | 2. Vanedannende |" +
+                                "\n | 3. Narkotisk    |" +
+                                "\n | - - - - - - - - |" +
+                                "\n | a. Tilbake      |" +
+                                "\n -------------------\n");
                 System.out.print("\nLege / spesialist / Avbryt ?: ");
-                legeKommando = scanner.nextLine().toLowerCase();
+                middelKommando = scanner.nextLine().toLowerCase();
             }
         }
 
