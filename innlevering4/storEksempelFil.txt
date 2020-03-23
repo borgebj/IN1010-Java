@@ -17,6 +17,7 @@ Leif Fredriksen,28268527621
 Francis Robert Stevenson,26154722987
 Dieter Freitag,14956730498
 øystein Holmen,21237670079
+string123!,number"
 Ulrich Heuberger,20162340170
 Susan Gayle Nordskog,16840888713
 Iury Litovchenco,11335557310
