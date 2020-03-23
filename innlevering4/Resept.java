@@ -61,10 +61,14 @@ abstract class Resept {
     @Override // overskriver original toString() metode med kode som returnerer variablene med tilsvarende tekst
     public String toString() {
 
-        // stor forbokstav
-        String navn = legemiddel.hentNavn();
-        String output = navn.substring(0, 1).toUpperCase() + navn.substring(1);
-        return (id + ": " + output + " ("+reit+" reit)");
+        // stor forbokstav paa Lege
+        String Pnavn = pasient.hentNavn();
+        String Poutput = Pnavn.substring(0, 1).toUpperCase() + Pnavn.substring(1);
+
+        // stor forbokstav paa Pasient
+        String Lnavn = legemiddel.hentNavn();
+        String Loutput = Lnavn.substring(0, 1).toUpperCase() + Lnavn.substring(1);
+        return (id + ": " + Loutput + " ("+reit+" reit) " + " ( "+Poutput+" ) ");
     }
 
     // overrides i subklassene
