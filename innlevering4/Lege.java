@@ -42,8 +42,9 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
         // lager resept med info fra parameter + "this" - denne klassen
         HvitResept hvit = new HvitResept(legemiddel, this, pasient, reit);
 
-        // legger til resept i lenkelisten til legen og returner
+        // legger til resept i lenkelisten til legen og pasienten og returner
         utskrevedeResepter.leggTil(hvit);
+        pasient.addResept(hvit);
         return hvit;
     }
 
@@ -53,7 +54,9 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
 
         // lager, legger til og returner
         MilitaerResept militaer = new MilitaerResept(legemiddel, this, pasient, reit);
+
         utskrevedeResepter.leggTil(militaer);
+        pasient.addResept(militaer);
         return militaer;
     }
 
@@ -63,7 +66,9 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
 
         // lager, legger til og returner
         PResept PResept = new PResept(legemiddel, this, pasient);
+
         utskrevedeResepter.leggTil(PResept);
+        pasient.addResept(PResept);
         return PResept;
     }
 
@@ -73,7 +78,9 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
 
         // lager, legger til og returner
         BlaaResept Blaa = new BlaaResept(legemiddel, this, pasient, reit);
+
         utskrevedeResepter.leggTil(Blaa);
+        pasient.addResept(Blaa);
         return Blaa;
     }
 

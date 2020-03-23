@@ -12,13 +12,13 @@ public class Vanedannende extends Legemiddel {
         return styrke;
     }
 
+
     @Override // A4 - toString-metode som returner relevant info med 1 metode
     public String toString() {
-        return ("Type: [Vanedannende] \n" +
-                "Navn: " + navn + "\n" +
-                "Pris: " + pris + " kr\n" +
-                "Mengde: " + virkestoff + " mg." + "\n" +
-                "ID: " + id + "\n" +
-                "Styrke: " + styrke + "");
+
+        // forkorter til 2 decimaler vha Math.round()
+        double nyPris = Math.round(pris * 100.00) / 100.00;
+        double nyVirkestoff = Math.round(virkestoff * 100.00) / 100.00;
+        return (id + ": " + "[VANEDANNENDE] " + navn + " ( "+nyPris+" kr ) " + " ( "+nyVirkestoff+" mg )" +  " ( "+styrke+" / 10 ) ");
     }
 }

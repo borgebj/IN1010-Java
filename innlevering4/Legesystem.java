@@ -260,14 +260,15 @@ public class Legesystem {
         } catch (InterruptedException e) {}
     }
 
-    // E3
+
+    /* E3 */
 
     // skriver ut alle pasienter
     public void skrivPasienter() {
         System.out.println("-------- [ Pasienter ] -----------\n");
         for (Pasient x : pasienter) {
 
-            System.out.println(x + "\n");
+            System.out.println(x);
             delay(25);
         }
         System.out.println("----------------------------------\n");
@@ -277,12 +278,10 @@ public class Legesystem {
     public void skrivLegemidler() {
         System.out.println("-------- [ Legemidler ] ----------\n");
         for (Legemiddel x : legemidler) {
-            System.out.println("- - - - - - - - - - - - ");
 
             System.out.println(x);
             delay(25);
 
-            System.out.println("- - - - - - - - - - - - \n");
         }
         System.out.println("----------------------------------");
     }
@@ -292,7 +291,7 @@ public class Legesystem {
         System.out.println("----------- [ leger ] --------------\n");
         for (Lege x : leger) {
 
-            System.out.println(x + "\n");
+            System.out.println("- " + x);
             delay(25);
         }
         System.out.println("----------------------------------\n");
@@ -302,22 +301,22 @@ public class Legesystem {
     public void skrivResepter() {
         System.out.println("------- [ Resepter ] ---------------\n");
         for (Resept x : resepter) {
-            System.out.println("- - - - - - - - - - - - - - - - ");
 
-            System.out.println(x);
+            System.out.println("- " + x);
             delay(25);
-
-            System.out.println("- - - - - - - - - - - - - - - - \n");
-        } delay(800);
+        }
+        delay(800);
+        System.out.println("\n- - - - - - - - - - - - - - - - ");
         System.out.println("Pasient-feil: "+pasientFeil);
         System.out.println("Middel-feil: "+middelFeil);
         System.out.println("Lege-feil: "+legeFeil);
         System.out.println("Resept-feil: "+reseptFeil);
-        System.out.println("\nFor aa se disse feilene, aapne filen 'error.txt'");
-        System.out.println("\n----------------------------------");
+        System.out.println("\nFor aa se disse feilene, aapne filen 'errorLog.txt'");
+        System.out.println("----------------------------------");
     }
 
-    // E4
+
+    /* E4 */
 
     public void legeMeny() {
         // console-interface
@@ -369,7 +368,7 @@ public class Legesystem {
                 String spesialistNavn = scanner.nextLine();
 
                 delay(500);
-                System.out.print("\nKontrollID?: ");
+                System.out.print("KontrollID?: ");
                 int kontrollID = scanner.nextInt();
 
                 //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
@@ -430,7 +429,7 @@ public class Legesystem {
                 String pasientNavn = scanner.nextLine();
 
                 delay(500);
-                System.out.print("\nFoedselsnummer: ");
+                System.out.print("Foedselsnummer: ");
                 String fNr = scanner.nextLine().toLowerCase();
 
                 //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
@@ -492,11 +491,26 @@ public class Legesystem {
             // 2. Ikke reit
 
             if (reseptKommando.equals("1")) {
-                // ???
+
+                System.out.println("\nResept ikke ferdig!!");
+            }
+
+            if (reseptKommando.equals("2")) {
+
+                System.out.println("\nResept ikke ferdig!!");
+            }
+
+            if (reseptKommando.equals("3")) {
+
+                System.out.println("\nResept ikke ferdig!!");
+            }
+
+            if (reseptKommando.equals("4")) {
+
+                System.out.println("\nResept ikke ferdig!!");
             }
 
             else {
-
                 System.out.println("\nUgyldig input, proev igjen");
 
                 delay(500);
@@ -510,7 +524,6 @@ public class Legesystem {
         System.out.println("\n\nGaar tilbake...");
         delay(1500);
         }
-
 
     public void middelMeny() {
     // console-interface
@@ -642,5 +655,31 @@ public class Legesystem {
         delay(750);
         System.out.println("\n\nGaar tilbake...");
         delay(1500);
+    }
+
+
+    /* E5 */
+
+    public void reseptBruk() {
+        Scanner scanner = new Scanner(System.in);
+
+        for (Pasient a : pasienter) {
+            System.out.println(a);
+            delay(25);
+        }
+        System.out.print("\nHvilken pasient vil du se resepter for? \n > ");
+        int kommando = scanner.nextInt();
+
+        int count = 0;
+        for (Pasient b : pasienter) {
+            if (kommando == count) {
+                System.out.println("Valgt pasient: " + b);
+
+                // er stuck her! finner pasienten, men klarer ikke aa skrive ut alle reseptene til personen
+
+                delay(2000);
+            }
+            count++;
+        }
     }
 }

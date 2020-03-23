@@ -124,6 +124,33 @@ public class Main {
         delay(1500);
     }
 
+    public static void brukDel(Legesystem lege) {
+        Scanner scanner = new Scanner(System.in);
+
+        // viser meny og spoer bruker om input
+        brukMeny();
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String kommando = scanner.next().toLowerCase();
+        delay(800);
+
+        while (!kommando.equals("a")) {
+
+            switch(kommando) {
+                case "1":
+                    lege.reseptBruk();
+                    break;
+
+                default:
+                    System.out.println("\nUgyldig kommando - prov igjen\n");
+            }
+
+            brukMeny();
+            System.out.print("Hva onsker du aa gjoere? \n > ");
+            kommando = scanner.next().toLowerCase();
+            delay(800);
+        }
+    }
+
 
     /** Console-interfacer **/
     // Terminal "User-interface" for Hovedmeny
@@ -131,7 +158,7 @@ public class Main {
         System.out.println("\n\n----[Hovedmeny]----");
         System.out.println("| 1. Utskrift   - |");
         System.out.println("| 2. Opprette   - |");
-        System.out.println("| 5. Bruke      - |");
+        System.out.println("| 3. Bruke      - |");
         System.out.println("| 4. Statistikk - |");
         System.out.println("| - - - - - - - - |");
         System.out.println("|  a.  avslutt    |");
@@ -150,6 +177,7 @@ public class Main {
         System.out.println("--------------------\n");
     }
 
+    // Terminal "User-interface" for opprett
     public static void opprettMeny() {
         System.out.println("\n\n----[Opprette]----");
         System.out.println("| 1. Lege       - |");
@@ -158,6 +186,15 @@ public class Main {
         System.out.println("| 4. Legemiddel - |");
         System.out.println("| - - - - - - - - |");
         System.out.println("| a.  Tilbake   - |");
+        System.out.println("--------------------\n");
+    }
+
+    // Terminal "User-interface" for bruk
+    public static void brukMeny() {
+        System.out.println("\n\n------[Bruk]------");
+        System.out.println("| 1. Se pasienter - |");
+        System.out.println("| - - - - - - - - - |");
+        System.out.println("| a.  Tilbake     - |");
         System.out.println("--------------------\n");
     }
 
@@ -223,8 +260,10 @@ public class Main {
                 // om tall er 3 - kall paa "brukDel"
                 case "3":
                     delay(500);
-                    System.out.println("\nIkke implementert\n");
+                    brukDel(lege);
 
+
+                    hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
                     kommando = scanner.next().toLowerCase();
                     delay(800);
@@ -235,6 +274,7 @@ public class Main {
                     delay(500);
                     System.out.println("\nIkke implementert\n");
 
+                    hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
                     kommando = scanner.next().toLowerCase();
                     delay(800);
