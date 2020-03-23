@@ -38,7 +38,7 @@ abstract class Resept {
     }
 
     // returnerer pasient-objekt
-    public Pasient hentPasientId() {
+    public Pasient hentPasient() {
         return pasient;
     }
 
@@ -64,7 +64,7 @@ abstract class Resept {
         // stor forbokstav
         String navn = legemiddel.hentNavn();
         String output = navn.substring(0, 1).toUpperCase() + navn.substring(1);
-        return (output + " ("+reit+" reit)");
+        return (id + ": " + output + " ("+reit+" reit)");
     }
 
     // overrides i subklassene
