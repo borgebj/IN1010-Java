@@ -42,7 +42,7 @@ public class Pasient extends Stabel<Resept> {
     }
 
     // henter ut listen med resepter
-    public Stabel hentResepter() {
+    public Lenkeliste hentResepter() {
         return resepter;
     }
 
