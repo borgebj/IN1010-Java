@@ -14,11 +14,10 @@ public class Narkotisk extends Legemiddel {
 
     @Override // A4 - toString-metode som returner relevant info med 1 metode
     public String toString() {
-        return ("Type: [Narkotisk] \n" +
-                "Navn: " + navn + "\n" +
-                "Pris: " + pris + " kr\n" +
-                "Mengde: " + virkestoff + " mg." + "\n" +
-                "Styrke: " + styrke + "\n" +
-                "ID: " + id + "");
+
+        // forkorter til 2 decimaler vha Math.round()
+        double nyPris = Math.round(pris * 100.00) / 100.00;
+        double nyVirkestoff = Math.round(virkestoff * 100.00) / 100.00;
+        return (id + ": " + "[NARKOTISK]    " + navn + " ( "+nyPris+" kr ) " + " ( "+nyVirkestoff+" mg )" +  " ( "+styrke+" / 10 ) ");
     }
 }
