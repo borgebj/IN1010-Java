@@ -20,9 +20,9 @@ public class Main {
 
         // viser meny og spoer bruker om input
         utskriftMeny();
-        System.out.print("Hva onsker du aa skrive ut?: \n > ");
+        System.out.print("Hva onsker du aa skrive ut? \n > ");
         String kommando = scanner.next().toLowerCase();
-        delay(1200);
+        delay(800);
 
 
         // kommando-loekke som fortsetter bruker-input
@@ -61,12 +61,66 @@ public class Main {
 
             // spoer bruker paa nytt og oppdaterer loekke
             utskriftMeny();
-            System.out.print("Hva onsker du aa skrive ut?: \n > ");
+            System.out.print("Hva onsker du aa skrive ut? \n > ");
             kommando = scanner.next().toLowerCase();
-            delay(1200);
+            delay(800);
         }
 
         System.out.println("\n\nGaar tilbake...");
+        delay(1500);
+    }
+
+    public static void opprettDel(Legesystem lege) {
+        Scanner scanner = new Scanner(System.in);
+
+        // viser meny og spoer bruker om input
+        opprettMeny();
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String kommando = scanner.next().toLowerCase();
+        delay(800);
+
+
+        // kommando-loekke som fortsetter bruker-input
+        while (!kommando.equals("a")) {
+
+            switch (kommando) {
+
+                // om input er 1 - opprett Lege
+                case "1":
+                    lege.leggTilLege();
+                    delay(500);
+                    break;
+
+                // om input er 2 - opprett Pasient
+                case "2":
+                    lege.leggTilPasient();
+                    delay(500);
+                    break;
+
+                // om input er 3 - opprett resept (skrivResept ...)
+                case "3":
+
+                    delay(500);
+                    break;
+
+                // om input er 4 - opprett legemiddel
+                case "4":
+
+                    delay(500);
+                    break;
+
+                // om ingenting slaar til - gi feilmelding
+                default:
+                    System.out.println("\nUgyldig kommando - prov igjen\n");
+            }
+
+            opprettMeny();
+            System.out.print("Hva onsker du aa gjoere? \n > ");
+            kommando = scanner.next().toLowerCase();
+            delay(800);
+        }
+
+        System.out.println("\n\nGaar tilbake... (2)");
         delay(1500);
     }
 
@@ -74,25 +128,36 @@ public class Main {
     /** Console-interfacer **/
     // Terminal "User-interface" for Hovedmeny
     public static void hovedMeny() {
-        System.out.println("\n\n----[Hovedmeny]---");
-        System.out.println("  1. Utskrift    -");
-        System.out.println("  2. Opprette    -");
-        System.out.println("  5. Bruke       -");
-        System.out.println("  4. Statistikk  -");
-        System.out.println(" - - - - - - - - - ");
-        System.out.println("  a.  avslutt    -");
-        System.out.println("--------------------\n");
+        System.out.println("\n\n----[Hovedmeny]----");
+        System.out.println("| 1. Utskrift   - |");
+        System.out.println("| 2. Opprette   - |");
+        System.out.println("| 5. Bruke      - |");
+        System.out.println("| 4. Statistikk - |");
+        System.out.println("| - - - - - - - - |");
+        System.out.println("|  a.  avslutt    |");
+        System.out.println("-------------------\n");
     }
 
     // Terminal "User-interface" for Utskrift
     public static void utskriftMeny() {
-        System.out.println("\n\n----[Utskrift]----");
-        System.out.println("  1. pasienter   -");
-        System.out.println("  2. Leger       -");
-        System.out.println("  3. Legemiddler -");
-        System.out.println("  4. Resepter    -");
-        System.out.println(" - - - - - - - - - ");
-        System.out.println("  a.  Tilbake    -");
+        System.out.println("\n\n----[Utskrift]------");
+        System.out.println("| 1. pasienter   - |");
+        System.out.println("| 2. Leger       - |");
+        System.out.println("| 3. Legemiddler - |");
+        System.out.println("| 4. Resepter    - |");
+        System.out.println("| - - - -  - - - - |");
+        System.out.println("| a.  Tilbake    - |");
+        System.out.println("--------------------\n");
+    }
+
+    public static void opprettMeny() {
+        System.out.println("\n\n----[Opprette]----");
+        System.out.println("| 1. Lege       - |");
+        System.out.println("| 2. Pasient    - |");
+        System.out.println("| 3. Resept     - |");
+        System.out.println("| 4. Legemiddel - |");
+        System.out.println("| - - - - - - - - |");
+        System.out.println("| a.  Tilbake   - |");
         System.out.println("--------------------\n");
     }
 
@@ -123,9 +188,9 @@ public class Main {
 
         // viser meny og spoer bruker om input
         hovedMeny();
-        System.out.print("Hva onsker du aa gjoere?: \n > ");
+        System.out.print("Hva onsker du aa gjoere? \n > ");
         String kommando = scanner.next().toLowerCase();
-        delay(1200);
+        delay(800);
 
         // om input ikke er "a" (avslutt), fortsett og sjekk input med switch-case
         while (!kommando.equals("a")) {
@@ -137,45 +202,49 @@ public class Main {
                     utskriftsDel(lege);
 
                     hovedMeny();
-                    System.out.print("Hva onsker du aa skrive ut?: \n > ");
+                    System.out.print("Hva onsker du aa gjoere? \n > ");
                     kommando = scanner.next().toLowerCase();
-                    delay(1200);
+                    delay(800);
                     break;
 
                     // om tall er 2 - kall paa "opprettDel"
                 case "2":
                     delay(500);
-                    System.out.println("\nIkke implementert\n");
-                    System.out.print("Hva onsker du aa gjoere?: \n > ");
+                    opprettDel(lege);
+
+                    hovedMeny();
+                    System.out.print("Hva onsker du aa gjoere ut? \n > ");
                     kommando = scanner.next().toLowerCase();
-                    delay(1200);
+                    delay(800);
                     break;
 
                 // om tall er 3 - kall paa "brukDel"
                 case "3":
                     delay(500);
                     System.out.println("\nIkke implementert\n");
-                    System.out.print("Hva onsker du aa gjoere?: \n > ");
+
+                    System.out.print("Hva onsker du aa gjoere? \n > ");
                     kommando = scanner.next().toLowerCase();
-                    delay(1200);
+                    delay(800);
                     break;
 
                 // om tall er 4 - kall paa "statistikkDel"
                 case "4":
                     delay(500);
                     System.out.println("\nIkke implementert\n");
-                    System.out.print("Hva onsker du aa gjoere?: \n > ");
+
+                    System.out.print("Hva onsker du aa gjoere? \n > ");
                     kommando = scanner.next().toLowerCase();
-                    delay(1200);
+                    delay(800);
                     break;
 
                 // ellers er det ugyldig kommando
                 default:
                     delay(350);
                     System.out.println("\nUgyldig kommando - prov igjen\n");
-                    System.out.print("Hva onsker du aa gjoere?: \n > ");
+                    System.out.print("Hva onsker du aa gjoere? \n > ");
                     kommando = scanner.next().toLowerCase();
-                    delay(1200);
+                    delay(800);
             }
         }
         System.out.println("\n\nAvslutter...\n\n");
