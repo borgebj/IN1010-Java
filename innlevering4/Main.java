@@ -13,7 +13,7 @@ public class Main {
         } catch (InterruptedException e) {}
     }
 
-    /** Deler **/
+    /** Deler av hovedmenyen**/
     // metode som kjoerer "Utskriftsdelen" av programmet
     public static void utskriftsDel(Legesystem lege) {
         Scanner scanner = new Scanner(System.in);
@@ -99,13 +99,12 @@ public class Main {
 
                 // om input er 3 - opprett resept (skrivResept ...)
                 case "3":
-
                     delay(500);
                     break;
 
                 // om input er 4 - opprett legemiddel
                 case "4":
-
+                    lege.leggTilLegemiddel();
                     delay(500);
                     break;
 
@@ -251,3 +250,10 @@ public class Main {
         delay(2000);
     }
 }
+
+
+
+
+
+
+
