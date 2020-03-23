@@ -181,10 +181,11 @@ public class Lenkeliste<T> implements Liste<T>  {
     public void hentAll() {
         Node naa = forste;
 
-        System.out.print("[ ");
+        System.out.println("---------------------------------------------");
         while(naa != null) {
-            System.out.print(" " + naa.innhold + " ");
+            System.out.print(naa.innhold + "\n");
             naa = naa.neste;
-        } System.out.println(" ] ");
+        }
+        System.out.println("---------------------------------------------");
     }
 }

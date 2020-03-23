@@ -38,7 +38,7 @@ abstract class Resept {
     }
 
     // returnerer pasient-objekt
-    public Pasient hentPasientId() {
+    public Pasient hentPasient() {
         return pasient;
     }
 
@@ -57,16 +57,15 @@ abstract class Resept {
         }
     }
 
+
     @Override // overskriver original toString() metode med kode som returnerer variablene med tilsvarende tekst
     public String toString() {
-        return ("   [  "+legemiddel.navn.toUpperCase()+"  ]\n" +
-                "\n" + legemiddel +
-                "\n" + utskrivendeLege +
-                "\n" + pasient +
-                "\nResept-ID: " + id +
-                "\nAntall reit: " + reit);
-    }
 
+        // stor forbokstav
+        String navn = legemiddel.hentNavn();
+        String output = navn.substring(0, 1).toUpperCase() + navn.substring(1);
+        return (id + ": " + output + " ("+reit+" reit)");
+    }
 
     // overrides i subklassene
     abstract public String farge();
