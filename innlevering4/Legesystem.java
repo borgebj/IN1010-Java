@@ -61,14 +61,20 @@ public class Legesystem {
                     String navn = biter[0];
                     String fnr = biter[1];
 
+                    /*
                     // sjekker om navn eller foedselsnummer finnes - kaster unntak
                     for (Pasient x : pasienter) {
                         if (x.hentfNr().equals(fnr) || x.hentNavn().equals(navn)) {
                             throw new Exception("Navn/fNr ugyldig - Person finnes fra foer av");
                         }
                     }
+                    */
+
                     // oppretter objekt og legger til i lenkeliste
                     Pasient pasient = new Pasient(navn, fnr);
+
+                    System.out.println(isValid(pasient));
+
                     pasienter.leggTil(pasient);
                 }
                 // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
@@ -343,8 +349,7 @@ public class Legesystem {
         } catch (InterruptedException e) {}
     }
 
-    // BJorn sitt - gjort til kommentar fordi ikke lukket / ikke ferdig? for aa compile
-    /*
+
     //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION - (or in resept if it uses valid components)
     public boolean isValid(T obj) {
 
@@ -354,7 +359,7 @@ public class Legesystem {
         }
       }
       else if (obj instanceof Legemiddel) { //if we are checking a legemiddel
-        for (Legemiddel x : legemiddler) {
+        for (Legemiddel x : legemidler) {
           if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
         }
       }
@@ -364,41 +369,41 @@ public class Legesystem {
         }
       }
       else if (obj instanceof Resept) { //if we are checking a resept
-        String legeNavn = obj.hentLege().toLowerCase();
-        String pasientNavn = obj.hentPasient().toLowerCase();
-        String legemiddelNavn = obj.hentLegemiddel().toLowerCase();
-        boolean found = 0;
-        boolean gyldigOverall = 1;
+        String legeNavn = obj.hentLege().navn.toLowerCase();
+        String pasientNavn = obj.hentPasient().navn.toLowerCase();
+        String legemiddelNavn = obj.hentLegemiddel().navn.toLowerCase();
+        boolean found = false;
+        boolean gyldigOverall = true;
         for (Lege a : leger) { //loop through alle leger - se om vi kan finne a match
-          if (a.toLowerCase() == legeNavn) {
-            found = 1;
+          if (a.navn.toLowerCase() == legeNavn) {
+            found = true;
             break;
           }
         }
         if (!found) {
-          gyldigOverall = 0;
+          gyldigOverall = false;
           System.out.println("Ugyldig Lege");
         }
-        found = 0;
+        found = false;
         for (Pasient b : pasienter) { //loop through alle pasienter - se om vi kan finne a match
-          if (b.toLowerCase() == pasientNavn) {
-            found = 1;
+          if (b.navn.toLowerCase() == pasientNavn) {
+            found = true;
             break;
           }
         }
         if (!found) {
-          gyldigOverall = 0;
+          gyldigOverall = false;
           System.out.println("Ugyldig Pasient");
         }
-        found = 0;
-        for (Legemmiddel c : legemiddler) { //loop through alle pasienter - se om vi kan finne a match
-          if (c.toLowerCase() == legemiddelNavn) {
-            found = 1;
+        found = false;
+        for (Legemiddel c : legemidler) { //loop through alle pasienter - se om vi kan finne a match
+          if (c.navn.toLowerCase() == legemiddelNavn) {
+            found = true;
             break;
           }
         }
         if (!found) {
-          gyldigOverall = 0;
+          gyldigOverall = false;
           System.out.println("Ugyldig Legemiddel");
         }
         if (!gyldigOverall) return false; //what to output for resept
@@ -406,7 +411,7 @@ public class Legesystem {
       }
       return true;
     }
-    */
+
 
 
     /* E3 */

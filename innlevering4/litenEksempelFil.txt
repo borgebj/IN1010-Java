@@ -2,7 +2,9 @@
 Jens Hans Olsen,11111143521
 Petrolina Swiq,24120099343
 Sven Svendsen,10111224244
+Borge,225
 Juni Olsen,21049563451
+Borge,225
 # Legemidler (navn,type,pris,virkestoff,[styrke])
 Predizol,narkotisk,450,75,8
 Paralgin Forte,vanedannende,65,400,5
