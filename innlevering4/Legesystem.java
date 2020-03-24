@@ -262,31 +262,64 @@ public class Legesystem {
         } catch (InterruptedException e) {}
     }
 // <<<<<<< HEAD
-    //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION
-    public boolean isFound(String n, String lN) {
-      String navn = navn.toLowerCase();
-      String listeNavn = lN.toLowerCase();
-      if (listeNavn == leger) {
+    //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION - (or in resept if it uses valid components)
+    public boolean isValid(T obj) { //returns true if valid false if not
+      // String navn = navn.toLowerCase();
+      // String listeNavn = lN.toLowerCase();
+      if (obj instanceof Lege) { //if we are checking a lege
         for (Lege x : leger) {
-          if (navn == x.hentNavn()) return true;
+          if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
         }
       } 
-      else if (listeNavn == legemidler) {
-        for (Legemiddel x : legemidler) {
-          if (navn == x.hentNavn()) return true;
+      else if (obj instanceof Legemiddel) { //if we are checking a legemiddel
+        for (Legemiddel x : legemiddler) {
+          if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
         }
       }
-      else if (listeNavn == resepter) {
-        for (Resept x : resepter) {
-          if (navn == x.hentNavn()) return true;
-        }
-      }
-      else if (listeNavn == pasienter) {
+      else if (obj instanceof Pasient) { //if we are checking a pasient
         for (Pasient x : pasienter) {
-          if (navn == x.hentNavn()) return true;
+          if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
         }
       }
-      return false;   
+      else if (obj instanceof Resept) { //if we are checking a resept
+        String legeNavn = obj.hentLege().toLowerCase();
+        String pasientNavn = obj.hentPasient().toLowerCase();
+        String legemiddelNavn = obj.hentLegemiddel().toLowerCase();
+        boolean found = 0;
+        boolean gyldigOverall = 1;
+        for (Lege a : leger) { //loop through alle leger - se om vi kan finne a match
+          if (a.toLowerCase() == legeNavn) {
+            found = 1;
+            break;
+          }
+        if (!found) {
+          gyldigOverall = 0;
+          System.out.println("Ugyldig Lege");
+        }
+        found = 0; 
+        for (Pasient b : pasienter) { //loop through alle pasienter - se om vi kan finne a match
+          if (b.toLowerCase() == pasientNavn) {
+            found = 1;
+            break;
+          }
+        if (!found) {
+          gyldigOverall = 0;
+          System.out.println("Ugyldig Pasient");
+        }
+        found = 0;
+        for (Legemmiddel c : legemiddler) { //loop through alle pasienter - se om vi kan finne a match
+          if (c.toLowerCase() == legemiddelNavn) {
+            found = 1;
+            break;
+          }
+        if (!found) {
+          gyldigOverall = 0;
+          System.out.println("Ugyldig Legemiddel");
+        }
+        if (!gyldigOverall) return false; //what to output for resept
+        else return true;
+      }
+      return true;   
     }
     // E3
 
