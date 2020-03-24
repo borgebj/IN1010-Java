@@ -345,7 +345,6 @@ public class Legesystem {
         System.out.println("----------------------------------");
     }
 
-    // TEST!!
 
 
     /* E4 */
