@@ -709,6 +709,7 @@ public class Legesystem {
                 "\n | a. Tilbake      |" +
                 "\n -------------------\n");
     }
+
     //TODO: ikke ferdig!!
     public void leggTilResept() throws UlovligUtskrift {
         // objekt for input
@@ -722,10 +723,104 @@ public class Legesystem {
         // fortsetter til bruekren avbryter eller legger til pasient
         while (!reseptKommando.equals("a")) {
 
+            // alle unntatt PResept skal ha reit !
+            // > 1. 2. 4. - reit
+            // 2. Ikke reit
+            int legemiddelNummer = 0; 
+            String legeNavn;
+            int pasientID = 0;
+            int reit = 0;
+            boolean middelMatch = false;
+            boolean legeMatch = false;
+            boolean pasientMatch = false;
 
-            if (reseptKommando.equals("1")) {
-                System.out.println("du har valgt Hvit");
+            if (reseptKommando.equals("1") || reseptKommando.equals("2") || reseptKommando.equals("4")) {
+              //Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit
+              System.out.println("TEST");
+              System.out.print("Hva er legemiddel ID? \n > ");
+              legemiddelNummer = Integer.parseInt(scanner.nextLine());
+
+              System.out.print("Hva er lege navn? \n > ");                
+              legeNavn = scanner.nextLine().toLowerCase();
+
+              System.out.print("Hva er pasient ID? \n > ");                
+              pasientID = Integer.parseInt(scanner.nextLine());
+
+              System.out.print("Hva er reit? \n > ");                
+              reit = Integer.parseInt(scanner.nextLine());
+              Legemiddel minMiddel = null;
+              Pasient minPasient = null;
+              
+              for (Legemiddel a : legemidler) {
+                if (a.hentId() == legemiddelNummer) {
+                    middelMatch = true;
+                    minMiddel = a;
+                    break;
+                }
+              }
+
+              // sjekker om pasientID er gyldig
+              for (Pasient c : pasienter) {
+                if (c.hentId() == pasientID) {
+                    pasientMatch = true;
+                    minPasient = c;
+                    break;
+                }
+              }
+
+              for (Lege lege : leger) {
+                if (legeNavn.equals(lege.hentNavn())) {
+                    legeMatch = true;
+                    //create the appropriate resept
+                    if (reseptKommando == "1") lege.skrivHvitResept(minMiddel,minPasient,reit); 
+                    else if (reseptKommando == "2") lege.skrivMilitaerResept(minMiddel,minPasient,reit);
+                    else if (reseptKommando == "4") lege.skrivBlaaResept(minMiddel,minPasient,reit);
+                    
+                    System.out.println("COMPLETED CHOICE " + reseptKommando);
+                }
+              }
+              System.out.println("Middel: "+ middelMatch+ "Pasient: "+ pasientMatch+ "Lege: "+legeMatch);
+              reseptKommando = "a";
             }
+
+            else if (reseptKommando.equals("3")) { //////////////////////////////////////////////////////////////////
+              System.out.print("Hva er legemiddel ID? \n > ");
+              legemiddelNummer = Integer.parseInt(scanner.nextLine());
+
+              System.out.print("Hva er lege navn? \n > ");                
+              legeNavn = scanner.nextLine().toLowerCase();
+
+              System.out.print("Hva er pasient ID? \n > ");                
+              pasientID = Integer.parseInt(scanner.nextLine());
+
+              Legemiddel minMiddel = null;
+              Pasient minPasient = null;
+              
+              for (Legemiddel a : legemidler) {
+                if (a.hentId() == legemiddelNummer) {
+                    middelMatch = true;
+                    minMiddel = a;
+                    break;
+                }
+              }
+
+              // sjekker om pasientID er gyldig
+              for (Pasient c : pasienter) {
+                if (c.hentId() == pasientID) {
+                    pasientMatch = true;
+                    minPasient = c;
+                    break;
+                }
+              }
+              for (Lege lege : leger) {
+                if (legeNavn.equals(lege.hentNavn())) {
+                    legeMatch = true;
+                    lege.skrivPResept(minMiddel,minPasient);
+                    System.out.println("COMPLETED CHOICE " + reseptKommando);
+                }
+              }
+              System.out.println("Middel: "+ middelMatch+ "Pasient: "+ pasientMatch+ "Lege: "+legeMatch);
+              reseptKommando = "a";
 
             else {
                 System.out.println("\nUgyldig input, proev igjen");
