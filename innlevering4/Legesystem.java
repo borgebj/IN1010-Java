@@ -77,7 +77,7 @@ public class Legesystem {
                 // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
                 catch (Exception e) {
                     String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
-                    writer.format("%s %7s %-4d %-30s %s", timestamp, "Linje:", linjer,  line, e + "\n");
+                    writer.format("%s %7s %-4d %-110s %s", timestamp, "Linje:", linjer,  line, e + "\n");
                     pasientFeil++;
                 }
             }
@@ -100,8 +100,8 @@ public class Legesystem {
                     //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
 
-                    String navn = biter[0].trim();
-                    String type = biter[1].trim();
+                    String navn = biter[0];
+                    String type = biter[1];
                     Double pris = Double.parseDouble(biter[2]);
                     Double virkestoff = Double.parseDouble(biter[3]);
 
@@ -121,14 +121,14 @@ public class Legesystem {
                     }
 
                     // om styrke ikke er definert, sjekker om typen er vanlig og legger til
-                    if (type.equals("vanlig")) {
+                    else if (type.equals("vanlig")) {
                         legemidler.leggTil(new Vanlig(navn, pris, virkestoff));
                     }
                 }
                 // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
                 catch (Exception e) {
                     String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
-                    writer.format("%s %7s %-4d %-30s %s", timestamp, "Linje:", linjer,  line, e + "\n");
+                    writer.format("%s %7s %-4d %-110s %s", timestamp, "Linje:", linjer,  line, e + "\n");
                     middelFeil++;
                 }
             }
@@ -174,13 +174,13 @@ public class Legesystem {
                 // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
                 catch (Exception e) {
                     String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
-                    writer.format("%s %7s %-4d %-30s %s", timestamp, "Linje:", linjer,  line, e + "\n");
+                    writer.format("%s %7s %-4d %-110s %s", timestamp, "Linje:", linjer,  line, e + "\n");
                     legeFeil++;
                 }
             }
         }
 
-
+/*
         // om linjen har "# Resepter" - lag Resept-objekter og legg til
         if (lesFil.nextLine().startsWith("# Resepter")) {
 
@@ -199,7 +199,7 @@ public class Legesystem {
                     int legemiddelNummer = Integer.parseInt(biter[0]);
                     String legeNavn = biter[1];
                     int pasientID = Integer.parseInt(biter[2]);
-                    String type = biter[3].trim();
+                    String type = biter[3];
 
                     boolean middelMatch = false;
                     boolean legeMatch = false;
@@ -240,27 +240,29 @@ public class Legesystem {
                     // sjekker om resepten er godkjent
                     if (middelMatch==true && legeMatch==true && pasientMatch==true) { godkjent = true; }
 
-                    // sjekker om vanlig lege proever aa opprette narkotisk resept
-                    if (lege instanceof Lege && legemiddel instanceof Narkotisk) {
-                        throw new UlovligUtskrift(lege, legemiddel, pasient.hentId());
-                    }
 
-                    if (biter.length > 4) {
-                        int reit = Integer.parseInt(biter[4]);
+                    if (godkjent) {
+                        if (biter.length > 4) {
+                            int reit = Integer.parseInt(biter[4]);
 
-                        if (type.equals("blaa")) {
-                            resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
-                        }
-                        else if (type.equals("hvit")) {
-                            resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
-                        }
-                        else if (type.equals("militaer")) {
-                            resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
-                        }
-                    }
-                    else {
-                        if (type.equals("p")) {
-                            resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
+                            if (type.equals("blaa")) {
+                                System.out.println(linjer + "   " + lege);
+                                resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
+                            }
+                            else if (type.equals("hvit")) {
+                                System.out.println(linjer + "   " + lege);
+                                resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
+                            }
+                            else if (type.equals("militaer")) {
+                                System.out.println(linjer + "   " + lege);
+                                MilitaerResept militaer = lege.skrivMilitaerResept(legemiddel, pasient, reit)
+                                resepter.leggTil(militaer);
+                            }
+                        } else {
+                            if (type.equals("p")) {
+                                System.out.println(linjer + "   " + lege);
+                                resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
+                            }
                         }
                     }
 
@@ -268,11 +270,76 @@ public class Legesystem {
                 // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
                 catch (Exception e) {
                     String line = Files.readAllLines(Paths.get(fil)).get(linjer - 1);
-                    writer.format("%s %7s %-4d %-30s %s", timestamp, "Linje:", linjer,  line, e + "\n");
+                    writer.format("%s %7s %-4d %-45s %s", timestamp, "Linje:", linjer,  line, e + "\n");
                     reseptFeil++;
                 }
             }
         }
+
+ */
+
+        // om linjen har "# Resepter" - lag Resept-objekter og legg til
+        if (lesFil.nextLine().startsWith("# Resepter")) {
+
+            // skriver typen i error-log og inkrementerer antall linjer
+            writer.write("\n# Resept-feil\n");
+            linjer++;
+
+
+            while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
+                linjer++;
+
+                // forsoker aa lage variabler av de ulike ordene i hver linje
+                try {
+                    //deler opp linjen i biter og tildeler verdier til ulike indekser
+                    String[] biter = lesFil.nextLine().split(",");
+                    int legemiddelNummer = Integer.parseInt(biter[0]);
+                    String legeNavn = biter[1];
+                    int pasientID = Integer.parseInt(biter[2]);
+                    String type = biter[3];
+
+                    // hvis legemiddelID matcher
+                    for (Legemiddel legemiddel : legemidler) {
+                        if (legemiddelNummer == legemiddel.hentId()) {
+
+                            // hvis lege matcher
+                            for (Lege lege : leger) {
+                                if (legeNavn.equals(lege.hentNavn())) {
+
+                                    for (Pasient pasient : pasienter) {
+                                        if (pasientID == pasient.hentId()) {
+
+                                            if (biter.length > 4) {
+                                                int reit = Integer.parseInt(biter[4]);
+
+                                                if (type.equals("hvit")) {
+
+                                                }
+                                                else if (type.equals("militaer")) {
+
+                                                }
+                                                else if (type.equals("blaa"))
+                                            }
+                                            else if (biter.length == 3 && type.equals("p")) {
+                                                PResept presept = new PResept
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
+                catch (Exception e) {
+                    String line = Files.readAllLines(Paths.get(fil)).get(linjer - 1);
+                    writer.format("%s %7s %-4d %-45s %s", timestamp, "Linje:", linjer,  line, e + "\n");
+                    reseptFeil++;
+                }
+            }
+        }
+
+
 
 
             /*
@@ -354,7 +421,7 @@ public class Legesystem {
         writer.close();
     }
 
-    
+
     // egen sleep-metode for "artifical-delay"
     public static void delay(long t) {
         try {
@@ -700,10 +767,7 @@ public class Legesystem {
                     break;
                 }
               }
-    //1 Hvite
-    //2 Militar
-    //3 PR
-    //4 Blaa
+
               for (Lege lege : leger) {
                 if (legeNavn.equals(lege.hentNavn())) {
                     legeMatch = true;
@@ -757,7 +821,6 @@ public class Legesystem {
               }
               System.out.println("Middel: "+ middelMatch+ "Pasient: "+ pasientMatch+ "Lege: "+legeMatch);
               reseptKommando = "a";
-            }
 
             else {
                 System.out.println("\nUgyldig input, proev igjen");
@@ -1051,10 +1114,30 @@ public class Legesystem {
     }
 
     public void muligMisbruk() {
+
+        /*
+        // (1) gaar gjennom hver lege
         for (Lege x : leger) {
             System.out.println("\n"+x);
 
-            Lenkeliste liste = x.hentResepter();
+            Lenkeliste<Resept> liste = x.hentResepter();
+        }
+        */
+
+        // (2) gaar gjennom hver lege
+        for (Lege a : leger) {
+            String navnILege = a.hentNavn();
+            System.out.println("\n"+a);
+
+            // gaar gjennom hvert resept
+            for (Resept b : resepter) {
+                String navnIResept = b.hentLege().hentNavn();
+
+                // sjekker hvilken resept tilhorer hver lege
+                if (navnILege.equals(navnIResept)) {
+                    System.out.println(b);
+                }
+            }
 
         }
         delay(5000);

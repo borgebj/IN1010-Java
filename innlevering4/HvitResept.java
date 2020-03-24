@@ -37,9 +37,6 @@ public class HvitResept extends Resept {
         else if (legemiddel instanceof Vanedannende) {
             return (id + ": [Hvit|vanedannende] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+" ) ");
         }
-        else if (legemiddel instanceof Vanlig) {
-            return (id + ": [Hvit|vanlig] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
-        }
-        return (id + ": " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
+        return (id + ": [Hvit|vanlig] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
     }
 }
