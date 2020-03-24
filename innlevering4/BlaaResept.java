@@ -18,4 +18,29 @@ public class BlaaResept extends Resept {
             pris = 0;
         } return (pris * 0.25);
     }
+
+    @Override // overskriver original toString() metode med kode som returnerer variablene med tilsvarende tekst
+    public String toString() {
+
+        // stor forbokstav paa Lege
+        String Pnavn = pasient.hentNavn();
+        String Poutput = Pnavn.substring(0, 1).toUpperCase() + Pnavn.substring(1);
+
+        // stor forbokstav paa Pasient
+        String Lnavn = legemiddel.hentNavn();
+        String Loutput = Lnavn.substring(0, 1).toUpperCase() + Lnavn.substring(1);
+
+        // sjekker middel-typen
+        if (legemiddel instanceof Narkotisk) {
+            return (id + ": [Blaa|narkotisk] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
+        }
+        else if (legemiddel instanceof Vanedannende) {
+            return (id + ": [Blaa|vanedannende] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+" ) ");
+        }
+        else if (legemiddel instanceof Vanlig) {
+            return (id + ": [Blaa|vanlig] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
+        }
+        return (id + ": " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
+    }
+
 }

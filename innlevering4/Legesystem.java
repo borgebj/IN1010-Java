@@ -29,6 +29,8 @@ public class Legesystem {
     int pasientFeil = 0, middelFeil = 0, legeFeil = 0, reseptFeil = 0;
 
 
+
+    // TODO: Kan forbredes mes "isValid" metoden???
     // konstruktoer gaar gjennom filen, oppretter objekter og legger de til i listen (kaster 2 unntak)
     public Legesystem(String fil) throws FileNotFoundException, IOException {
 
@@ -200,6 +202,8 @@ public class Legesystem {
                     int pasientID = Integer.parseInt(biter[2]);
                     String type = biter[3];
 
+
+                    //TODO: Fiks: ALLE leger får ALLE (gyldige) resepter
                     for (Legemiddel legemiddel : legemidler) {
                         if (legemiddel.hentId() == legemiddelNummer) {
 
@@ -247,6 +251,7 @@ public class Legesystem {
                     reseptFeil++;
                 }
             }
+            System.out.println("ute av loopen");
         }
 
         // lukker writer-objektet som lager errorlog.txt
@@ -261,16 +266,17 @@ public class Legesystem {
             Thread.sleep(t);
         } catch (InterruptedException e) {}
     }
-// <<<<<<< HEAD
+
+    // BJorn sitt - gjort til kommentar fordi ikke lukket / ikke ferdig? for aa compile
+    /*
     //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION - (or in resept if it uses valid components)
-    public boolean isValid(T obj) { //returns true if valid false if not
-      // String navn = navn.toLowerCase();
-      // String listeNavn = lN.toLowerCase();
+    public boolean isValid(T obj) {
+
       if (obj instanceof Lege) { //if we are checking a lege
         for (Lege x : leger) {
           if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
         }
-      } 
+      }
       else if (obj instanceof Legemiddel) { //if we are checking a legemiddel
         for (Legemiddel x : legemiddler) {
           if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
@@ -297,7 +303,7 @@ public class Legesystem {
           gyldigOverall = 0;
           System.out.println("Ugyldig Lege");
         }
-        found = 0; 
+        found = 0;
         for (Pasient b : pasienter) { //loop through alle pasienter - se om vi kan finne a match
           if (b.toLowerCase() == pasientNavn) {
             found = 1;
@@ -322,9 +328,9 @@ public class Legesystem {
         if (!gyldigOverall) return false; //what to output for resept
         else return true;
       }
-      return true;   
+      return true;
     }
-    // E3
+    */
 
 
     /* E3 */
@@ -869,6 +875,21 @@ public class Legesystem {
     }
 
     public void muligMisbruk() {
+        for (Lege x : leger) {
+            System.out.println("\n"+x);
 
+            //TODO: Sjekk terminalen , mulig feil ??
+            for (Resept y : resepter) {
+                System.out.println(y);
+
+                /*
+                Legemiddel middel = y.hentLegemiddel();
+                if (middel instanceof Narkotisk) {
+                    System.out.println(y);
+                }
+                */
+            }
+        }
+        delay(5000);
     }
 }

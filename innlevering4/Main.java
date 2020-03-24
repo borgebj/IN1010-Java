@@ -152,8 +152,6 @@ public class Main {
     }
 
     public static void statistikkDel(Legesystem lege) {
-        System.out.println("\nIkke implementert\n");
-
         Scanner scanner = new Scanner(System.in);
 
         // viser meny og spoer bruker om input
@@ -242,12 +240,12 @@ public class Main {
 
     public static void statistikkMeny() {
         System.out.println("\n\n------[Statistikk]---------------------");
-        System.out.println("| 1. Se Resepter m/ Vanedannende   - |");
-        System.out.println("| 2. Se Resepter m/ Narkotiske     - |");
-        System.out.println("| 3. Se Mulig misbruk av narkotika - |");
-        System.out.println("| - - - - - - - - - - - - - - - - - - - - |");
-        System.out.println("| a.  Tilbake                           - |");
-        System.out.println("-------------------------------------------\n");
+        System.out.println("| 1. Se Resepter m/ Vanedannende    - |");
+        System.out.println("| 2. Se Resepter m/ Narkotiske      - |");
+        System.out.println("| 3. Se Mulig misbruk av narkotika  - |");
+        System.out.println("| - - - - - - - - - - - - - - - - - - |");
+        System.out.println("| a.  Tilbake                       - |");
+        System.out.println("---------------------------------------\n");
     }
 
 
