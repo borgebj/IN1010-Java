@@ -342,4 +342,7 @@ public class Main {
         System.out.println("\n\nAvslutter...\n\n");
         delay(2000);
     }
+
 }
+
+
