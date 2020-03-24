@@ -58,8 +58,8 @@ public class Legesystem {
                 try {
                     //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
-                    String navn = biter[0];
-                    String fnr = biter[1];
+                    String navn = biter[0].trim();
+                    String fnr = biter[1].trim();
 
                     //TODO: Sjekk om foedselsnummer er gyldig ved aa konvertere til int og tilbake (gaar den ikke er det feil)
 
@@ -100,8 +100,8 @@ public class Legesystem {
                     //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
 
-                    String navn = biter[0];
-                    String type = biter[1];
+                    String navn = biter[0].trim();
+                    String type = biter[1].trim();
                     Double pris = Double.parseDouble(biter[2]);
                     Double virkestoff = Double.parseDouble(biter[3]);
 
@@ -151,8 +151,8 @@ public class Legesystem {
                 try {
                     //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
-                    String navn = biter[0].trim();
-                    System.out.println(navn);
+                    String navn = biter[0];
+                    String fnr = biter[1];
 
                     // sjekker om navn finnes - kaster unntak
                     for (Lege x : leger) {
@@ -161,7 +161,7 @@ public class Legesystem {
                         }
                     }
                     // om andre indeks er 0 - lag vanlige leger og legg till ( .trim() fjerner whitespace )
-                    if (biter[1].equals("0")) {
+                    if (biter[1].trim().equals("0")) {
                         leger.leggTil(new Lege(navn));
                     }
 
@@ -246,16 +246,22 @@ public class Legesystem {
                     }
 
                     if (biter.length > 4) {
+                        int reit = Integer.parseInt(biter[4]);
 
                         if (type.equals("blaa")) {
-                            System.out.println("denne er blaa");
+                            resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
                         }
                         else if (type.equals("hvit")) {
-
+                            resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
+                        }
+                        else if (type.equals("militaer")) {
+                            resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
                         }
                     }
                     else {
-                        System.out.println("Trenger ikke reit");
+                        if (type.equals("p")) {
+                            resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
+                        }
                     }
 
                 }
@@ -348,8 +354,7 @@ public class Legesystem {
         writer.close();
     }
 
-
-
+    
     // egen sleep-metode for "artifical-delay"
     public static void delay(long t) {
         try {
@@ -969,17 +974,8 @@ public class Legesystem {
         for (Lege x : leger) {
             System.out.println("\n"+x);
 
-            //TODO: Sjekk terminalen , mulig feil ??
-            for (Resept y : resepter) {
-                System.out.println(y);
+            Lenkeliste liste = x.hentResepter();
 
-                /*
-                Legemiddel middel = y.hentLegemiddel();
-                if (middel instanceof Narkotisk) {
-                    System.out.println(y);
-                }
-                */
-            }
         }
         delay(5000);
     }
