@@ -29,6 +29,8 @@ public class Legesystem {
     int pasientFeil = 0, middelFeil = 0, legeFeil = 0, reseptFeil = 0;
 
 
+    // OOPS! GLemte å sjekke om legen er en spesialist når lager resepter !!!!
+
     // konstruktoer gaar gjennom filen, oppretter objekter og legger de til i listen (kaster 2 unntak)
     public Legesystem(String fil) throws FileNotFoundException, IOException {
 
@@ -206,6 +208,8 @@ public class Legesystem {
                             for (Lege lege : leger) {
                                 if (lege.hentNavn().equals(legeNavn)) {
 
+                                    if (lege instanceof Lege && type.equals("narkotisk")) { }
+
                                     for (Pasient pasient : pasienter) {
                                         if (pasient.hentId() == pasientID) {
 
@@ -262,7 +266,6 @@ public class Legesystem {
         } catch (InterruptedException e) {}
     }
 
-    /*
 // <<<<<<< HEAD
     //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION
     public boolean isFound(String n, String lN) {
@@ -290,7 +293,6 @@ public class Legesystem {
       }
       return false;
     }
-    */
     // E3
 
 
@@ -839,19 +841,30 @@ public class Legesystem {
 
         int antLeger = 0;
 
+        System.out.println("\n\n---[ Leger med Narkotiske ] --------");
         for (Lege lege : leger) {
             int antNarkotiske = 0;
 
             Lenkeliste reseptListe = lege.hentResepter();
 
             for (Resept x : resepter) {
-                System.out.println(x.hentLegemiddel());
+                if (x.hentLegemiddel() instanceof Narkotisk) {
+                    antNarkotiske++;
+                    System.out.println(x.hentLegemiddel());
+                }
             }
+
             if (antNarkotiske > 0) {
-                System.out.println(lege);
+                System.out.println("\n" + lege + " (antall: " +antNarkotiske+")");
                 antLeger++;
             }
         }
+        System.out.println("------------------------------------");
         System.out.println("Antall leger med narkotiske: " + antLeger);
+        System.out.println("------------------------------------\n");
+
+        delay(2000);
+        System.out.println("Gaar tilbake ... ");
+        delay(1000);
     }
 }

@@ -53,6 +53,6 @@ abstract class Legemiddel {
         // forkorter til 2 decimaler vha Math.round()
         double nyPris = Math.round(pris * 100.00) / 100.00;
         double nyVirkestoff = Math.round(virkestoff * 100.00) / 100.00;
-        return (id + ": " + "[VANLIG]       " + navn + " ( "+nyPris+" kr ) " + " ( "+nyVirkestoff+" mg )");
+        return (id + ": " + "[VANLIG] - " + navn + " ( "+nyPris+" kr ) " + " ( "+nyVirkestoff+" mg )");
     }
 }

@@ -68,7 +68,18 @@ abstract class Resept {
         // stor forbokstav paa Pasient
         String Lnavn = legemiddel.hentNavn();
         String Loutput = Lnavn.substring(0, 1).toUpperCase() + Lnavn.substring(1);
-        return (id + ": " + Loutput + " ("+reit+" reit) " + " ( "+Poutput+" ) ");
+
+        // sjekker middel-typen
+        if (legemiddel instanceof Narkotisk) {
+            return (id + ": [narkotisk] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
+        }
+        else if (legemiddel instanceof Vanedannende) {
+            return (id + ": [vanedannende] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+" ) ");
+        }
+        else if (legemiddel instanceof Vanlig) {
+            return (id + ": [vanlig] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
+        }
+        return (id + ": " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
     }
 
     // overrides i subklassene
