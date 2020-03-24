@@ -5,11 +5,10 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
     String navn;
 
     // lenkeliste som holder alle resepter legen har skrevet ut
-    Lenkeliste<Resept> utskrevedeResepter;
+    Lenkeliste<Resept> utskrevedeResepter = new Lenkeliste<Resept>();
 
     public Lege(String navn){
         this.navn = navn;
-        utskrevedeResepter = new Lenkeliste<Resept>();
     }
 
     // metode som returner navnet paa legen

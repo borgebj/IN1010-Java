@@ -29,15 +29,12 @@ public class MilitaerResept extends HvitResept {
 
         // sjekker middel-typen
         if (legemiddel instanceof Narkotisk) {
-            return (id + ": [Hvit|narkotisk] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
+            return (id + ": [Militaer|narkotisk] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
         }
         else if (legemiddel instanceof Vanedannende) {
-            return (id + ": [Hvit|vanedannende] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+" ) ");
+            return (id + ": [Militaer|vanedannende] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+" ) ");
         }
-        else if (legemiddel instanceof Vanlig) {
-            return (id + ": [Hvit|vanlig] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
-        }
-        return (id + ": " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
+        return (id + ": [Militaer|vanlig] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
     }
 }
 

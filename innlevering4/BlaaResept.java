@@ -37,10 +37,7 @@ public class BlaaResept extends Resept {
         else if (legemiddel instanceof Vanedannende) {
             return (id + ": [Blaa|vanedannende] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+" ) ");
         }
-        else if (legemiddel instanceof Vanlig) {
-            return (id + ": [Blaa|vanlig] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
-        }
-        return (id + ": " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
+        return (id + ": [Blaa|vanlig] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
     }
 
 }
