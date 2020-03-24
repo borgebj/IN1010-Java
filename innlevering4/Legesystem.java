@@ -267,36 +267,6 @@ public class Legesystem {
         } catch (InterruptedException e) {}
     }
 
-<<<<<<< Updated upstream
-// <<<<<<< HEAD
-    //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION
-    public boolean isFound(String n, String lN) {
-      String navn = navn.toLowerCase();
-      String listeNavn = lN.toLowerCase();
-      if (listeNavn == leger) {
-        for (Lege x : leger) {
-          if (navn == x.hentNavn()) return true;
-        }
-      }
-      else if (listeNavn == legemidler) {
-        for (Legemiddel x : legemidler) {
-          if (navn == x.hentNavn()) return true;
-        }
-      }
-      else if (listeNavn == resepter) {
-        for (Resept x : resepter) {
-          if (navn == x.hentNavn()) return true;
-        }
-      }
-      else if (listeNavn == pasienter) {
-        for (Pasient x : pasienter) {
-          if (navn == x.hentNavn()) return true;
-        }
-      }
-      return false;
-    }
-    // E3
-=======
     // BJorn sitt - gjort til kommentar fordi ikke lukket / ikke ferdig? for aa compile
     /*
     //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION - (or in resept if it uses valid components)
@@ -358,7 +328,6 @@ public class Legesystem {
       return true;
     }
     */
->>>>>>> Stashed changes
 
 
     /* E3 */
