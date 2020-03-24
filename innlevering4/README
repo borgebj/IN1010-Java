@@ -1,28 +1,24 @@
 
- - Oppdateringslogg - 
+ - Viktig info (?) - 
+ 
+ Ting vi mangler for å få gjort ferdig oblig:
+ 
+ - Hele Del A: Gruppearbeid
+ - Hele Del F: Erfaringsnotat
+ - Resept-delen av E1
+ - E2 
+ - E3 (tror jeg har gjort den?)
+ - E4
+ - E5
+ - E6
+ - E7
+ - E8
 
-- - Børge - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+Filer som ikke har noe med oblig å gjøre:
+- HierarkiOversikt.png
+- README
+- notater.txt
+- *.class
 
-17.02 - ??:?? - Laget klassen "Pasient" og endret klassene "Resept", "Hvit", "Blaa", "PResept" og "Militaerresept"
-17.03 - 17:33 - Skriver i intellij og må uploade alt på nytt men oppdatert, sorry, får håpe ingenting jeg glemte x_x
-17.03 - 18:27 - Fikset mye dritt (Lenkeliste+Liste med Iterator/Iterable, Lege, og resepter). Endret på filnavn ^
-17.03 - 19:40 - Uploada alle filer paa nytt. Om noe mangles si ifra
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-- - Jonas - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
-
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-- - Elias - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
-
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-- - Bjørn - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
-
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-- - Kommentarer - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
-
-- (Børge): Plz kommenter koden foer dere legger inn
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+TOOD: 
+-fjern alle .class filer

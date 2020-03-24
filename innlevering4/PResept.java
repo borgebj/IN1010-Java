@@ -19,9 +19,6 @@ public class PResept extends HvitResept {
             pris = 0;
         } return pris;
     }
-<<<<<<< Updated upstream
-}
-=======
 
     @Override // overskriver original toString() metode med kode som returnerer variablene med tilsvarende tekst
     public String toString() {
@@ -47,4 +44,3 @@ public class PResept extends HvitResept {
         return (id + ": " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
     }
 }
->>>>>>> Stashed changes
