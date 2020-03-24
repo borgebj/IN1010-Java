@@ -1,8 +1,11 @@
 # Pasienter (navn, fnr)
 Jens Hans Olsen,11111143521
+borge,5525 // FJERN
+Ashma // FJERN
 Petrolina Swiq,24120099343
 Sven Svendsen,10111224244
 Juni Olsen,21049563451
+borge,5525 // FJERN
 # Legemidler (navn,type,pris,virkestoff,[styrke])
 Predizol,narkotisk,450,75,8
 Paralgin Forte,vanedannende,65,400,5
@@ -10,6 +13,7 @@ Placebo Pianissimo,vanlig,10,0
 Ibux,vanlig,240,200
 # Leger (navn,kontrollid / 0 hvis vanlig lege)
 Dr. Cox,0 
+Dr. Cox,0
 Dr. Wilson,0
 Dr. House,12345
 Dr. Hillestad Lovold,0
