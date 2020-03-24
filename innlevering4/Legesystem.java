@@ -292,6 +292,7 @@ public class Legesystem {
             found = 1;
             break;
           }
+        }
         if (!found) {
           gyldigOverall = 0;
           System.out.println("Ugyldig Lege");
@@ -302,6 +303,7 @@ public class Legesystem {
             found = 1;
             break;
           }
+        }
         if (!found) {
           gyldigOverall = 0;
           System.out.println("Ugyldig Pasient");
@@ -312,6 +314,7 @@ public class Legesystem {
             found = 1;
             break;
           }
+        }
         if (!found) {
           gyldigOverall = 0;
           System.out.println("Ugyldig Legemiddel");
