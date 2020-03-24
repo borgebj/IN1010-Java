@@ -64,7 +64,7 @@ public class Legesystem {
                     // sjekker om navn eller foedselsnummer finnes - kaster unntak
                     for (Pasient x : pasienter) {
                         if (x.hentfNr().equals(fnr) || x.hentNavn().equals(navn)) {
-                            throw new Exception("Navn/fNr ugyldig");
+                            throw new Exception("Navn/fNr ugyldig - Person finnes fra foer av");
                         }
                     }
                     // oppretter objekt og legger til i lenkeliste
@@ -74,13 +74,13 @@ public class Legesystem {
                 // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
                 catch (Exception e) {
                     String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
-                    writer.format("%s %7s %-4d %s", timestamp, "Linje:", linjer,  line + "\n");
+                    writer.format("%s %7s %-4d %s %48s", timestamp, "Linje:", linjer,  line, e + "\n");
                     pasientFeil++;
                 }
             }
         }
 
-
+        /*
         // om linjen har "# Legemidler" - lag legemiddel-objekter og legg til i liste
         if (lesFil.nextLine().startsWith("# Legemidler")) {
 
@@ -133,8 +133,9 @@ public class Legesystem {
                 }
             }
         }
+         */
 
-
+        /*
         // om linjen har "# Leger" - lag lege-objekter og legg til
         if (lesFil.nextLine().startsWith("# Leger")) {
 
@@ -180,8 +181,9 @@ public class Legesystem {
                 }
             }
         }
+        */
 
-
+        /*
         // om linjen har "# Resepter" - lag Resept-objekter og legg til
         if (lesFil.nextLine().startsWith("# Resepter")) {
 
@@ -223,12 +225,12 @@ public class Legesystem {
                                                 }
 
                                                 // om typen er "blaa" - lag blaa resept og legg til
-                                                if (type.equals("blaa")) {
+                                                else if (type.equals("blaa")) {
                                                     resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
                                                 }
 
                                                 // om typen er "militaer" - lag militaer resept og legg til
-                                                if (type.equals("militaer")) {
+                                                else if (type.equals("militaer")) {
                                                     resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
                                                 }
                                             }
@@ -251,8 +253,82 @@ public class Legesystem {
                     reseptFeil++;
                 }
             }
-            System.out.println("ute av loopen");
-        }
+
+
+            /*
+            while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
+                linjer++;
+
+                //deler opp linjen i biter og tildeler verdier til ulike indekser
+                String[] biter = lesFil.nextLine().split(",");
+
+                // forsoker aa lage variabler av de ulike ordene i hver linje
+                try {
+
+                    int legemiddelNummer = Integer.parseInt(biter[0]);
+                    String legeNavn = biter[1];
+                    int pasientID = Integer.parseInt(biter[2]);
+                    String type = biter[3];
+
+                    boolean x = false;
+                    boolean y = false;
+                    boolean z = false;
+                    boolean godkjent = false;
+
+                    Legemiddel legemiddel = null;
+                    Lege lege = null;
+                    Pasient pasient = null;
+
+                    for (Legemiddel a : legemidler) {
+                        if (legemiddelNummer == a.hentId()) {
+                            x = true;
+                            legemiddel = a;
+                        }
+                    }
+                    for (Lege b : leger){
+                        if (legeNavn.equals(b.hentNavn())) {
+                            y = true;
+                            lege = b;
+                        }
+                    }
+                    for (Pasient c : pasienter) {
+                        if (pasientID == c.hentId()) {
+                            z = true;
+                            pasient = c;
+                        }
+                    }
+                    if (x==true && y==true && z==true) {
+                        godkjent = true;
+                    }
+
+
+                    if (godkjent) {
+                        if (type.equals("blaa")) {
+                            int reit = Integer.parseInt(biter[4]);
+                            resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
+                        }
+                        else if (type.equals("hvit")) {
+                            int reit = Integer.parseInt(biter[4]);
+                            resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
+                        }
+                        else if (type.equals("militaer")) {
+                            int reit = Integer.parseInt(biter[4]);
+                            resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
+                        }
+                        else if (type.equals("p")) {
+                            resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
+                        }
+                    }
+                }
+                // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
+                catch (Exception e) {
+                    String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
+                    writer.format("%s %7s %-4d %s", timestamp, "Linje:", linjer,  line + "\n");
+                    reseptFeil++;
+                }
+            }
+            */
+
 
         // lukker writer-objektet som lager errorlog.txt
         writer.close();
