@@ -262,6 +262,37 @@ public class Legesystem {
         } catch (InterruptedException e) {}
     }
 
+    /*
+// <<<<<<< HEAD
+    //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION
+    public boolean isFound(String n, String lN) {
+      String navn = navn.toLowerCase();
+      String listeNavn = lN.toLowerCase();
+      if (listeNavn == leger) {
+        for (Lege x : leger) {
+          if (navn == x.hentNavn()) return true;
+        }
+      }
+      else if (listeNavn == legemidler) {
+        for (Legemiddel x : legemidler) {
+          if (navn == x.hentNavn()) return true;
+        }
+      }
+      else if (listeNavn == resepter) {
+        for (Resept x : resepter) {
+          if (navn == x.hentNavn()) return true;
+        }
+      }
+      else if (listeNavn == pasienter) {
+        for (Pasient x : pasienter) {
+          if (navn == x.hentNavn()) return true;
+        }
+      }
+      return false;
+    }
+    */
+    // E3
+
 
     /* E3 */
 
@@ -806,5 +837,21 @@ public class Legesystem {
 
     public void muligMisbruk() {
 
+        int antLeger = 0;
+
+        for (Lege lege : leger) {
+            int antNarkotiske = 0;
+
+            Lenkeliste reseptListe = lege.hentResepter();
+
+            for (Resept x : resepter) {
+                System.out.println(x.hentLegemiddel());
+            }
+            if (antNarkotiske > 0) {
+                System.out.println(lege);
+                antLeger++;
+            }
+        }
+        System.out.println("Antall leger med narkotiske: " + antLeger);
     }
 }
