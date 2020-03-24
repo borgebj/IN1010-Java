@@ -15,5 +15,6 @@ public class MilitaerResept extends HvitResept {
     public double prisAaBetale() {
         return legemiddel.hentPris() * 0;
     }
+
 }
 
