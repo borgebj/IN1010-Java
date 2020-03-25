@@ -600,7 +600,7 @@ public class Legesystem {
         System.out.print("Hva onsker du aa gjoere? \n > ");
         String reseptKommando = scanner.nextLine().toLowerCase();
 
-        try {
+        try { 
 
             // sjekker om input er gyldig i forhold til menyen
             if (reseptKommando.equals("1") || reseptKommando.equals("2") ||
