@@ -4,12 +4,12 @@ Petrolina Swiq,24120099343
 Sven Svendsen,10111224244
 Juni Olsen,21049563451
 # Legemidler (navn,type,pris,virkestoff,[styrke])
-Predizol narkotisk 450.000000 75.000000
-Paralgin Forte vanedannende 65.000000 400.000000
-Placebo Pianissimo vanlig 10.000000 0.000000
-Ibux vanlig 240.000000 200.000000
+Predizol,narkotisk,450.00,75.00 8
+Paralgin Forte,vanedannende,65.00,400.00 5
+Placebo Pianissimo,vanlig,10.00,0.00
+Ibux,vanlig,240.00,200.00
 # Leger (navn,kontrollid / 0 hvis vanlig lege)
-Dr. Cox 0
-Dr. Hillestad Lovold 0
-Dr. House 12345
-Dr. Wilson 0
+Dr. Cox,0
+Dr. Hillestad Lovold,0
+Dr. House,12345
+Dr. Wilson,0

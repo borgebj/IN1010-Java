@@ -995,15 +995,19 @@ public class Legesystem {
 
             if (legemiddel instanceof Vanlig) {
                 type = "vanlig";
-                writer.format("\n%s %s %f %f" , navn, type, pris, virkestoff);
+                writer.format("\n%s,%s,%.2f,%.2f" , navn, type, pris, virkestoff);
             }
             else if (legemiddel instanceof Narkotisk) {
                 type = "narkotisk";
-                writer.format("\n%s %s %f %f" , navn, type, pris, virkestoff);
+                Narkotisk midddel = (Narkotisk) legemiddel;
+                int styrke = midddel.hentNarkotiskStyrke();
+                writer.format("\n%s,%s,%.2f,%.2f %d" , navn, type, pris, virkestoff, styrke);
             }
             else if (legemiddel instanceof Vanedannende) {
                 type = "vanedannende";
-                writer.format("\n%s %s %f %f" , navn, type, pris, virkestoff);
+                Vanedannende middel = (Vanedannende) legemiddel;
+                int styrke = middel.hentVanedannendeStyrke();
+                writer.format("\n%s,%s,%.2f,%.2f %d" , navn, type, pris, virkestoff, styrke);
             }
         }
 
@@ -1013,11 +1017,11 @@ public class Legesystem {
             if (lege instanceof Spesialist) {
                 Spesialist spesialist = (Spesialist) lege;
                 int kontrollID = spesialist.hentKontrollID();
-                writer.format("\n%s %d", navn, kontrollID);
+                writer.format("\n%s,%d", navn, kontrollID);
             }
             else if (lege instanceof Lege) {
                 String vanligLege = "0";
-                writer.format("\n%s %s", navn, vanligLege);
+                writer.format("\n%s,%s", navn, vanligLege);
             }
         }
 
