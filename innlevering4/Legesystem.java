@@ -601,6 +601,7 @@ public class Legesystem {
         System.out.print("Hva onsker du aa gjoere? \n > ");
         String reseptKommando = scanner.nextLine().toLowerCase();
 
+
         try {
             // sjekker om input er gyldig i forhold til menyen
             if (reseptKommando.equals("1") || reseptKommando.equals("2") ||
@@ -723,9 +724,8 @@ public class Legesystem {
                         reseptKommando = scanner.nextLine().toLowerCase();
                     }
                 }
-            }
             else { System.out.println("\nInput er ugyldig"); }
-        }
+            }
         catch (InputMismatchException e) {
             System.out.println("\nDette tegnet er ugyldig");
         }
