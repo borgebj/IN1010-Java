@@ -14,7 +14,7 @@ public class Main {
     }
 
     /** Deler av hovedmenyen**/
-    // metode som kjoerer "Utskriftsdelen" av programmet
+    // metode som kjoerer for de ulike delene av programmet
     public static void utskriftsDel(Legesystem lege) {
         Scanner scanner = new Scanner(System.in);
 
@@ -193,7 +193,7 @@ public class Main {
 
 
     /** Console-interfacer **/
-    // Terminal "User-interface" for Hovedmeny
+    // Terminal "User-interface" for ulike menyer
     public static void hovedMeny() {
         System.out.println("\n\n----[Hovedmeny]----");
         System.out.println("| 1. Utskrift   - |");
@@ -205,7 +205,6 @@ public class Main {
         System.out.println("-------------------\n");
     }
 
-    // Terminal "User-interface" for Utskrift
     public static void utskriftMeny() {
         System.out.println("\n\n----[Utskrift]------");
         System.out.println("| 1. pasienter   - |");
@@ -217,7 +216,6 @@ public class Main {
         System.out.println("--------------------\n");
     }
 
-    // Terminal "User-interface" for opprett
     public static void opprettMeny() {
         System.out.println("\n\n----[Opprette]----");
         System.out.println("| 1. Lege       - |");
@@ -229,7 +227,6 @@ public class Main {
         System.out.println("--------------------\n");
     }
 
-    // Terminal "User-interface" for bruk
     public static void brukMeny() {
         System.out.println("\n\n------[Bruk]------");
         System.out.println("| 1. Se pasienter - |");
@@ -250,23 +247,24 @@ public class Main {
 
 
 
+    // Main
     public static void main(String[] args)
     throws FileNotFoundException, IOException, InterruptedException, UlovligUtskrift {
 
 
         // lager null-objekt slik at "default" kan slaa av
-         Legesystem lege = null;
+         Legesystem lege = new Legesystem();
 
          // sjekker argument for klassen, og lager legesystem avhengig av tall
         switch(args[0]) {
 
             // 1 vil si legesystem med LitenEksempelFil
             case "1":
-                lege = new Legesystem("LitenEksempelFil.txt"); break;
+                lege.lesFraFil("LitenEksempelFil.txt"); break;
 
             // 2 vil si legesystem med StorEksempelFil
             case "2":
-                lege = new Legesystem("StorEksempelFil.txt"); break;
+                lege.lesFraFil("StorEksempelFil.txt"); break;
 
             // ellers vil feilmelding slaa av pga objekt med null-verdi
             default:

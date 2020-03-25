@@ -1,18 +1,20 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Date;
+import java.io.File;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.io.IOException;
 
+// unntak
+import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
+import java.io.IOException;
 
 
 public class Legesystem {
+
 
     // lister som holder styr paa pasienter, legemidler, leger og resepter
     Lenkeliste<Pasient> pasienter = new Lenkeliste<Pasient>();
@@ -21,21 +23,31 @@ public class Legesystem {
     Lenkeliste<Resept> resepter = new Lenkeliste<Resept>();
 
     // timestamp-objekter
-    Date date= new Date();
+    Date date= new Date(System.currentTimeMillis() + 3600 * 1000);
     long time = date.getTime();
     Timestamp timestamp = new Timestamp(time);
 
     // variabler som holder antall feil paa de ulike objektene
     int pasientFeil = 0, middelFeil = 0, legeFeil = 0, reseptFeil = 0;
 
+    // objekt som lager en tekstfil "ErrorLog.txt"
+    PrintWriter writer;
 
 
-    // TODO: Kan forbredes mes "isValid" metoden???
-    // konstruktoer gaar gjennom filen, oppretter objekter og legger de til i listen (kaster 2 unntak)
-    public Legesystem(String fil) throws FileNotFoundException, IOException {
+    // konstruktoer initialiserer errorloggen
+    public Legesystem() throws FileNotFoundException {
+        writer = new PrintWriter("ErrorLog.txt");
+    }
 
-        // objekt som lager en tekstfil "ErrorLog.txt"
-        PrintWriter writer = new PrintWriter("ErrorLog.txt");
+    // egen sleep-metode for "artifical-delay"
+    public static void delay(long t) {
+        try {
+            Thread.sleep(t);
+        } catch (InterruptedException e) {}
+    }
+
+    // metode som gaar gjennom filen, oppretter objekter og legger de til i listen (kaster 2 unntak)
+    public void lesFraFil(String fil) throws FileNotFoundException, IOException {
 
         // scanner + fil objekt
         Scanner lesFil = new Scanner(new File(fil));
@@ -180,22 +192,19 @@ public class Legesystem {
             }
         }
 
-/*
+
         // om linjen har "# Resepter" - lag Resept-objekter og legg til
         if (lesFil.nextLine().startsWith("# Resepter")) {
-
             // skriver typen i error-log og inkrementerer antall linjer
             writer.write("\n# Resept-feil\n");
             linjer++;
-
-
             while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
                 linjer++;
-
                 // forsoker aa lage variabler av de ulike ordene i hver linje
                 try {
                     //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
+
                     int legemiddelNummer = Integer.parseInt(biter[0]);
                     String legeNavn = biter[1];
                     int pasientID = Integer.parseInt(biter[2]);
@@ -227,7 +236,6 @@ public class Legesystem {
                             break;
                         }
                     }
-
                     // sjekker om pasientID er gyldig
                     for (Pasient c : pasienter) {
                         if (c.hentId() == pasientID) {
@@ -236,36 +244,28 @@ public class Legesystem {
                             break;
                         }
                     }
-
                     // sjekker om resepten er godkjent
                     if (middelMatch==true && legeMatch==true && pasientMatch==true) { godkjent = true; }
-
 
                     if (godkjent) {
                         if (biter.length > 4) {
                             int reit = Integer.parseInt(biter[4]);
-
                             if (type.equals("blaa")) {
-                                System.out.println(linjer + "   " + lege);
                                 resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
                             }
                             else if (type.equals("hvit")) {
-                                System.out.println(linjer + "   " + lege);
                                 resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
                             }
                             else if (type.equals("militaer")) {
-                                System.out.println(linjer + "   " + lege);
-                                MilitaerResept militaer = lege.skrivMilitaerResept(legemiddel, pasient, reit)
+                                MilitaerResept militaer = lege.skrivMilitaerResept(legemiddel, pasient, reit);
                                 resepter.leggTil(militaer);
                             }
                         } else {
                             if (type.equals("p")) {
-                                System.out.println(linjer + "   " + lege);
                                 resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
                             }
                         }
                     }
-
                 }
                 // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
                 catch (Exception e) {
@@ -275,165 +275,16 @@ public class Legesystem {
                 }
             }
         }
-
- */
-
-        // om linjen har "# Resepter" - lag Resept-objekter og legg til
-        if (lesFil.nextLine().startsWith("# Resepter")) {
-
-            // skriver typen i error-log og inkrementerer antall linjer
-            writer.write("\n# Resept-feil\n");
-            linjer++;
-
-
-            while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
-                linjer++;
-
-                // forsoker aa lage variabler av de ulike ordene i hver linje
-                try {
-                    //deler opp linjen i biter og tildeler verdier til ulike indekser
-                    String[] biter = lesFil.nextLine().split(",");
-                    int legemiddelNummer = Integer.parseInt(biter[0]);
-                    String legeNavn = biter[1];
-                    int pasientID = Integer.parseInt(biter[2]);
-                    String type = biter[3];
-
-                    // hvis legemiddelID matcher
-                    for (Legemiddel legemiddel : legemidler) {
-                        if (legemiddelNummer == legemiddel.hentId()) {
-
-                            // hvis lege matcher
-                            for (Lege lege : leger) {
-                                if (legeNavn.equals(lege.hentNavn())) {
-
-                                    for (Pasient pasient : pasienter) {
-                                        if (pasientID == pasient.hentId()) {
-
-                                            if (biter.length > 4) {
-                                                int reit = Integer.parseInt(biter[4]);
-
-                                                if (type.equals("hvit")) {
-
-                                                }
-                                                else if (type.equals("militaer")) {
-
-                                                }
-                                                else if (type.equals("blaa"))
-                                            }
-                                            else if (biter.length == 3 && type.equals("p")) {
-                                                PResept presept = new PResept
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
-                catch (Exception e) {
-                    String line = Files.readAllLines(Paths.get(fil)).get(linjer - 1);
-                    writer.format("%s %7s %-4d %-45s %s", timestamp, "Linje:", linjer,  line, e + "\n");
-                    reseptFeil++;
-                }
-            }
-        }
-
-
-
-
-            /*
-            while (!lesFil.hasNext("#") && lesFil.hasNextLine()) {
-                linjer++;
-
-                //deler opp linjen i biter og tildeler verdier til ulike indekser
-                String[] biter = lesFil.nextLine().split(",");
-
-                // forsoker aa lage variabler av de ulike ordene i hver linje
-                try {
-
-                    int legemiddelNummer = Integer.parseInt(biter[0]);
-                    String legeNavn = biter[1];
-                    int pasientID = Integer.parseInt(biter[2]);
-                    String type = biter[3];
-
-                    boolean x = false;
-                    boolean y = false;
-                    boolean z = false;
-                    boolean godkjent = false;
-
-                    Legemiddel legemiddel = null;
-                    Lege lege = null;
-                    Pasient pasient = null;
-
-                    for (Legemiddel a : legemidler) {
-                        if (legemiddelNummer == a.hentId()) {
-                            x = true;
-                            legemiddel = a;
-                        }
-                    }
-                    for (Lege b : leger){
-                        if (legeNavn.equals(b.hentNavn())) {
-                            y = true;
-                            lege = b;
-                        }
-                    }
-                    for (Pasient c : pasienter) {
-                        if (pasientID == c.hentId()) {
-                            z = true;
-                            pasient = c;
-                        }
-                    }
-                    if (x==true && y==true && z==true) {
-                        godkjent = true;
-                    }
-
-
-                    if (godkjent) {
-                        if (type.equals("blaa")) {
-                            int reit = Integer.parseInt(biter[4]);
-                            resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
-                        }
-                        else if (type.equals("hvit")) {
-                            int reit = Integer.parseInt(biter[4]);
-                            resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
-                        }
-                        else if (type.equals("militaer")) {
-                            int reit = Integer.parseInt(biter[4]);
-                            resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
-                        }
-                        else if (type.equals("p")) {
-                            resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
-                        }
-                    }
-                }
-                // om det ikke fungerer, finn linjen og skriv feilmeldingen i en error-log
-                catch (Exception e) {
-                    String line = Files.readAllLines(Paths.get(fil)).get(linjer-1);
-                    writer.format("%s %7s %-4d %s", timestamp, "Linje:", linjer,  line + "\n");
-                    reseptFeil++;
-                }
-            }
-            */
 
 
         // lukker writer-objektet som lager errorlog.txt
         writer.close();
     }
 
-
-    // egen sleep-metode for "artifical-delay"
-    public static void delay(long t) {
-        try {
-            Thread.sleep(t);
-        } catch (InterruptedException e) {}
-    }
-
-
+    // bjorn-stuff
     /*
     //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION - (or in resept if it uses valid components)
     public boolean isValid(T obj) {
-
         if (obj instanceof Lege) { //if we are checking a lege
             for (Lege x : leger) {
                 if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
@@ -495,9 +346,7 @@ public class Legesystem {
      */
 
 
-
     /* E3 */
-
     // skriver ut alle pasienter
     public void skrivPasienter() {
         System.out.println("-------- [ Pasienter ] -----------");
@@ -551,9 +400,8 @@ public class Legesystem {
     }
 
 
-
     /* E4 */
-
+    /** Console-interfacer **/
     public void legeMeny() {
         // console-interface
         delay(500);
@@ -564,77 +412,6 @@ public class Legesystem {
                 "\n | a. Tilbake      |" +
                 "\n -------------------\n");
     }
-    public void leggTilLege() {
-
-        // objekt for input
-        Scanner scanner = new Scanner(System.in);
-
-        legeMeny();
-        System.out.print("Hva onsker du aa gjoere? \n > ");
-        String legeKommando = scanner.nextLine().toLowerCase();
-
-
-        // fortsetter til bruekren avbryter eller legger til lege
-        while (!legeKommando.equals("a")) {
-
-            // om bruker velger lege - spoer om navn, opprett og legg til
-            if (legeKommando.equals("1")) {
-                delay(500);
-                System.out.print("\nNavn paa lege: ");
-                String legeNavn = scanner.nextLine();
-
-                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
-
-                delay(500);
-                Lege lege = new Lege(legeNavn);
-                leger.leggTil(lege);
-
-                delay(750);
-                System.out.println("\n" + legeNavn + " er lagt til\n");
-                delay(1000);
-
-                // gaar ut av loekke
-                legeKommando = "a";
-            }
-
-            // ellers om bruker velger spesialis - spoer om navn + kontrollId, opprett og legg til
-            else if (legeKommando.equals("2")) {
-                delay(500);
-                System.out.print("\nNavn paa spesialist: ");
-                String spesialistNavn = scanner.nextLine();
-
-                delay(500);
-                System.out.print("KontrollID?: ");
-                int kontrollID = scanner.nextInt();
-
-                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
-
-                Spesialist spesialist = new Spesialist(spesialistNavn, kontrollID);
-                leger.leggTil(spesialist);
-
-                delay(750);
-                System.out.println("\n" + spesialistNavn + " er lagt til\n");
-                delay(1000);
-
-                // gaar ut av loekke
-                legeKommando = "a";
-            }
-
-            else {
-
-                System.out.println("\nUgyldig input, proev igjen");
-
-                delay(500);
-                legeMeny();
-                System.out.print("Hva onsker du aa gjoere? \n > ");
-                legeKommando = scanner.nextLine().toLowerCase();
-            }
-        }
-
-        delay(750);
-        System.out.println("\n\nGaar tilbake...");
-        delay(1000);
-    }
 
     public void pasientMeny() {
         // console-interface
@@ -644,57 +421,6 @@ public class Legesystem {
                 "\n | - - - -  - - - |" +
                 "\n | a. Tilbake     |" +
                 "\n ------------------\n");
-    }
-    public void leggTilPasient() {
-
-        // objekt for input
-        Scanner scanner = new Scanner(System.in);
-
-        pasientMeny();
-        System.out.print("Hva onsker du aa gjoere? \n > ");
-        String pasientKommando = scanner.nextLine().toLowerCase();
-
-
-        // fortsetter til bruekren avbryter eller legger til pasient
-        while (!pasientKommando.equals("a")) {
-
-            // om bruker velger pasient - spoer om navn og fNr, opprett og legg til
-            if (pasientKommando.equals("1")) {
-                delay(500);
-                System.out.print("\nNavn paa pasient: ");
-                String pasientNavn = scanner.nextLine();
-
-                delay(500);
-                System.out.print("Foedselsnummer: ");
-                String fNr = scanner.nextLine().toLowerCase();
-
-                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
-
-                Pasient pasient = new Pasient(pasientNavn, fNr);
-                pasienter.leggTil(pasient);
-
-                delay(750);
-                System.out.println("\n" + pasientNavn + " er lagt til\n");
-                delay(1000);
-
-                // gaar ut av loekke
-                pasientKommando = "a";
-            }
-
-            else {
-
-                System.out.println("\nUgyldig input, proev igjen");
-
-                delay(500);
-                pasientMeny();
-                System.out.print("Hva onsker du aa gjoere? \n > ");
-                pasientKommando = scanner.nextLine().toLowerCase();
-            }
-        }
-
-        delay(750);
-        System.out.println("\n\nGaar tilbake...");
-        delay(1000);
     }
 
     public void reseptMeny() {
@@ -709,38 +435,6 @@ public class Legesystem {
                 "\n | a. Tilbake      |" +
                 "\n -------------------\n");
     }
-    //TODO: ikke ferdig!!
-    public void leggTilResept() throws UlovligUtskrift {
-        // objekt for input
-        Scanner scanner = new Scanner(System.in);
-
-        reseptMeny();
-        System.out.print("Hva onsker du aa gjoere? \n > ");
-        String reseptKommando = scanner.nextLine().toLowerCase();
-
-
-        // fortsetter til bruekren avbryter eller legger til pasient
-        while (!reseptKommando.equals("a")) {
-
-
-            if (reseptKommando.equals("1")) {
-                System.out.println("du har valgt Hvit");
-            }
-
-            else {
-                System.out.println("\nUgyldig input, proev igjen");
-
-                delay(500);
-                reseptMeny();
-                System.out.print("Hva onsker du aa gjoere? \n > ");
-                reseptKommando = scanner.nextLine().toLowerCase();
-            }
-        }
-
-        delay(750);
-        System.out.println("\n\nGaar tilbake...");
-        delay(1000);
-    }
 
     public void middelMeny() {
         // console-interface
@@ -753,120 +447,86 @@ public class Legesystem {
                 "\n | a. Tilbake      |" +
                 "\n -------------------\n");
     }
-    public void leggTilLegemiddel() {
 
-        // objekt for input
+    /** Deler av opprett**/
+    // gir bruker mulighet for aa opprette leger
+    public void leggTilLege() {
         Scanner scanner = new Scanner(System.in);
 
-        middelMeny();
+        legeMeny();
         System.out.print("Hva onsker du aa gjoere? \n > ");
-        String middelKommando = scanner.nextLine().toLowerCase();
+        String legeKommando = scanner.nextLine().toLowerCase();
 
 
-        // fortsetter til bruekren avbryter eller legger til legemiddel
-        while (!middelKommando.equals("a")) {
+        try {
+            // fortsetter til bruekren avbryter eller legger til lege
+            while (!legeKommando.equals("a")) {
 
-            // om bruker velger vanlig - spoer om navn, pris og virkestoff
-            if (middelKommando.equals("1")) {
-                delay(500);
-                System.out.print("\nNavn paa legemiddel: ");
-                String middelNavn = scanner.nextLine().toLowerCase();
-
-                delay(500);
-                System.out.print("Pris: ");
-                double pris = scanner.nextDouble();
-
-                delay(500);
-                System.out.print("Virkestoff: ");
-                double virkestoff = scanner.nextDouble();
-
-                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
-
-                Vanlig vanlig = new Vanlig(middelNavn, pris, virkestoff);
-                legemidler.leggTil(vanlig);
+                // om bruker velger lege - spoer om navn, opprett og legg til
+                if (legeKommando.equals("1")) {
+                    delay(500);
+                    System.out.print("\nNavn paa lege: ");
+                    String legeNavn = scanner.nextLine().trim().toLowerCase();
 
 
-                delay(500);
-                System.out.println("\n" + middelNavn + " er lagt til\n");
-                delay(1000);
+                    // sjekker om navn finnes - kaster unntak
+                    for (Lege x : leger) {
+                        if (x.hentNavn().equals(legeNavn.trim().toLowerCase())) {
+                            throw new Exception("Navn ugyldig [eksisterer fra foer av]");
+                        }
+                    }
 
-                // gaar ut av loekke
-                middelKommando = "a";
+                    delay(500);
+                    Lege lege = new Lege(legeNavn);
+                    leger.leggTil(lege);
+
+                    delay(750);
+                    System.out.println("\n" + legeNavn + " er lagt til\n");
+                    delay(1000);
+
+                    // gaar ut av loekke
+                    legeKommando = "a";
+                }
+
+                // ellers om bruker velger spesialis - spoer om navn + kontrollId, opprett og legg til
+                else if (legeKommando.equals("2")) {
+                    delay(500);
+                    System.out.print("\nNavn paa spesialist: ");
+                    String spesialistNavn = scanner.nextLine().trim().toLowerCase();
+
+                    delay(500);
+                    System.out.print("KontrollID?: ");
+                    int kontrollID = scanner.nextInt();
+
+                    // sjekker om navn finnes - kaster unntak
+                    for (Lege x : leger) {
+                        if (x.hentNavn().equals(spesialistNavn.trim().toLowerCase())) {
+                            throw new Exception("Navn ugyldig [eksisterer fra foer av]");
+                        }
+                    }
+
+                    Spesialist spesialist = new Spesialist(spesialistNavn, kontrollID);
+                    leger.leggTil(spesialist);
+
+                    delay(750);
+                    System.out.println("\n" + spesialistNavn + " er lagt til\n");
+                    delay(1000);
+
+                    // gaar ut av loekke
+                    legeKommando = "a";
+                }
+
+                else {
+                    System.out.println("\nUgyldig input, proev igjen");
+
+                    delay(500);
+                    legeMeny();
+                    System.out.print("Hva onsker du aa gjoere? \n > ");
+                    legeKommando = scanner.nextLine().toLowerCase();
+                }
             }
-
-            // ellers om bruker velger vanedannende - spoer om navn, pris, virkestoff og styrke
-            else if (middelKommando.equals("2")) {
-                delay(500);
-                System.out.print("\nNavn paa legemiddel: ");
-                String middelNavn = scanner.nextLine().toLowerCase();
-
-                delay(500);
-                System.out.print("Pris: ");
-                double pris = scanner.nextDouble();
-
-                delay(500);
-                System.out.print("Virkestoff: ");
-                double virkestoff = scanner.nextDouble();
-
-                delay(500);
-                System.out.print("Styrke: ");
-                int styrke = scanner.nextInt();
-
-                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
-
-                Vanedannende vanedannende = new Vanedannende(middelNavn, pris, virkestoff, styrke);
-                legemidler.leggTil(vanedannende);
-
-
-                delay(750);
-                System.out.println("\n" + middelNavn + " er lagt til\n");
-                delay(1000);
-
-                // gaar ut av loekke
-                middelKommando = "a";
-            }
-
-            // ellers om bruker velger narkotisk - spoer om navn, pris, virkestoff og styrke
-            else if (middelKommando.equals("3")) {
-                delay(500);
-                System.out.print("\nNavn paa legemiddel: ");
-                String middelNavn = scanner.nextLine().toLowerCase();
-
-                delay(500);
-                System.out.print("Pris: ");
-                double pris = scanner.nextDouble();
-
-                delay(500);
-                System.out.print("Virkestoff: ");
-                double virkestoff = scanner.nextDouble();
-
-                delay(500);
-                System.out.print("Styrke: ");
-                int styrke = scanner.nextInt();
-
-                //TODO: SJEKK OM EKSISTERER FOER LEGGES TIL!!
-
-                Narkotisk narkotisk = new Narkotisk(middelNavn, pris, virkestoff, styrke);
-                legemidler.leggTil(narkotisk);
-
-
-                delay(750);
-                System.out.println("\n" + middelNavn + " er lagt til\n");
-                delay(1000);
-
-                // gaar ut av loekke
-                middelKommando = "a";
-            }
-
-            // ellers telles input som ugyldig, og maa prove igjen
-            else {
-                System.out.println("\nUgyldig input, proev igjen");
-
-                delay(500);
-                middelMeny();
-                System.out.print("Hva onsker du aa gjoere? \n > ");
-                middelKommando = scanner.nextLine().toLowerCase();
-            }
+        } catch (Exception e) {
+            System.out.println("\nLege finnes fra foer av\n");
         }
 
         delay(750);
@@ -874,12 +534,291 @@ public class Legesystem {
         delay(1000);
     }
 
-
-    /* E5 */
-
-    public void reseptBruk() {
+    // gir bruker mulighet for aa opprette pasienter
+    public void leggTilPasient() {
         Scanner scanner = new Scanner(System.in);
 
+        // viser meny og spoer bruker om input
+        pasientMeny();
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String pasientKommando = scanner.nextLine().toLowerCase();
+
+        try {
+            // fortsetter til bruekren avbryter eller legger til pasient
+            while (!pasientKommando.equals("a")) {
+
+                // om bruker velger pasient - spoer om navn og fNr, opprett og legg til
+                if (pasientKommando.equals("1")) {
+                    delay(500);
+                    System.out.print("\nNavn paa pasient: ");
+                    String pasientNavn = scanner.nextLine();
+
+                    delay(500);
+                    System.out.print("Foedselsnummer: ");
+                    String fNr = scanner.nextLine().toLowerCase();
+
+                    // sjekker om navn eller foedselsnummer finnes - kaster unntak
+                    for (Pasient x : pasienter) {
+                        if (x.hentfNr().equals(fNr) || x.hentNavn().equals(pasientNavn)) {
+                            throw new Exception("Navn/fNr ugyldig [eksisterer fra foer av]");
+                        }
+                    }
+
+                    Pasient pasient = new Pasient(pasientNavn, fNr);
+                    pasienter.leggTil(pasient);
+
+                    delay(750);
+                    System.out.println("\n" + pasientNavn + " er lagt til\n");
+                    delay(1000);
+
+                    // gaar ut av loekke
+                    pasientKommando = "a";
+                }
+                else {
+                    System.out.println("\nUgyldig input, proev igjen");
+
+                    delay(500);
+                    pasientMeny();
+                    System.out.print("Hva onsker du aa gjoere? \n > ");
+                    pasientKommando = scanner.nextLine().toLowerCase();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Pasient finnes fra foer av");
+        }
+
+        delay(750);
+        System.out.println("\n\nGaar tilbake...");
+        delay(1000);
+    }
+
+    // gir bruker mulighet for aa opprette resepter
+    public void leggTilResept() throws UlovligUtskrift {
+        Scanner scanner = new Scanner(System.in);
+
+        reseptMeny();
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String reseptKommando = scanner.nextLine().toLowerCase();
+
+        try {
+
+            // sjekker om input er gyldig i forhold til menyen
+            if (reseptKommando.equals("1") || reseptKommando.equals("2") ||
+                reseptKommando.equals("3") || reseptKommando.equals("4")) {
+
+                // fortsetter til bruekren avbryter eller legger til pasient
+                while (!reseptKommando.equals("a")) {
+
+                    boolean middelMatch = false;
+                    boolean legeMatch = false;
+                    boolean pasientMatch = false;
+                    boolean godkjent = false;
+
+                    Legemiddel legemiddel = null;
+                    Lege lege = null;
+                    Pasient pasient = null;
+
+                    // LEGEMIDDEL-delen
+                    delay(500);
+                    System.out.print("\nHva er legemiddel-ID? \n > ");
+                    int legemiddelNummer = scanner.nextInt();
+                    scanner.nextLine();
+                    for (Legemiddel a : legemidler) {
+                        if (legemiddelNummer == a.hentId()) {
+                            middelMatch = true;
+                            legemiddel = a;
+                            break;
+                        }
+                    }
+
+                    // LEGE-delen
+                    delay(500);
+                    System.out.print("Hva er lege navn? \n > ");
+                    String legeNavn = scanner.nextLine().trim().toLowerCase();
+                    for (Lege b : leger) {
+                        if (legeNavn.equals(b.hentNavn().trim().toLowerCase())) {
+
+                            // sjekker om lege er vanlig eller spesialist
+                            if (b instanceof Spesialist) {
+                                System.out.print("Hva er Kontroll-ID? \n > ");
+                                int kontrollID = scanner.nextInt();
+                                scanner.nextLine();
+
+                                // vi vet at lege = spesialist, saa vi caster lege til spesialist for aa bruke "hentKontrollID()"
+                                Spesialist spesialist = (Spesialist) b;
+
+                                if (kontrollID == spesialist.hentKontrollID()) {
+                                    legeMatch = true;
+                                    lege = b;
+                                    break;
+                                }
+                            }
+                            else if (b instanceof Lege) {
+                                    legeMatch = true;
+                                    lege = b;
+                                    break;
+                            }
+                        }
+                    }
+
+                    // PASIENT-delen
+                    delay(500);
+                    System.out.print("Hva er pasient ID? \n > ");
+                    int pasientID = scanner.nextInt();
+                    scanner.nextLine();
+                    for (Pasient c : pasienter) {
+                        if (pasientID == c.hentId()) {
+                            pasientMatch = true;
+                            pasient = c;
+                            break;
+                        }
+                    }
+
+
+                    // SJEKKE-delen
+                    if (middelMatch == true && legeMatch == true && pasientMatch == true) {
+                        godkjent = true;
+                    }
+
+                    // om godkjent, sjekk type
+                    if (godkjent) {
+
+                        // om valg er 1 / 2 eller /4 > er det IKKE PResept - spoer om Reit
+                        if (reseptKommando.equals("1") || reseptKommando.equals("2") || reseptKommando.equals("4")) {
+
+                            delay(500);
+                            System.out.print("Hva er reit? \n > ");
+                            int reit = scanner.nextInt();
+                            scanner.nextLine();
+
+                            // oppretter>legger til hvite
+                            if (reseptKommando.equals("1")) {
+                                resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
+                            }
+
+                            // oppretter>legger til militaer
+                            else if (reseptKommando.equals("2")) {
+                                resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
+                            }
+
+                            // oppretter>legger til blaa
+                            else if (reseptKommando.equals("4")) {
+                                resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
+                            }
+                            reseptKommando = "a";
+                        }
+                        // oppretter>legger til presept
+                        else if (reseptKommando.equals("3")) {
+                            resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
+
+                            delay(750);
+                            System.out.println("\nResepten er lagt til i systemet");
+                        }
+
+                        delay(750);
+                        System.out.println("\nResepten er lagt til i systemet");
+                    }
+                    else {
+                        // TODO: FIKS NOE HER (Narkotisk feilmelding)
+                        System.out.println("\nUgyldig input, proev igjen\n");
+
+                        delay(500);
+                        reseptMeny();
+                        System.out.print("Hva onsker du aa gjoere? \n > ");
+                        reseptKommando = scanner.nextLine().toLowerCase();
+                    }
+                }
+            }
+            else { System.out.println("\nInput er ugyldig"); }
+        }
+        catch (InputMismatchException e) {
+            System.out.println("\nDette tegnet er ugyldig");
+        }
+        catch (UlovligUtskrift e) {
+            delay(750);
+            System.out.println("\nDenne legen har ikke lov aa skrive ut narkotisk");
+        }
+
+        delay(750);
+        System.out.println("\n\nGaar tilbake...");
+        delay(1000);
+    }
+
+    // gir bruker mulighet for aa opprette legemiddel
+    public void leggTilLegemiddel() {
+        Scanner scanner = new Scanner(System.in);
+
+        // viser meny og spoer bruker om input
+        middelMeny();
+        System.out.print("Hva onsker du aa gjoere? \n > ");
+        String middelKommando = scanner.nextLine().toLowerCase();
+
+        try {
+
+            // sjekker om input er gyldig i forhold til menyen
+            if (middelKommando.equals("1") || middelKommando.equals("2") || middelKommando.equals("3")){
+
+                while (!middelKommando.equals("a")) {
+
+                    System.out.print("\nNavn paa legemiddel: ");
+                    String middelNavn = scanner.nextLine().toLowerCase();
+
+                    delay(500);
+                    System.out.print("Pris: ");
+                    double pris = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    delay(500);
+                    System.out.print("Virkestoff: ");
+                    double virkestoff = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    // om det enten er vanedannende eller narkotisk
+                    if (middelKommando.equals("2") || middelKommando.equals("3")) {
+
+                        // spoer om styrke i tillegg
+                        delay(500);
+                        System.out.print("Styrke: ");
+                        int styrke = scanner.nextInt();
+
+                        // 2 = vanedannende - opprett og legg til
+                        if (middelKommando.equals("2")) {
+                            legemidler.leggTil(new Vanedannende(middelNavn, pris, virkestoff, styrke));
+                        }
+
+                        // 3 = narkotisk - opprett og legg til
+                        else if (middelKommando.equals("3")) {
+                            legemidler.leggTil(new Narkotisk(middelNavn, pris, virkestoff, styrke));
+                        }
+                    }
+
+                    // 1 = vanlig - opprett og legg till
+                    else if (middelKommando.equals("1")) {
+                        legemidler.leggTil(new Vanlig(middelNavn, pris, virkestoff));
+                    }
+
+                    delay(500);
+                    System.out.println("\n" + middelNavn + " er lagt til\n");
+                    delay(1000);
+
+                    // gaar ut av loekke
+                    middelKommando = "a";
+                }
+            }
+            else { System.out.println("\nInput er ugyldig"); }
+        } catch (InputMismatchException e) {
+            System.out.println("\nDette tegnet er ugyldig");
+        }
+
+        delay(750);
+        System.out.println("\n\nGaar tilbake...");
+        delay(1000);
+    }
+
+    /* E5 */
+    // gir brukeren mulighet for aa bruke resepter til ulike pasienter
+    public void reseptBruk() {
+        Scanner scanner = new Scanner(System.in);
 
         // viser fram alle pasienter og deres ID
         System.out.println();
@@ -895,74 +834,100 @@ public class Legesystem {
             System.out.print("\nHvilken pasient vil du se resepter for? \n > ");
             String kommando = scanner.next();
 
-            // counter for antall reseter og pasientnavn for bruk senere
-            int antResept = 0;
-            String pasientNavn = " [ Ingen pasient ]";
+            while (!kommando.equals("a")) {
 
-            if (kommando.equals("a")) {
-                System.out.println("\n\nOk avslutter\n\n");
-                delay(1000);
-            } else {
+                // counter for antall reseter og pasientnavn for bruk senere
+                int antResept = 0;
+                String pasientNavn = " [ Ugyldig pasient-id ] ";
 
-                // gaar gjennom alle pasienter og sjekker ID til hver for aa finne pasient fra input
-                for (Pasient b : pasienter) {
-                    int pasientID = b.hentId();
+                if (kommando.equals("a")) {
+                    System.out.println("\n\nOk avslutter\n\n");
+                    delay(1000);
+                } else {
+                    // gaar gjennom alle pasienter og sjekker ID til hver for aa finne pasient fra input
+                    for (Pasient b : pasienter) {
+                        int pasientID = b.hentId();
 
-                    // sjekker "kommando" med pasientID etter konvertering til String
-                    if (kommando.equals(Integer.toString(pasientID))) {
+                        // sjekker "kommando" med pasientID etter konvertering til String
+                        if (kommando.equals(Integer.toString(pasientID))) {
 
-                        // pasienten er funnet, vises til terminalen
-                        System.out.print("\nPasient valgt: ");
-                        pasientNavn = b.hentNavn();
-                        System.out.println(b.hentNavn());
-                        delay(1000);
+                            // pasienten er funnet, vises til terminalen
+                            System.out.print("\nPasient valgt: ");
+                            pasientNavn = b.hentNavn();
+                            System.out.println(b.hentNavn());
+                            delay(1000);
 
 
-                        // gaar gjennom resept-listen for aa see hvilke resepter tilhorer pasienten
+                            // gaar gjennom resept-listen for aa see hvilke resepter tilhorer pasienten
+                            for (Resept resept : resepter) {
+                                pasientID = resept.hentPasient().hentId();
+
+                                // sjekker "kommando" med pasientID etter konvertering til String
+                                if (kommando.equals(Integer.toString(pasientID))) {
+                                    antResept++;
+                                    System.out.println(resept);
+                                    delay(25);
+                                }
+                            }
+                        }
+                    }
+
+                    // om det komer opp resepter
+                    if (antResept > 0) {
+                        System.out.print("\nHvilken resept vil du bruke? \n > ");
+                        int reseptInput = scanner.nextInt();
+                        delay(800);
+
+                        // gaar gjennom alle resepter
                         for (Resept resept : resepter) {
-                            pasientID = resept.hentPasient().hentId();
+                            int reseptID = resept.hentId();
 
-                            // sjekker "kommando" med pasientID etter konvertering til String
-                            if (kommando.equals(Integer.toString(pasientID))) {
-                                antResept++;
-                                System.out.println(resept);
-                                delay(25);
+                            // hvis resept-id matcher brukerinput - bruk resept og fortell bruker
+                            if (reseptID == reseptInput) {
+
+                                // sjekker antall reit /om tomt eller ikke/
+                                if (resept.hentReit() > 0) {
+                                    resept.bruk();
+                                    System.out.println("\nBrukte resept paa " + resept.hentLegemiddel().hentNavn() + ".  Antall gjenvaerende reit: " + resept.hentReit());
+                                    delay(750);
+                                } else {
+                                    System.out.println("\nKunne ikke bruke resept paa " + resept.hentLegemiddel().hentNavn() + ": Ingen reit igjen\n");
+                                    delay(1000);
+                                }
+                            }
+                        }
+                    }
+
+                    // ellers - skriv feilemdling avhengig av "pasientNavn" og "kommando"
+                    else {
+                        // hvis pasientNavn-placeholderen er endret, skriv ut:
+                        if (!pasientNavn.equals(" [ Ugyldig pasient-id ] ")) {
+                            delay(800);
+                            System.out.println(" > Det er ingen resepter registrert for " + pasientNavn);
+                            delay(1500);
+                        }
+                        else {
+                            // hvis brukeren har skrevet "alle" skal ikke dette komme opp
+                            if (!kommando.equals("alle")) {
+                                delay(800);
+                                System.out.println("\n"+pasientNavn);
+                                delay(1500);
                             }
                         }
                     }
                 }
 
-                // om det komer opp resepter
-                if (antResept > 0) {
-                    System.out.print("\nHvilken resept vil du bruke? \n > ");
-                    int reseptInput = scanner.nextInt();
-                    delay(800);
+                System.out.print("\nHvilken pasient vil du se resepter for? (alle/ID/a) \n > ");
+                kommando = scanner.next();
 
-                    // gaar gjennom alle resepter
-                    for (Resept resept : resepter) {
-                        int reseptID = resept.hentId();
-
-                        // hvis resept-id matcher brukerinput - bruk resept og fortell bruker
-                        if (reseptID == reseptInput) {
-
-                            // sjekker antall reit /om tomt eller ikke/
-                            if (resept.hentReit() > 0) {
-                                resept.bruk();
-                                System.out.println("\nBrukte resept paa " + resept.hentLegemiddel().hentNavn() + ".  Antall gjenvaerende reit: " + resept.hentReit());
-                                delay(750);
-                            } else {
-                                System.out.println("\nKunne ikke bruke resept paa " + resept.hentLegemiddel().hentNavn() + ": Ingen reit igjen\n");
-                                delay(1000);
-                            }
-                        }
+                // bruker kan velge aa see alle paa nytt
+                if (kommando.equals("alle")) {
+                    System.out.println();
+                    for (Pasient a : pasienter) {
+                        System.out.println(a);
+                        delay(25);
                     }
-                }
-
-                // ellers gi feilmelding
-                else {
-                    delay(800);
-                    System.out.println(" > Det er ingen resepter registrert for " + pasientNavn);
-                    delay(1500);
+                    System.out.println("a: Avbryt");
                 }
             }
             delay(750);
@@ -979,7 +944,7 @@ public class Legesystem {
     }
 
     /* E6 */
-
+    // printer ut alle vanedannende legemidler + antall
     public void hentVanedannende() {
 
         int antall = 0;
@@ -990,6 +955,7 @@ public class Legesystem {
 
             if (middel instanceof Vanedannende){
                 System.out.println(x);
+                delay(25);
                 antall++;
             }
         }
@@ -999,6 +965,7 @@ public class Legesystem {
         delay(2000);
     }
 
+    // printer ut alle narkotiske legemidler + antall
     public void hentNarkotiske() {
 
         int antall = 0;
@@ -1009,6 +976,7 @@ public class Legesystem {
 
             if (middel instanceof Narkotisk){
                 System.out.println(x);
+                delay(25);
                 antall++;
             }
         }
@@ -1018,33 +986,54 @@ public class Legesystem {
         delay(2000);
     }
 
+    // printer ut alle leger som har skrevet ut minst en narkotisk resept + antall narkotiske
+    /**MANGLER**/ //TODO: Kun printe leger som har
     public void muligMisbruk() {
 
-        /*
-        // (1) gaar gjennom hver lege
-        for (Lege x : leger) {
-            System.out.println("\n"+x);
+    System.out.println("\n\n---[ LEGER MED NARKOTISKE ] ---");
 
-            Lenkeliste<Resept> liste = x.hentResepter();
-        }
-        */
+    // (gaar gjennom hver lege og henter resept-liste
+    for (Lege lege : leger) {
 
-        // (2) gaar gjennom hver lege
-        for (Lege a : leger) {
-            String navnILege = a.hentNavn();
-            System.out.println("\n"+a);
+        int antNarkotiske = 0;
+        System.out.println("-------------------------------");
+        System.out.println(lege);
+        delay(25);
+        Lenkeliste<Resept> liste = lege.hentResepter();
 
-            // gaar gjennom hvert resept
-            for (Resept b : resepter) {
-                String navnIResept = b.hentLege().hentNavn();
+        // gaar gjennom hver resept i listen og henter legemiddel
+        for (Resept resept : liste) {
+            Legemiddel reseptMiddel = resept.hentLegemiddel();
 
-                // sjekker hvilken resept tilhorer hver lege
-                if (navnILege.equals(navnIResept)) {
-                    System.out.println(b);
-                }
+            // sjekker om legemiddelet er narkotisk
+            if (reseptMiddel instanceof Narkotisk) {
+                System.out.println(resept);
+                delay(25);
+                antNarkotiske++;
             }
-
         }
-        delay(5000);
+        System.out.println(" - Antall narkotiske: { " + antNarkotiske + " } - ");
+    }
+    System.out.println("-------------------------------");
+
+    /*
+    // (2) gaar gjennom hver lege
+    for (Lege a : leger) {
+        String navnILege = a.hentNavn();
+        System.out.println("\n"+a);
+
+        // gaar gjennom hvert resept
+        for (Resept b : resepter) {
+            String navnIResept = b.hentLege().hentNavn();
+
+            // sjekker hvilken resept tilhorer hver lege
+            if (navnILege.equals(navnIResept)) {
+                System.out.println(b);
+            }
+        }
+
+    }
+     */
+    delay(5000);
     }
 }
