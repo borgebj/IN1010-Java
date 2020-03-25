@@ -56,6 +56,7 @@ public class Main {
 
                 // om ingenting slaar til - gi feilmelding
                 default:
+                    delay(350);
                     System.out.println("\nUgyldig kommando - prov igjen\n");
             }
 
@@ -111,6 +112,7 @@ public class Main {
 
                 // om ingenting slaar til - gi feilmelding
                 default:
+                    delay(350);
                     System.out.println("\nUgyldig kommando - prov igjen\n");
             }
 
@@ -120,7 +122,7 @@ public class Main {
             delay(800);
         }
 
-        System.out.println("\n\nGaar tilbake... (2)");
+        System.out.println("\n\nGaar tilbake... ");
         delay(1500);
     }
 
@@ -141,6 +143,7 @@ public class Main {
                     break;
 
                 default:
+                    delay(350);
                     System.out.println("\nUgyldig kommando - prov igjen\n");
             }
 
@@ -332,6 +335,8 @@ public class Main {
                 default:
                     delay(350);
                     System.out.println("\nUgyldig kommando - prov igjen\n");
+
+                    hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
                     kommando = scanner.next().toLowerCase();
                     delay(800);
