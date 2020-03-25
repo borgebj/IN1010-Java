@@ -81,5 +81,4 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
         pasient.addResept(Blaa);
         return Blaa;
     }
-
 }
