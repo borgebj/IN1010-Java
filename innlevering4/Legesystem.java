@@ -3,6 +3,7 @@ import java.util.Date;
 import java.io.File;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.lang.Math.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -165,7 +166,6 @@ public class Legesystem {
                     //deler opp linjen i biter og tildeler verdier til ulike indekser
                     String[] biter = lesFil.nextLine().split(",");
                     String navn = biter[0];
-                    String fnr = biter[1];
 
                     // sjekker om navn finnes - kaster unntak
                     for (Lege x : leger) {
@@ -237,6 +237,7 @@ public class Legesystem {
                             break;
                         }
                     }
+
                     // sjekker om pasientID er gyldig
                     for (Pasient c : pasienter) {
                         if (c.hentId() == pasientID) {
@@ -245,6 +246,7 @@ public class Legesystem {
                             break;
                         }
                     }
+
                     // sjekker om resepten er godkjent
                     if (middelMatch==true && legeMatch==true && pasientMatch==true) { godkjent = true; }
 
@@ -277,74 +279,19 @@ public class Legesystem {
             }
         }
 
+        // starter programmet med aa printe feil
+        System.out.println("---------------------------------------------------");
+        System.out.println("Pasient-feil: "+pasientFeil);
+        System.out.println("Middel-feil: "+middelFeil);
+        System.out.println("Lege-feil: "+legeFeil);
+        System.out.println("Resept-feil: "+reseptFeil);
+        System.out.println("\nFor aa se disse feilene, aapne filen 'errorLog.txt'");
+        System.out.println("---------------------------------------------------\n\n");
 
         // lukker writer-objektet som lager errorlog.txt
         writer.close();
     }
 
-    // bjorn-stuff
-    /*
-    //CHECK TO SEE IF EXISTS FROM BEFORE FUNCTION - (or in resept if it uses valid components)
-    public boolean isValid(T obj) {
-        if (obj instanceof Lege) { //if we are checking a lege
-            for (Lege x : leger) {
-                if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
-            }
-        }
-        else if (obj instanceof Legemiddel) { //if we are checking a legemiddel
-            for (Legemiddel x : legemidler) {
-                if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
-            }
-        }
-        else if (obj instanceof Pasient) { //if we are checking a pasient
-            for (Pasient x : pasienter) {
-                if (x.hentNavn().toLowerCase() == obj.hentNavn().toLowerCase()) return false;
-            }
-        }
-        else if (obj instanceof Resept) { //if we are checking a resept
-            String legeNavn = obj.hentLege().navn.toLowerCase();
-            String pasientNavn = obj.hentPasient().navn.toLowerCase();
-            String legemiddelNavn = obj.hentLegemiddel().navn.toLowerCase();
-            boolean found = false;
-            boolean gyldigOverall = true;
-            for (Lege a : leger) { //loop through alle leger - se om vi kan finne a match
-                if (a.navn.toLowerCase() == legeNavn) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                gyldigOverall = false;
-                System.out.println("Ugyldig Lege");
-            }
-            found = false;
-            for (Pasient b : pasienter) { //loop through alle pasienter - se om vi kan finne a match
-                if (b.navn.toLowerCase() == pasientNavn) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                gyldigOverall = false;
-                System.out.println("Ugyldig Pasient");
-            }
-            found = false;
-            for (Legemiddel c : legemidler) { //loop through alle pasienter - se om vi kan finne a match
-                if (c.navn.toLowerCase() == legemiddelNavn) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                gyldigOverall = false;
-                System.out.println("Ugyldig Legemiddel");
-            }
-            if (!gyldigOverall) return false; //what to output for resept
-            else return true;
-        }
-        return true;
-    }
-     */
 
 
     /* E3 */
@@ -384,20 +331,14 @@ public class Legesystem {
 
     // skriver ut alle resepter
     public void skrivResepter() {
-        System.out.println("------- [ Resepter ] ---------------");
+        System.out.println("------- [ Resepter ] ---------------------------------------------------\n");
         for (Resept x : resepter) {
 
             System.out.println("- " + x);
             delay(25);
         }
         delay(800);
-        System.out.println("\n- - - - - - - - - - - - - - - - ");
-        System.out.println("Pasient-feil: "+pasientFeil);
-        System.out.println("Middel-feil: "+middelFeil);
-        System.out.println("Lege-feil: "+legeFeil);
-        System.out.println("Resept-feil: "+reseptFeil);
-        System.out.println("\nFor aa se disse feilene, aapne filen 'errorLog.txt'");
-        System.out.println("----------------------------------");
+        System.out.println("------------------------------------------------------------------------\n\n");
     }
 
 
@@ -618,6 +559,7 @@ public class Legesystem {
             // sjekker om input er gyldig i forhold til menyen
             if (reseptKommando.equals("1") || reseptKommando.equals("2") ||
                 reseptKommando.equals("3") || reseptKommando.equals("4")) {
+
                 boolean middelMatch = false;
                 boolean legeMatch = false;
                 boolean pasientMatch = false;
@@ -1005,6 +947,7 @@ public class Legesystem {
 
         int antNarkotiske = 0;
         delay(25);
+        /** //TODO: HEr kommer "Unsafe operation" **/
         Lenkeliste<Resept> liste = lege.hentResepter();
 
         // gaar gjennom hver resept i listen og henter legemiddel
@@ -1026,24 +969,71 @@ public class Legesystem {
         }
     }
 
-    /*
-    // (2) gaar gjennom hver lege
-    for (Lege a : leger) {
-        String navnILege = a.hentNavn();
-        System.out.println("\n"+a);
+    // venter i 5 sekunder for aa gi bruker tid til aa see
+    delay(5000);
+    }
 
-        // gaar gjennom hvert resept
-        for (Resept b : resepter) {
-            String navnIResept = b.hentLege().hentNavn();
 
-            // sjekker hvilken resept tilhorer hver lege
-            if (navnILege.equals(navnIResept)) {
-                System.out.println(b);
+    /* E8 */
+    public void lagFil() throws IOException {
+        PrintWriter writer = new PrintWriter("legesystem.txt");
+
+        writer.write("# Pasienter (navn, fnr)");
+        for (Pasient pasient : pasienter) {
+            String pasientNavn = pasient.hentNavn();
+            String pasientID = pasient.hentfNr();
+
+            writer.format("\n%s,%s" , pasientNavn, pasientID);
+        }
+
+        writer.write("\n# Legemidler (navn,type,pris,virkestoff,[styrke])");
+        for (Legemiddel legemiddel : legemidler) {
+            String navn = legemiddel.hentNavn();
+            String type = "ukjent type";
+            double pris = legemiddel.hentPris();
+            double virkestoff = legemiddel.hentVirkestoff();
+
+            if (legemiddel instanceof Vanlig) {
+                type = "vanlig";
+                writer.format("\n%s %s %f %f" , navn, type, pris, virkestoff);
+            }
+            else if (legemiddel instanceof Narkotisk) {
+                type = "narkotisk";
+                writer.format("\n%s %s %f %f" , navn, type, pris, virkestoff);
+            }
+            else if (legemiddel instanceof Vanedannende) {
+                type = "vanedannende";
+                writer.format("\n%s %s %f %f" , navn, type, pris, virkestoff);
             }
         }
 
-    }
-     */
-    delay(5000);
+        writer.write("\n# Leger (navn,kontrollid / 0 hvis vanlig lege)");
+        for (Lege lege : leger) {
+            String navn = lege.hentNavn();
+            if (lege instanceof Spesialist) {
+                Spesialist spesialist = (Spesialist) lege;
+                int kontrollID = spesialist.hentKontrollID();
+                writer.format("\n%s %d", navn, kontrollID);
+            }
+            else if (lege instanceof Lege) {
+                String vanligLege = "0";
+                writer.format("\n%s %s", navn, vanligLege);
+            }
+        }
+
+        //TODO: MANGLER RESEPT!!
+
+        /*
+        writer.write("# Leger (navn,kontrollid / 0 hvis vanlig lege)");
+        for (Pasient pasient : pasienter) {
+            String pasientNavn = pasient.hentNavn();
+            String pasientID = pasient.hentfNr();
+
+            writer.format("\n%s %s" , pasientNavn, pasientID);
+        }
+         */
+
+
+        writer.close();
     }
 }

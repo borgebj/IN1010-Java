@@ -198,14 +198,15 @@ public class Main {
     /** Console-interfacer **/
     // Terminal "User-interface" for ulike menyer
     public static void hovedMeny() {
-        System.out.println("\n\n----[Hovedmeny]----");
-        System.out.println("| 1. Utskrift   - |");
-        System.out.println("| 2. Opprette   - |");
-        System.out.println("| 3. Bruke      - |");
-        System.out.println("| 4. Statistikk - |");
-        System.out.println("| - - - - - - - - |");
-        System.out.println("|  a.  avslutt    |");
-        System.out.println("-------------------\n");
+        System.out.println("\n\n-----[Hovedmeny]-----");
+        System.out.println("| 1. Utskrift     - |");
+        System.out.println("| 2. Opprette     - |");
+        System.out.println("| 3. Bruke        - |");
+        System.out.println("| 4. Statistikk   - |");
+        System.out.println("| 5. Data til fil - |");
+        System.out.println("| - - - - - - - - - |");
+        System.out.println("|  a.  avslutt      |");
+        System.out.println("---------------------\n");
     }
 
     public static void utskriftMeny() {
@@ -269,6 +270,10 @@ public class Main {
             case "2":
                 lege.lesFraFil("StorEksempelFil.txt"); break;
 
+            // 3 vil si et tomt legesystem uten fil
+            case "3":
+                break;
+
             // ellers vil feilmelding slaa av pga objekt med null-verdi
             default:
                 throw new NullPointerException("[ Ingen objekt tildelt verdien "+args[0]+", prov igjen med 1 / 2 ]"); }
@@ -324,6 +329,17 @@ public class Main {
                 case "4":
                     delay(500);
                     statistikkDel(lege);
+
+                    hovedMeny();
+                    System.out.print("Hva onsker du aa gjoere? \n > ");
+                    kommando = scanner.next().toLowerCase();
+                    delay(800);
+                    break;
+
+                // om tall er 5 - kall paa "lagFilDel()"
+                case "5":
+                    delay(500);
+                    lege.lagFil();
 
                     hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
