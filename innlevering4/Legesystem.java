@@ -592,6 +592,7 @@ public class Legesystem {
         delay(1000);
     }
 
+
     // gir bruker mulighet for aa opprette resepter
     public void leggTilResept() throws UlovligUtskrift {
         Scanner scanner = new Scanner(System.in);
@@ -600,15 +601,10 @@ public class Legesystem {
         System.out.print("Hva onsker du aa gjoere? \n > ");
         String reseptKommando = scanner.nextLine().toLowerCase();
 
-        try { 
-
+        try {
             // sjekker om input er gyldig i forhold til menyen
             if (reseptKommando.equals("1") || reseptKommando.equals("2") ||
                 reseptKommando.equals("3") || reseptKommando.equals("4")) {
-
-                // fortsetter til bruekren avbryter eller legger til pasient
-                while (!reseptKommando.equals("a")) {
-
                     boolean middelMatch = false;
                     boolean legeMatch = false;
                     boolean pasientMatch = false;
@@ -673,7 +669,6 @@ public class Legesystem {
                             break;
                         }
                     }
-
 
                     // SJEKKE-delen
                     if (middelMatch == true && legeMatch == true && pasientMatch == true) {
