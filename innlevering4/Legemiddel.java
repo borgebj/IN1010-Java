@@ -13,6 +13,7 @@ abstract class Legemiddel {
     // id for et objekt
     protected int id = 0;
 
+
     // konstruktor som gir instansvariabler verider fra parameter
     public Legemiddel(String navn, double pris, double virkestoff) {
         this.navn = navn;

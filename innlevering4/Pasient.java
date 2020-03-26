@@ -20,7 +20,6 @@ public class Pasient extends Stabel<Resept> {
         ID = idCount++;
     }
 
-
     // returner navn til pasient
     public String hentNavn() {
         return navn;
@@ -36,11 +35,6 @@ public class Pasient extends Stabel<Resept> {
         return ID;
     }
 
-    @Override // egen to-String metode
-    public String toString() {
-        return (ID +": "+ navn + " (fnr "+fNr+")");
-    }
-
     // henter ut listen med resepter
     public Lenkeliste hentResepter() {
         return resepter;
@@ -49,6 +43,11 @@ public class Pasient extends Stabel<Resept> {
     // legger til ny resept
     public void addResept(Resept resept) {
         resepter.leggTil(resept);
+    }
+
+    @Override // egen to-String metode
+    public String toString() {
+        return (ID +": "+ navn + " (fnr "+fNr+")");
     }
 }
 
