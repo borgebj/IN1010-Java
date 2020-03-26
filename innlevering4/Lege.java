@@ -7,6 +7,7 @@ public class Lege extends Lenkeliste<Resept> implements Comparable<Lege>  {
     // lenkeliste som holder alle resepter legen har skrevet ut
     Lenkeliste<Resept> utskrevedeResepter = new Lenkeliste<Resept>();
 
+
     public Lege(String navn){
         this.navn = navn;
     }

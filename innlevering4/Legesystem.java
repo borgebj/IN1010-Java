@@ -295,7 +295,7 @@ public class Legesystem {
 
 
 
-    /* E3 */
+    /** Utskrift-delen **/
     // skriver ut alle pasienter
     public void skrivPasienter() {
         System.out.println("\n-------- [ Pasienter ] -----------");
@@ -355,7 +355,6 @@ public class Legesystem {
                 "\n | a. Tilbake      |" +
                 "\n -------------------\n");
     }
-
     public void pasientMeny() {
         // console-interface
         delay(500);
@@ -365,7 +364,6 @@ public class Legesystem {
                 "\n | a. Tilbake     |" +
                 "\n ------------------\n");
     }
-
     public void reseptMeny() {
         // console-interface
         delay(500);
@@ -378,7 +376,6 @@ public class Legesystem {
                 "\n | a. Tilbake      |" +
                 "\n -------------------\n");
     }
-
     public void middelMeny() {
         // console-interface
         delay(500);
@@ -391,7 +388,7 @@ public class Legesystem {
                 "\n -------------------\n");
     }
 
-    /** Deler av opprett**/
+    /** Opprett-delen**/
     // gir bruker mulighet for aa opprette leger
     public void leggTilLege() {
         Scanner scanner = new Scanner(System.in);
@@ -548,7 +545,7 @@ public class Legesystem {
     }
 
     // gir bruker mulighet for aa opprette resepter
-    public void leggTilResept() throws UlovligUtskrift {
+    public void leggTilResept() {
         Scanner scanner = new Scanner(System.in);
 
         reseptMeny();
@@ -561,7 +558,6 @@ public class Legesystem {
             if (reseptKommando.equals("1") || reseptKommando.equals("2") ||
                 reseptKommando.equals("3") || reseptKommando.equals("4")) {
 
-                // LINJE 564 TIL 630  (lag metode av dette, og bruk i "leggTilResept" og "lesFraFil"
                 boolean middelMatch = false;
                 boolean legeMatch = false;
                 boolean pasientMatch = false;
@@ -596,7 +592,7 @@ public class Legesystem {
                             System.out.print("Hva er Kontroll-ID? \n > ");
                             int kontrollID = scanner.nextInt(); scanner.nextLine();
 
-                            // vi vet at lege = spesialist, saa vi caster lege til spesialist for aa bruke "hentKontrollID()"
+                            // vi vet at lege naa = spesialist, saa vi caster lege til spesialist for aa bruke "hentKontrollID()"
                             Spesialist spesialist = (Spesialist) b;
 
                             if (kontrollID == spesialist.hentKontrollID()) {
@@ -687,7 +683,6 @@ public class Legesystem {
             delay(750);
             System.out.println("\nDenne legen har ikke lov aa skrive ut narkotisk");
         }
-
         delay(750);
         System.out.println("\n\nGaar tilbake...");
         delay(1000);
@@ -765,7 +760,7 @@ public class Legesystem {
     }
 
 
-    /* E5 */
+    /** Bruk-delen **/
     // gir brukeren mulighet for aa bruke resepter til ulike pasienter
     public void reseptBruk() {
         Scanner scanner = new Scanner(System.in);
@@ -894,7 +889,7 @@ public class Legesystem {
     }
 
 
-    /* E6 */
+    /** Statistikk-delen **/
     // printer ut alle vanedannende legemidler + antall
     public void hentVanedannende() {
 
@@ -940,46 +935,48 @@ public class Legesystem {
     // printer ut alle leger som har skrevet ut minst en narkotisk resept + antall narkotiske
     public void muligMisbruk() {
 
+    delay(250);
+    int antLeger = 0;
     System.out.println("\n\n---[ LEGER MED NARKOTISKE ] ---");
-        System.out.println("-------------------------------------------------------------------\n");
+    System.out.println("-------------------------------------------------------------------\n");
 
-    // (gaar gjennom hver lege og henter resept-liste
-    for (Lege lege : leger) {
+        // (gaar gjennom hver lege og henter resept-liste
+        for (Lege lege : leger) {
 
-        int
-        int antNarkotiske = 0;
-        boolean harNarkotisk = false;
+            int antNarkotiske = 0;
+            boolean harNarkotisk = false;
 
-        delay(25);
-        /** //TODO: HEr kommer "Unsafe operation" **/
-        Lenkeliste<Resept> liste = lege.hentResepter();
+            delay(25);
+            /** //TODO: HEr kommer "Unsafe operation" **/
+            Lenkeliste<Resept> liste = lege.hentResepter();
 
-        // gaar gjennom hver resept i listen og henter legemiddel
-        for (Resept resept : liste) {
-            Legemiddel reseptMiddel = resept.hentLegemiddel();
+            // gaar gjennom hver resept i listen og henter legemiddel
+            for (Resept resept : liste) {
+                Legemiddel reseptMiddel = resept.hentLegemiddel();
 
-            // sjekker om legemiddelet er narkotisk
-            if (reseptMiddel instanceof Narkotisk) {
-                harNarkotisk = true;
-                delay(25);
-                antNarkotiske++;
+                // sjekker om legemiddelet er narkotisk
+                if (reseptMiddel instanceof Narkotisk) {
+                    harNarkotisk = true;
+                    delay(25);
+                    antNarkotiske++;
+                }
+            }
+            if (harNarkotisk){
+                System.out.println(" { " +lege+ " } ");
+                System.out.println(" - Antall narkotiske: { " + antNarkotiske + " } - \n");
+                antLeger++;
             }
         }
-        if (antNarkotiske > 0){
-            System.out.println("-------------------------------------------------------------------");
-            System.out.println(" { " +lege+ " } ");
-            System.out.println(" - Antall narkotiske: { " + antNarkotiske + " } - ");
-            System.out.println("-------------------------------------------------------------------\n\n");
-        }
-        if (harNarkotisk) { antLeger++ }
-    }
+        if (antLeger <= 0) { System.out.println("> Ingen leger har narkotiske <\n"); }
+        System.out.println("-------------------------------------------------------------------");
 
-    // venter i 5 sekunder for aa gi bruker tid til aa see
-    delay(5000);
+
+            // venter i 5 sekunder for aa gi bruker tid til aa see
+        delay(5000);
     }
 
 
-    /* E8 */
+    /** Les fra fil **/
     public void lagFil() throws IOException {
         Scanner scanner = new Scanner(System.in);
 

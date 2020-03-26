@@ -58,7 +58,7 @@ public class Lenkeliste<T> implements Liste<T>  {
         }
     }
 
-    // C3 - metode som returner nytt LenkelisteIterator-objekt
+    // Metode som returner nytt LenkelisteIterator-objekt
     public Iterator<T> iterator() {
         return new LenkelisteIterator();
     }
@@ -174,7 +174,6 @@ public class Lenkeliste<T> implements Liste<T>  {
         }
         return naaNode.innhold;
     }
-
 
 
     // test funksjon som printer ut innhold i hver node

@@ -4,6 +4,7 @@ public class Spesialist extends Lege implements Godkjenningsfritak{
     // instansvariabel ID fra parameteren for kontrollID'en
     int kontrollID;
 
+
     public Spesialist(String navn, int kontrollID) {
         super(navn);
         this.kontrollID = kontrollID;

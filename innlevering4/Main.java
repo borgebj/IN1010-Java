@@ -1,7 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-// fil for testing av legesystem! Midlertidig (?)
 
 public class Main {
 
@@ -12,6 +11,7 @@ public class Main {
             Thread.sleep(t);
         } catch (InterruptedException e) {}
     }
+
 
     /** Deler av hovedmenyen**/
     // metode som kjoerer for de ulike delene av programmet
@@ -70,7 +70,6 @@ public class Main {
         System.out.println("\n\nGaar tilbake...");
         delay(1500);
     }
-
     public static void opprettDel(Legesystem lege) throws UlovligUtskrift {
         Scanner scanner = new Scanner(System.in);
 
@@ -125,7 +124,6 @@ public class Main {
         System.out.println("\n\nGaar tilbake... ");
         delay(1500);
     }
-
     public static void brukDel(Legesystem lege) {
         Scanner scanner = new Scanner(System.in);
 
@@ -153,7 +151,6 @@ public class Main {
             delay(800);
         }
     }
-
     public static void statistikkDel(Legesystem lege) {
         Scanner scanner = new Scanner(System.in);
 
@@ -194,7 +191,6 @@ public class Main {
         }
     }
 
-
     /** Console-interfacer **/
     // Terminal "User-interface" for ulike menyer
     public static void hovedMeny() {
@@ -209,7 +205,6 @@ public class Main {
         System.out.println("|  a.  avslutt      |");
         System.out.println("---------------------\n");
     }
-
     public static void utskriftMeny() {
         System.out.println("\n\n----[Utskrift]------");
         System.out.println("| 1. pasienter   - |");
@@ -220,7 +215,6 @@ public class Main {
         System.out.println("| a.  Tilbake    - |");
         System.out.println("--------------------\n");
     }
-
     public static void opprettMeny() {
         System.out.println("\n\n----[Opprette]----");
         System.out.println("| 1. Lege       - |");
@@ -231,7 +225,6 @@ public class Main {
         System.out.println("| a.  Tilbake   - |");
         System.out.println("--------------------\n");
     }
-
     public static void brukMeny() {
         System.out.println("\n\n------[Bruk]------");
         System.out.println("| 1. Se pasienter - |");
@@ -239,7 +232,6 @@ public class Main {
         System.out.println("| a.  Tilbake     - |");
         System.out.println("--------------------\n");
     }
-
     public static void statistikkMeny() {
         System.out.println("\n\n------[Statistikk]---------------------");
         System.out.println("| 1. Se Resepter m/ Vanedannende    - |");
@@ -251,8 +243,7 @@ public class Main {
     }
 
 
-
-    // Main
+    /** Hovedprogram **/
     public static void main(String[] args)
     throws FileNotFoundException, IOException, InterruptedException, UlovligUtskrift {
 
@@ -265,14 +256,20 @@ public class Main {
 
             // 1 vil si legesystem med LitenEksempelFil
             case "1":
+                System.out.println("[ Du har valgt et tomt system ]");
+                delay(3000);
                 break;
 
             // 2 vil si legesystem med StorEksempelFil
             case "2":
+                System.out.println("[ Du har valgt 'inndata.txt' ]");
+                delay(3000);
                 lege.lesFraFil("inndata.txt"); break;
 
             // 3 vil si et tomt legesystem uten fil
             case "3":
+                System.out.println("[ Du har valgt 'myeInndata.txt' ]");
+                delay(3000);
                 lege.lesFraFil("myeInndata.txt"); break;
 
             // ellers vil feilmelding slaa av pga objekt med null-verdi
@@ -387,5 +384,3 @@ public class Main {
         delay(2000);
     }
 }
-
-
