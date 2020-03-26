@@ -560,6 +560,7 @@ public class Legesystem {
             if (reseptKommando.equals("1") || reseptKommando.equals("2") ||
                 reseptKommando.equals("3") || reseptKommando.equals("4")) {
 
+                // LINJE 564 TIL 630  (lag metode av dette, og bruk i "leggTilResept" og "lesFraFil"
                 boolean middelMatch = false;
                 boolean legeMatch = false;
                 boolean pasientMatch = false;
@@ -978,6 +979,7 @@ public class Legesystem {
     public void lagFil() throws IOException {
         PrintWriter writer = new PrintWriter("legesystem.txt");
 
+        // henter verdier fra hver pasient, og skriver disse i fil
         writer.write("# Pasienter (navn, fnr)");
         for (Pasient pasient : pasienter) {
             String pasientNavn = pasient.hentNavn();
@@ -986,6 +988,7 @@ public class Legesystem {
             writer.format("\n%s,%s" , pasientNavn, pasientID);
         }
 
+        // henter verdier fra hvert legemiddel, og skriver disse i fil
         writer.write("\n# Legemidler (navn,type,pris,virkestoff,[styrke])");
         for (Legemiddel legemiddel : legemidler) {
             String navn = legemiddel.hentNavn();
@@ -999,18 +1002,19 @@ public class Legesystem {
             }
             else if (legemiddel instanceof Narkotisk) {
                 type = "narkotisk";
-                Narkotisk midddel = (Narkotisk) legemiddel;
+                Narkotisk midddel = (Narkotisk) legemiddel;         // maa kaste for aa bruke metode
                 int styrke = midddel.hentNarkotiskStyrke();
-                writer.format("\n%s,%s,%.2f,%.2f %d" , navn, type, pris, virkestoff, styrke);
+                writer.format("\n%s,%s,%.2f,%.2f,%d" , navn, type, pris, virkestoff, styrke);
             }
             else if (legemiddel instanceof Vanedannende) {
                 type = "vanedannende";
-                Vanedannende middel = (Vanedannende) legemiddel;
+                Vanedannende middel = (Vanedannende) legemiddel;    // maa kaste for aa bruke metode
                 int styrke = middel.hentVanedannendeStyrke();
-                writer.format("\n%s,%s,%.2f,%.2f %d" , navn, type, pris, virkestoff, styrke);
+                writer.format("\n%s,%s,%.2f,%.2f,%d" , navn, type, pris, virkestoff, styrke);
             }
         }
 
+        // henter verdier fra hver lege, og skriver disse i fil
         writer.write("\n# Leger (navn,kontrollid / 0 hvis vanlig lege)");
         for (Lege lege : leger) {
             String navn = lege.hentNavn();
@@ -1025,17 +1029,14 @@ public class Legesystem {
             }
         }
 
+        // henter verdier fra hver resept, og skriver disse i fil
         //TODO: MANGLER RESEPT!!
 
-        /*
-        writer.write("# Leger (navn,kontrollid / 0 hvis vanlig lege)");
-        for (Pasient pasient : pasienter) {
-            String pasientNavn = pasient.hentNavn();
-            String pasientID = pasient.hentfNr();
-
-            writer.format("\n%s %s" , pasientNavn, pasientID);
-        }
-         */
+        delay(1500);
+        System.out.println("\n\n---------------------------------------------");
+        System.out.println("Ferdig - fil kalt for 'legesystem.txt'");
+        System.out.println("---------------------------------------------\n");
+        delay(1500);
 
 
         writer.close();
