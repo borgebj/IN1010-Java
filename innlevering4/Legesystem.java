@@ -39,8 +39,9 @@ public class Legesystem {
         writer = new PrintWriter("ErrorLog.txt");
     }
 
+
     // egen sleep-metode for "artifical-delay"
-    public static void delay(long t) {
+    public void delay(long t) {
         try {
             Thread.sleep(t);
         } catch (InterruptedException e) {}
@@ -297,7 +298,7 @@ public class Legesystem {
     /* E3 */
     // skriver ut alle pasienter
     public void skrivPasienter() {
-        System.out.println("-------- [ Pasienter ] -----------");
+        System.out.println("\n-------- [ Pasienter ] -----------");
         for (Pasient x : pasienter) {
 
             System.out.println("- " + x);
@@ -308,7 +309,7 @@ public class Legesystem {
 
     // skriver ut alle legemidler
     public void skrivLegemidler() {
-        System.out.println("-------- [ Legemidler ] ----------");
+        System.out.println("\n-------- [ Legemidler ] ----------");
         for (Legemiddel x : legemidler) {
 
             System.out.println("- " + x);
@@ -320,7 +321,7 @@ public class Legesystem {
 
     // skriver ut alle leger
     public void skrivLeger() {
-        System.out.println("----------- [ leger ] --------------");
+        System.out.println("\n----------- [ leger ] --------------");
         for (Lege x : leger) {
 
             System.out.println("- " + x);
@@ -331,7 +332,7 @@ public class Legesystem {
 
     // skriver ut alle resepter
     public void skrivResepter() {
-        System.out.println("------- [ Resepter ] ---------------------------------------------------\n");
+        System.out.println("\n------- [ Resepter ] ---------------------------------------------------");
         for (Resept x : resepter) {
 
             System.out.println("- " + x);
@@ -593,8 +594,7 @@ public class Legesystem {
                         // sjekker om lege er vanlig eller spesialist
                         if (b instanceof Spesialist) {
                             System.out.print("Hva er Kontroll-ID? \n > ");
-                            int kontrollID = scanner.nextInt();
-                            scanner.nextLine();
+                            int kontrollID = scanner.nextInt(); scanner.nextLine();
 
                             // vi vet at lege = spesialist, saa vi caster lege til spesialist for aa bruke "hentKontrollID()"
                             Spesialist spesialist = (Spesialist) b;
@@ -946,7 +946,10 @@ public class Legesystem {
     // (gaar gjennom hver lege og henter resept-liste
     for (Lege lege : leger) {
 
+        int
         int antNarkotiske = 0;
+        boolean harNarkotisk = false;
+
         delay(25);
         /** //TODO: HEr kommer "Unsafe operation" **/
         Lenkeliste<Resept> liste = lege.hentResepter();
@@ -957,7 +960,7 @@ public class Legesystem {
 
             // sjekker om legemiddelet er narkotisk
             if (reseptMiddel instanceof Narkotisk) {
-                System.out.println(resept);
+                harNarkotisk = true;
                 delay(25);
                 antNarkotiske++;
             }
@@ -968,6 +971,7 @@ public class Legesystem {
             System.out.println(" - Antall narkotiske: { " + antNarkotiske + " } - ");
             System.out.println("-------------------------------------------------------------------\n\n");
         }
+        if (harNarkotisk) { antLeger++ }
     }
 
     // venter i 5 sekunder for aa gi bruker tid til aa see
@@ -977,7 +981,13 @@ public class Legesystem {
 
     /* E8 */
     public void lagFil() throws IOException {
-        PrintWriter writer = new PrintWriter("legesystem.txt");
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("\nFilnavn? \n > ");
+        String filKommando = scanner.nextLine().toLowerCase() + ".txt";
+        delay(750);
+
+        PrintWriter writer = new PrintWriter(filKommando);
 
         // henter verdier fra hver pasient, og skriver disse i fil
         writer.write("# Pasienter (navn, fnr)");
@@ -1029,12 +1039,38 @@ public class Legesystem {
             }
         }
 
-        // henter verdier fra hver resept, og skriver disse i fil
-        //TODO: MANGLER RESEPT!!
+        // henter verdier fra hver lege, og skriver disse i fil
+        writer.write("\n# Resepter (legemiddelNummer,legeNavn,pasientID,type,[reit])");
+        for (Resept resept : resepter) {
+            int legemiddelNummer = resept.hentLegemiddel().hentId();
+            String legeNavn = resept.hentLege().hentNavn();
+            int pasientID = resept.hentPasient().hentId();
+            String type = "ukjent type";
+
+            if ( !(resept instanceof PResept) ) {
+                int reit = resept.hentReit();
+                if (resept instanceof HvitResept) {
+                    type = "hvit";
+                    writer.format("\n%d,%s,%d,%s,%d" , legemiddelNummer, legeNavn, pasientID, type, reit);
+                }
+                else if (resept instanceof BlaaResept) {
+                    type = "blaa";
+                    writer.format("\n%d,%s,%d,%s,%d" , legemiddelNummer, legeNavn, pasientID, type, reit);
+                }
+                else if (resept instanceof MilitaerResept) {
+                    type = "millitaer";
+                    writer.format("\n%d,%s,%d,%s,%d" , legemiddelNummer, legeNavn, pasientID, type, reit);
+                }
+            }
+            else if (resept instanceof PResept) {
+                type = "p";
+                writer.format("\n%d,%s,%d,%s" , legemiddelNummer, legeNavn, pasientID, type);
+            }
+        }
 
         delay(1500);
         System.out.println("\n\n---------------------------------------------");
-        System.out.println("Ferdig - fil kalt for 'legesystem.txt'");
+        System.out.println("Ferdig - fil kalt for '"+filKommando+"'");
         System.out.println("---------------------------------------------\n");
         delay(1500);
 

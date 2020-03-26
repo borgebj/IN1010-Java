@@ -21,7 +21,7 @@ public class Main {
         // viser meny og spoer bruker om input
         utskriftMeny();
         System.out.print("Hva onsker du aa skrive ut? \n > ");
-        String kommando = scanner.next().toLowerCase();
+        String kommando = scanner.next().toLowerCase(); scanner.nextLine();
         delay(800);
 
 
@@ -63,7 +63,7 @@ public class Main {
             // spoer bruker paa nytt og oppdaterer loekke
             utskriftMeny();
             System.out.print("Hva onsker du aa skrive ut? \n > ");
-            kommando = scanner.next().toLowerCase();
+            kommando = scanner.next().toLowerCase(); scanner.nextLine();
             delay(800);
         }
 
@@ -77,7 +77,7 @@ public class Main {
         // viser meny og spoer bruker om input
         opprettMeny();
         System.out.print("Hva onsker du aa gjoere? \n > ");
-        String kommando = scanner.next().toLowerCase();
+        String kommando = scanner.next().toLowerCase(); scanner.nextLine();
         delay(800);
 
 
@@ -118,7 +118,7 @@ public class Main {
 
             opprettMeny();
             System.out.print("Hva onsker du aa gjoere? \n > ");
-            kommando = scanner.next().toLowerCase();
+            kommando = scanner.next().toLowerCase(); scanner.nextLine();
             delay(800);
         }
 
@@ -132,7 +132,7 @@ public class Main {
         // viser meny og spoer bruker om input
         brukMeny();
         System.out.print("Hva onsker du aa gjoere? \n > ");
-        String kommando = scanner.next().toLowerCase();
+        String kommando = scanner.next().toLowerCase(); scanner.nextLine();
         delay(800);
 
         while (!kommando.equals("a")) {
@@ -149,7 +149,7 @@ public class Main {
 
             brukMeny();
             System.out.print("Hva onsker du aa gjoere? \n > ");
-            kommando = scanner.next().toLowerCase();
+            kommando = scanner.next().toLowerCase(); scanner.nextLine();
             delay(800);
         }
     }
@@ -160,7 +160,7 @@ public class Main {
         // viser meny og spoer bruker om input
         statistikkMeny();
         System.out.print("Hva onsker du aa gjoere? \n > ");
-        String kommando = scanner.next().toLowerCase();
+        String kommando = scanner.next().toLowerCase(); scanner.nextLine();
         delay(800);
 
         while (!kommando.equals("a")) {
@@ -189,7 +189,7 @@ public class Main {
 
             statistikkMeny();
             System.out.print("Hva onsker du aa gjoere? \n > ");
-            kommando = scanner.next().toLowerCase();
+            kommando = scanner.next().toLowerCase(); scanner.nextLine();
             delay(800);
         }
     }
@@ -204,6 +204,7 @@ public class Main {
         System.out.println("| 3. Bruke        - |");
         System.out.println("| 4. Statistikk   - |");
         System.out.println("| 5. Data til fil - |");
+        System.out.println("| 6. Les inn fil  - |");
         System.out.println("| - - - - - - - - - |");
         System.out.println("|  a.  avslutt      |");
         System.out.println("---------------------\n");
@@ -264,15 +265,15 @@ public class Main {
 
             // 1 vil si legesystem med LitenEksempelFil
             case "1":
-                lege.lesFraFil("LitenEksempelFil.txt"); break;
+                break;
 
             // 2 vil si legesystem med StorEksempelFil
             case "2":
-                lege.lesFraFil("StorEksempelFil.txt"); break;
+                lege.lesFraFil("inndata.txt"); break;
 
             // 3 vil si et tomt legesystem uten fil
             case "3":
-                break;
+                lege.lesFraFil("myeInndata.txt"); break;
 
             // ellers vil feilmelding slaa av pga objekt med null-verdi
             default:
@@ -284,7 +285,7 @@ public class Main {
         // viser meny og spoer bruker om input
         hovedMeny();
         System.out.print("Hva onsker du aa gjoere? \n > ");
-        String kommando = scanner.next().toLowerCase();
+        String kommando = scanner.next().toLowerCase(); scanner.nextLine();
         delay(800);
 
         // om input ikke er "a" (avslutt), fortsett og sjekk input med switch-case
@@ -296,9 +297,10 @@ public class Main {
                     delay(500);
                     utskriftsDel(lege);
 
+                    // vis hovedmeny og spoer om ny input
                     hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
-                    kommando = scanner.next().toLowerCase();
+                    kommando = scanner.next().toLowerCase(); scanner.nextLine();
                     delay(800);
                     break;
 
@@ -307,9 +309,10 @@ public class Main {
                     delay(500);
                     opprettDel(lege);
 
+                    // vis hovedmeny og spoer om ny input
                     hovedMeny();
                     System.out.print("Hva onsker du aa gjoere ut? \n > ");
-                    kommando = scanner.next().toLowerCase();
+                    kommando = scanner.next().toLowerCase(); scanner.nextLine();
                     delay(800);
                     break;
 
@@ -318,10 +321,10 @@ public class Main {
                     delay(500);
                     brukDel(lege);
 
-
+                    // vis hovedmeny og spoer om ny input
                     hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
-                    kommando = scanner.next().toLowerCase();
+                    kommando = scanner.next().toLowerCase(); scanner.nextLine();
                     delay(800);
                     break;
 
@@ -330,9 +333,10 @@ public class Main {
                     delay(500);
                     statistikkDel(lege);
 
+                    // vis hovedmeny og spoer om ny input
                     hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
-                    kommando = scanner.next().toLowerCase();
+                    kommando = scanner.next().toLowerCase(); scanner.nextLine();
                     delay(800);
                     break;
 
@@ -341,9 +345,30 @@ public class Main {
                     delay(500);
                     lege.lagFil();
 
+                    // vis hovedmeny og spoer om ny input
                     hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
-                    kommando = scanner.next().toLowerCase();
+                    kommando = scanner.next().toLowerCase(); scanner.nextLine();
+                    delay(800);
+                    break;
+
+                // om tall er 6 - kall paa "lesFraFil" med input
+                case "6":
+                    delay(500);
+                    System.out.print("\nHva heter filen? \n > ");
+                    String filKommando = scanner.nextLine().toLowerCase() + ".txt";
+                    try {
+                        delay(2000);
+                        System.out.println("\n");
+                        lege.lesFraFil(filKommando);
+                    } catch (FileNotFoundException e) {
+                        System.out.println(filKommando+" finnes ikke\n");
+                    }
+
+                    // vis hovedmeny og spoer om ny input
+                    hovedMeny();
+                    System.out.print("Hva onsker du aa gjoere? \n > ");
+                    kommando = scanner.next().toLowerCase(); scanner.nextLine();
                     delay(800);
                     break;
 
@@ -354,14 +379,13 @@ public class Main {
 
                     hovedMeny();
                     System.out.print("Hva onsker du aa gjoere? \n > ");
-                    kommando = scanner.next().toLowerCase();
+                    kommando = scanner.next().toLowerCase(); scanner.nextLine();
                     delay(800);
             }
         }
         System.out.println("\n\nAvslutter...\n\n");
         delay(2000);
     }
-
 }
 
 
