@@ -327,8 +327,8 @@ public class Legesystem {
                         System.out.println("\nValgt pasient: "+pasient.hentNavn());
                         delay(500);
 
-                        /** TODO: HEr kommer "Unsafe operation" **/
-                        Lenkeliste<Resept> liste = pasient.hentResepter();
+                        @SuppressWarnings("unchecked")  // oppretter variabel > caster > "suppress warning"
+                        Lenkeliste<Resept> liste = (Lenkeliste<Resept>) pasient.hentResepter();
 
                         for (Resept resept : liste) {
                             delay(25);
@@ -994,8 +994,8 @@ public class Legesystem {
             boolean legeHarNarkotisk = false;
 
             delay(25);
-            /** TODO: HEr kommer "Unsafe operation" **/
-            Lenkeliste<Resept> legeListe = lege.hentResepter();
+            @SuppressWarnings("unchecked")  // oppretter variabel > caster > "suppress warning"
+            Lenkeliste<Resept> legeListe = (Lenkeliste<Resept>) lege.hentResepter();
 
             // gaar gjennom hver resept i listen og henter legemiddel
             for (Resept resept : legeListe) {
@@ -1029,8 +1029,8 @@ public class Legesystem {
             int antPasientNarkotiske = 0;
             boolean pasientHarNarkotisk = false;
 
-            /** TODO: HEr kommer "Unsafe operation" **/
-            Lenkeliste<Resept> pasientListe = pasient.hentResepter();
+            @SuppressWarnings("unchecked")  // oppretter variabel > caster > "suppress warning"
+            Lenkeliste<Resept> pasientListe = (Lenkeliste<Resept>) pasient.hentResepter();
 
             for (Resept resept : pasientListe) {
                 if (resept.hentLegemiddel() instanceof Narkotisk) {
@@ -1043,6 +1043,9 @@ public class Legesystem {
                 System.out.println(" - Antall narkotiske: { " + antPasientNarkotiske + " } - \n");
                 antPasienter++;
             }
+        }
+        if (antPasienter <= 0) {
+            System.out.println("> Ingen leger har narkotiske <\n");
         }
         System.out.println("-------------------------------------------------------------------");
         delay(5000);
