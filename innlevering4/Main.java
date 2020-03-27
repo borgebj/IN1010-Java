@@ -70,6 +70,7 @@ public class Main {
         System.out.println("\n\nGaar tilbake...");
         delay(1500);
     }
+
     public static void opprettDel(Legesystem lege) throws UlovligUtskrift {
         Scanner scanner = new Scanner(System.in);
 
@@ -124,6 +125,7 @@ public class Main {
         System.out.println("\n\nGaar tilbake... ");
         delay(1500);
     }
+
     public static void brukDel(Legesystem lege) {
         Scanner scanner = new Scanner(System.in);
 
@@ -151,6 +153,7 @@ public class Main {
             delay(800);
         }
     }
+
     public static void statistikkDel(Legesystem lege) {
         Scanner scanner = new Scanner(System.in);
 
@@ -207,7 +210,7 @@ public class Main {
     }
     public static void utskriftMeny() {
         System.out.println("\n\n----[Utskrift]------");
-        System.out.println("| 1. pasienter   - |");
+        System.out.println("| 1. Pasienter   - |");
         System.out.println("| 2. Leger       - |");
         System.out.println("| 3. Legemiddler - |");
         System.out.println("| 4. Resepter    - |");

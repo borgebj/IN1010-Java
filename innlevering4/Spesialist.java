@@ -64,5 +64,4 @@ public class Spesialist extends Lege implements Godkjenningsfritak{
         pasient.addResept(Blaa);
         return Blaa;
     }
-
 }

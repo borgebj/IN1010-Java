@@ -298,6 +298,9 @@ public class Legesystem {
     /** Utskrift-delen **/
     // skriver ut alle pasienter
     public void skrivPasienter() {
+        Scanner scanner = new Scanner(System.in);
+
+        // skriver ut alle pasienter
         System.out.println("\n-------- [ Pasienter ] -----------");
         for (Pasient x : pasienter) {
 
@@ -305,6 +308,52 @@ public class Legesystem {
             delay(25);
         }
         System.out.println("----------------------------------\n");
+
+        // spoer om input og printer pasient sine resept om bruker vil
+        delay(750);
+        System.out.print("Hvem vil du se resept for (ID/a)? \n > ");
+        String kommando = scanner.next().toLowerCase(); scanner.nextLine();
+        delay(750);
+        try {
+            while (!kommando.equals("a")) {
+                int pasientID = Integer.parseInt(kommando);
+                boolean godkjentID = false;
+
+                for (Pasient pasient : pasienter) {
+                    boolean harResepter = false;
+
+                    if (pasientID == pasient.hentId()) {
+                        godkjentID = true;
+                        System.out.println("\nValgt pasient: "+pasient.hentNavn());
+                        delay(500);
+
+                        /** TODO: HEr kommer "Unsafe operation" **/
+                        Lenkeliste<Resept> liste = pasient.hentResepter();
+
+                        for (Resept resept : liste) {
+                            delay(25);
+                            System.out.println(resept);
+                            harResepter = true;
+                        }
+                        if (!harResepter) {
+                            System.out.println("> Har ingen resepter <\n");
+                        }
+                        delay(2250);
+                        kommando = "a";
+                    }
+                }
+                if (!godkjentID) {
+                    System.out.println("\nPasient-ID ugyldig");
+                    delay(1000);
+                    kommando = "a";
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("\nDette tegnet er ugyldig");
+        }
+        delay(500);
+        System.out.println("\n\nGaar tilbake...");
+        delay(1000);
     }
 
     // skriver ut alle legemidler
@@ -472,7 +521,6 @@ public class Legesystem {
         catch (Exception e) {
             System.out.println("\nLege finnes fra foer av\n");
         }
-
         delay(750);
         System.out.println("\n\nGaar tilbake...");
         delay(1000);
@@ -934,44 +982,69 @@ public class Legesystem {
 
     // printer ut alle leger som har skrevet ut minst en narkotisk resept + antall narkotiske
     public void muligMisbruk() {
+        delay(250);
 
-    delay(250);
-    int antLeger = 0;
-    System.out.println("\n\n---[ LEGER MED NARKOTISKE ] ---");
-    System.out.println("-------------------------------------------------------------------\n");
+        int antLeger = 0;
+        System.out.println("\n\n---[ LEGER MED NARKOTISKE ] ---");
+        System.out.println("-------------------------------------------------------------------\n");
 
-        // (gaar gjennom hver lege og henter resept-liste
+        // gaar gjennom hver lege og henter resept-liste
         for (Lege lege : leger) {
-
-            int antNarkotiske = 0;
-            boolean harNarkotisk = false;
+            int antLegeNarkotiske = 0;
+            boolean legeHarNarkotisk = false;
 
             delay(25);
-            /** //TODO: HEr kommer "Unsafe operation" **/
-            Lenkeliste<Resept> liste = lege.hentResepter();
+            /** TODO: HEr kommer "Unsafe operation" **/
+            Lenkeliste<Resept> legeListe = lege.hentResepter();
 
             // gaar gjennom hver resept i listen og henter legemiddel
-            for (Resept resept : liste) {
-                Legemiddel reseptMiddel = resept.hentLegemiddel();
+            for (Resept resept : legeListe) {
 
                 // sjekker om legemiddelet er narkotisk
-                if (reseptMiddel instanceof Narkotisk) {
-                    harNarkotisk = true;
-                    delay(25);
-                    antNarkotiske++;
+                if (resept.hentLegemiddel() instanceof Narkotisk) {
+                    legeHarNarkotisk = true;
+                    antLegeNarkotiske++;
                 }
             }
-            if (harNarkotisk){
-                System.out.println(" { " +lege+ " } ");
-                System.out.println(" - Antall narkotiske: { " + antNarkotiske + " } - \n");
+            if (legeHarNarkotisk) {
+                System.out.println(" { " + lege + " } ");
+                System.out.println(" - Antall narkotiske: { " + antLegeNarkotiske + " } - \n");
                 antLeger++;
             }
         }
-        if (antLeger <= 0) { System.out.println("> Ingen leger har narkotiske <\n"); }
+        if (antLeger <= 0) {
+            System.out.println("> Ingen leger har narkotiske <\n");
+        }
         System.out.println("-------------------------------------------------------------------");
+        delay(5000);
 
 
-            // venter i 5 sekunder for aa gi bruker tid til aa see
+        int antPasienter = 0;
+        System.out.println("\n\n-- [ PASIENTER MED NARKOTISKE ] --");
+        System.out.println("-------------------------------------------------------------------\n");
+
+        // gaar gjennom hver pasient og henter resept-liste
+        for (Pasient pasient : pasienter) {
+            delay(25);
+            int antPasientNarkotiske = 0;
+            boolean pasientHarNarkotisk = false;
+
+            /** TODO: HEr kommer "Unsafe operation" **/
+            Lenkeliste<Resept> pasientListe = pasient.hentResepter();
+
+            for (Resept resept : pasientListe) {
+                if (resept.hentLegemiddel() instanceof Narkotisk) {
+                    pasientHarNarkotisk = true;
+                    antPasientNarkotiske++;
+                }
+            }
+            if (pasientHarNarkotisk) {
+                System.out.println(" { " + pasient + " } ");
+                System.out.println(" - Antall narkotiske: { " + antPasientNarkotiske + " } - \n");
+                antPasienter++;
+            }
+        }
+        System.out.println("-------------------------------------------------------------------");
         delay(5000);
     }
 

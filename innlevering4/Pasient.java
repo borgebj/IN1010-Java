@@ -50,5 +50,3 @@ public class Pasient extends Stabel<Resept> {
         return (ID +": "+ navn + " (fnr "+fNr+")");
     }
 }
-
-

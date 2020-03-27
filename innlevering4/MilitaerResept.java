@@ -37,4 +37,3 @@ public class MilitaerResept extends HvitResept {
         return (id + ": [Militaer|vanlig] - " + Loutput + " ("+reit+" reit) " + " ("+Poutput+") ");
     }
 }
-
