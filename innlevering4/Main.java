@@ -363,6 +363,7 @@ public class Main {
                         lege.lesFraFil(filKommando);
                     } catch (FileNotFoundException e) {
                         System.out.println(filKommando+" finnes ikke\n");
+                        delay(2000);
                     }
 
                     // vis hovedmeny og spoer om ny input
