@@ -830,10 +830,10 @@ public class Legesystem {
 
             while (!kommando.equals("a")) {
 
-                // counter for antall reseter og pasientnavn for bruk senere
+                // counter for antall reseter, pasientnavn og placeholder for pasientID for bruk senere
                 int antResept = 0;
                 String pasientNavn = " [ Ugyldig pasient-id ] ";
-                int pasientID = -1;
+                int pasientID = 0;
 
                 if (kommando.equals("a")) {
                     System.out.println("\n\nOk avslutter\n\n");
