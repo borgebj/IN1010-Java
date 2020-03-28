@@ -811,6 +811,7 @@ public class Legesystem {
     /** Bruk-delen **/
     // gir brukeren mulighet for aa bruke resepter til ulike pasienter
     public void reseptBruk() {
+        System.out.println("--------------------------------------------------------------------");
         Scanner scanner = new Scanner(System.in);
 
         // viser fram alle pasienter og deres ID
@@ -825,13 +826,14 @@ public class Legesystem {
         try {
             // spoer om hvilken pasient de vil se - input her blir altsaa ID-en til pasienten
             System.out.print("\nHvilken pasient vil du se resepter for? \n > ");
-            String kommando = scanner.next();
+            String kommando = scanner.next(); scanner.nextLine();
 
             while (!kommando.equals("a")) {
 
-                // counter for antall reseter og pasientnavn for bruk senere
+                // counter for antall reseter, pasientnavn og placeholder for pasientID for bruk senere
                 int antResept = 0;
                 String pasientNavn = " [ Ugyldig pasient-id ] ";
+                int pasientID = 0;
 
                 if (kommando.equals("a")) {
                     System.out.println("\n\nOk avslutter\n\n");
@@ -839,12 +841,13 @@ public class Legesystem {
                 } else {
                     // gaar gjennom alle pasienter og sjekker ID til hver for aa finne pasient fra input
                     for (Pasient b : pasienter) {
-                        int pasientID = b.hentId();
+                        pasientID = b.hentId();
 
                         // sjekker "kommando" med pasientID etter konvertering til String
                         if (kommando.equals(Integer.toString(pasientID))) {
 
                             // pasienten er funnet, vises til terminalen
+                            delay(500);
                             System.out.print("\nPasient valgt: ");
                             pasientNavn = b.hentNavn();
                             System.out.println(b.hentNavn());
@@ -867,27 +870,73 @@ public class Legesystem {
 
                     // om det komer opp resepter
                     if (antResept > 0) {
-                        System.out.print("\nHvilken resept vil du bruke? \n > ");
-                        int reseptInput = scanner.nextInt();
+                        System.out.print("\nHvilken resept vil du bruke (ID/a)? \n > ");
+                        String reseptInput = scanner.nextLine().toLowerCase();
+                        boolean gyldigResept = false;
                         delay(800);
 
-                        // gaar gjennom alle resepter
-                        for (Resept resept : resepter) {
-                            int reseptID = resept.hentId();
+                        if (!reseptInput.equals("a")) {
 
-                            // hvis resept-id matcher brukerinput - bruk resept og fortell bruker
-                            if (reseptID == reseptInput) {
 
-                                // sjekker antall reit /om tomt eller ikke/
-                                if (resept.hentReit() > 0) {
-                                    resept.bruk();
-                                    System.out.println("\nBrukte resept paa " + resept.hentLegemiddel().hentNavn() + ".  Antall gjenvaerende reit: " + resept.hentReit());
-                                    delay(750);
-                                } else {
-                                    System.out.println("\nKunne ikke bruke resept paa " + resept.hentLegemiddel().hentNavn() + ": Ingen reit igjen\n");
-                                    delay(1000);
+                            // gaar gjennom pasienter og deres reseptliste og ser om baade reseptID og pasientID matcher input fra bruker
+                            for (Pasient pasient : pasienter) {
+                                if ((pasientID-1) == pasient.hentId()) {
+
+                                    @SuppressWarnings("unchecked")  // oppretter variabel > caster > "suppress warning"
+                                    Lenkeliste<Resept> liste = (Lenkeliste<Resept>) pasient.hentResepter();
+
+                                    for (Resept resept : liste) {
+                                        if (resept.hentId() == Integer.parseInt(reseptInput)) {
+                                            gyldigResept = true;
+
+                                            // sjekker antall reit /om tomt eller ikke/
+                                            if (resept.hentReit() > 0) {
+                                                resept.bruk();
+                                                System.out.println("\nBrukte resept paa " + resept.hentLegemiddel().hentNavn() + ".  Antall gjenvaerende reit: " + resept.hentReit() + "\n");
+                                                delay(2000);
+                                            } else {
+                                                System.out.println("\nKunne ikke bruke resept paa " + resept.hentLegemiddel().hentNavn() + ": Ingen reit igjen\n");
+                                                delay(2000);
+                                            }
+
+                                        }
+                                    }
+
                                 }
                             }
+
+                            // Backup for ^
+                            /*
+                            // gaar gjennom alle resepter
+                            for (Resept resept : resepter) {
+                                int reseptID = resept.hentId();
+
+                                // hvis resept-id matcher brukerinput - bruk resept og fortell bruker
+                                if (reseptID == Integer.parseInt(reseptInput)) {
+                                    gyldigResept = true;
+
+                                    // sjekker antall reit /om tomt eller ikke/
+                                    if (resept.hentReit() > 0) {
+                                        resept.bruk();
+                                        System.out.println("\nBrukte resept paa " + resept.hentLegemiddel().hentNavn() + ".  Antall gjenvaerende reit: " + resept.hentReit() + "\n");
+                                        delay(2000);
+                                    } else {
+                                        System.out.println("\nKunne ikke bruke resept paa " + resept.hentLegemiddel().hentNavn() + ": Ingen reit igjen\n");
+                                        delay(2000);
+                                    }
+                                }
+                            }
+                             */
+
+                        }
+                        else if (reseptInput.equals("a")) {
+                            delay(500);
+                            System.out.println("\nAvbryter ...\n");
+                            delay(1000);
+                        }
+                        if (!gyldigResept && !reseptInput.equals("a")) {
+                            System.out.println("\n [ Ugylidg resept-id : " + reseptInput + " ]\n");
+                            delay(750);
                         }
                     }
 
@@ -911,7 +960,7 @@ public class Legesystem {
                 }
 
                 System.out.print("\nHvilken pasient vil du se resepter for? (alle/ID/a) \n > ");
-                kommando = scanner.next();
+                kommando = scanner.next(); scanner.nextLine();
 
                 // bruker kan velge aa see alle paa nytt
                 if (kommando.equals("alle")) {
@@ -924,7 +973,7 @@ public class Legesystem {
                 }
             }
             delay(750);
-            System.out.println("\nGaar tilbake ...\n");
+            System.out.println("\nAvbryter ...\n");
             delay(1000);
         }
         // fanger feil om tegnet til scanner er ugyldig
@@ -934,6 +983,7 @@ public class Legesystem {
             System.out.println("Gaar tilbake ... \n\n");
             delay(1000);
         }
+        System.out.println("--------------------------------------------------------------------");
     }
 
 
