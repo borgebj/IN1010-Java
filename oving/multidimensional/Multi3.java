@@ -6,8 +6,8 @@ class Multi3 {
         Random rand = new Random();
 
         // Variabler for rad og kolonne (Størrelse)
-        int rad = 4;
-        int kolonne = 5;
+        int rad = 3;
+        int kolonne = 3;
 
         // Lager og definerer størrelse
         char[][] kart = new char[rad][kolonne];
@@ -19,13 +19,15 @@ class Multi3 {
             }
         }
         // genererer tilfeldig plass til skatten
-        int skattRad = rand.nextInt(4);
-        int skattKolonne = rand.nextInt(5);
-        System.out.println("Rad: "+ skattRad +"  kolonne: "+ skattKolonne);
+        int skattRad = rand.nextInt(rad);
+        int skattKolonne = rand.nextInt(kolonne);
+        System.out.println("Totalt - Rader: " + rad + " Kolonner: " + kolonne);
+        System.out.println("Skatt - Rad: "+ skattRad +"  kolonne: "+ skattKolonne + "\n");
 
         // legger inn skatt
         kart[skattRad][skattKolonne] = 'O';
 
+        // printer brettet
         for (char[] a : kart) {
             for (char b : a) {
                 System.out.print(b + " ");
