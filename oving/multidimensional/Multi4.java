@@ -20,6 +20,10 @@ class Multi4 {
 
         finnApninger(kart);
 
+        System.out.println("\n\n");
+
+        finnHjoerner(kart);
+
 
         System.out.println("\n-------------------------------------");
     }
@@ -86,6 +90,33 @@ class Multi4 {
                         antAapninger++;
                         System.out.println("Rad "+(i+1)+" Kolonne: "+(j+1)+ "  -  " + kart[i][j] + "\n");
                     }
+                }
+            }
+        }
+    }
+
+    static void finnHjoerner(char[][] kart) {
+        for (int i=0; i < kart.length; i++) {
+            for (int j=0; j < kart[i].length; j++) {
+
+                if (i==0 && j==0) {
+                    System.out.print("Overst venstre: ");
+                    System.out.println(kart[i][j]);
+                }
+
+                if (i==0 && j==kart[i].length-1) {
+                    System.out.print("Overst hoyre: ");
+                    System.out.println(kart[i][j]);
+                }
+
+                if (j==0 && i==kart.length-1) {
+                    System.out.print("Nederst venstre: ");
+                    System.out.println(kart[i][j]);
+                }
+
+                if (j==kart[i].length-1 && i==kart.length-1) {
+                    System.out.print("Nederst hoyre: ");
+                    System.out.println(kart[i][j]);
                 }
             }
         }
