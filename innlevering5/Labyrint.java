@@ -6,12 +6,10 @@ import java.io.FileNotFoundException;
 
 public class Labyrint {
 
-    //  rad-kol
     private Rute [][] rutenett;
-    Liste<String> utveier;
     int antRader;
     int antKol;
-
+    Liste<String> utveier;
 
     // tar inn antall rader, antall kolonner, og et array av Ruter
     private Labyrint(int antRader, int antKol, Rute[][] rutenett) {
@@ -30,7 +28,6 @@ public class Labyrint {
         int kolonner = Integer.parseInt(tall[1]);
 
         Rute[][] brett = new Rute[rader][kolonner];
-
 
         // leser gjennom selve labyrinten, tegn for tegn
         while (lesFil.hasNext()) {
@@ -105,18 +102,41 @@ public class Labyrint {
                 rutenett[i][j].settNaboer(nord, sor, ost, vest);
             }
         }
-        return new Labyrint(rader, kolonner, brett);
+
+        // returner labyrinten vi lagde tidligere - med baade naboer og labyrint-referanse
+        return labyrint;
     }
+
 
     // metode som kaller paa finnUtvei() paa node i posisjon fra parameter, og returnerer en liste med utveier
     public Liste<String> finnUtveiFra(int kol, int rad) {
 
-        // for hvert kall lages en ny lenkeliste med utveier
+        // oppretter ny liste for hver gang vi kaller finnUtveiFra
         utveier = new Lenkeliste<String>();
 
+        // kaller paa finnUtvei() paa ruten i koordinater fra parameter
         rutenett[rad][kol].finnUtvei();
 
+        System.out.println("\nAntall utveier: " + utveier.stoerrelse()); // lagt til selv - fjern
+        System.out.println("Korteste utvei: " + finnKortestUtvei() + "\n");
+
         return utveier;
+    }
+
+    // metode som returner den korteste utveien
+    public String finnKortestUtvei() {
+
+        // sjekker om utveier finnes
+        if (utveier.stoerrelse() != 0) {
+
+            // gaar gjennom alle utveiene - oppdater minste om stringen er mindre enn stringen i "minste"
+            String minste = utveier.hent(0);
+            for (String s : utveier) {
+                if (s.length() < minste.length() ) {
+                    minste = s;
+                }
+            } return minste;
+        } return "Ingen utveier";
     }
 
     @Override // toString metode som printer ut brettet som String
@@ -134,11 +154,14 @@ public class Labyrint {
     }
 
 
+
+
     // test metode - toString() med tall paa topp og siden for oversikt
     public void skrivMedTall() {
         int teller = 0;
 
-        System.out.print("  ");
+        // overste kant + tellere
+        System.out.print("   | ");
         for (int i=0; i < antKol; i++) {
             if (i>9) {
                 System.out.print(i);
@@ -147,25 +170,37 @@ public class Labyrint {
                 System.out.print(i + " ");
             }
         }
+        System.out.print("|");
 
         System.out.println();
+        for (int i=0; i < antKol; i++) {
+            System.out.print("--");
+        } System.out.print("-----|");
+
+        // selve rutenettet
+        System.out.println();
         for (Rute[] a : rutenett) {
-            System.out.print(teller+" ");
+            System.out.printf("%2d | ", teller);
             for (Rute b : a) {
                 System.out.print(b.tilTegn() + " ");
             }
-            System.out.println();
+            System.out.print("|\n");
             teller++;
         }
+
+        // nederste kant
+        for (int i=0; i < antKol; i++) {
+            System.out.print("--");
+        } System.out.print("-----");
+        System.out.println("\n");
     }
 
     // test metode - skriver ut alle aapninger til rutenettet
     public void finnApninger() {
 
-        System.out.println();
         for (int i=0; i < rutenett.length; i++) {
             for (int j=0; j < rutenett[i].length; j++) {
-                if (rutenett[i][j] instanceof Aapning) {
+                if ( rutenett[i][j].erAapning() ) {
                     System.out.println("Fant aapning!");
                     System.out.println("Rad "+(i+1)+" Kolonne: "+(j+1)+ "  -  " + rutenett[i][j] + "\n");
                 }
@@ -182,10 +217,5 @@ public class Labyrint {
         System.out.println("Vest: [" + denne.vest + "]");
     }
 
-    // test metode - skriver ut koordinater til en rute
-    public void hentKoordinater(int kol, int rad) {
-        System.out.println("Rad: " + rutenett[rad][kol].rad);
-        System.out.println("Kolonne: " + rutenett[rad][kol].kolonne);
-    }
 }
 

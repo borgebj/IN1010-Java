@@ -27,41 +27,38 @@ class testProgram {
         }
 
 
+        System.out.println("\n");
 
-
-        System.out.println("--------------------------------");
+        ///////////////////////////////////////////////////////////
         System.out.println("Tester toString()");
 
         // tester toString-metoden
         System.out.println( l );
 
-        System.out.println("--------------------------------\n");
+        System.out.println("\n");
         TimeUnit.SECONDS.sleep(2);
 
 
         ///////////////////////////////////////////////////////////
-        System.out.println("--------------------------------");
         System.out.println("Tester finnAapninger()");
 
         // finner aapninger til brettet
         l.finnApninger();
 
-        System.out.println("--------------------------------\n");
+        System.out.println("\n");
         TimeUnit.SECONDS.sleep(2);
 
 
         ///////////////////////////////////////////////////////////
-        System.out.println("--------------------------------");
         System.out.println("Tester skrivMedTall()");
 
         l.skrivMedTall();
 
-        System.out.println("--------------------------------\n");
+        System.out.println("\n");
         TimeUnit.SECONDS.sleep(2);
 
 
         ///////////////////////////////////////////////////////////
-        System.out.println("--------------------------------");
         System.out.println("Tester finnNaboer()");
 
         System.out.print("Skriv inn koordinater <kolonne> <rad> \n > ");
@@ -71,12 +68,11 @@ class testProgram {
         int rad = Integer.parseInt(linje[1]);
 
         l.finnNaboer(kol, rad);
-        System.out.println("--------------------------------\n");
+        System.out.println("\n");
         TimeUnit.SECONDS.sleep(2);
 
 
         ///////////////////////////////////////////////////////////
-        System.out.println("--------------------------------");
         System.out.println("Tester finnUtveiFra()");
 
         Liste<String> utveier = l.finnUtveiFra(kol, rad);
@@ -88,17 +84,7 @@ class testProgram {
             System.out.println("Ingen utveier.");
         }
 
-        System.out.println("--------------------------------\n");
-        TimeUnit.SECONDS.sleep(2);
-
-
-        ///////////////////////////////////////////////////////////
-        System.out.println("--------------------------------");
-        System.out.println("Tester hentKoordinater()");
-
-        l.hentKoordinater(kol, rad);
-
-        System.out.println("--------------------------------\n");
+        System.out.println("\n");
         TimeUnit.SECONDS.sleep(2);
     }
 }
