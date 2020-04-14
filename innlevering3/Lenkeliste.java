@@ -1,5 +1,6 @@
+import java.util.Iterator;
 
-class Lenkeliste<T>  implements Liste<T>  {
+public class Lenkeliste<T> implements Liste<T>  {
 
     // node-klasse som skal lenkes sammen i listen
     protected class Node {
@@ -16,6 +17,51 @@ class Lenkeliste<T>  implements Liste<T>  {
 
     // instansvariabler - en som holder forste node, og en counter for antall noder
     protected Node forste;
+
+
+    // indre klasse "LenkelisteIterator" brukt for aa iterere gjennom Lenkeliste
+    public class LenkelisteIterator implements Iterator<T> {
+
+        Node current = forste;
+
+        // sjekker om lenkelisten har en til node
+        public boolean hasNext() {
+
+            // neste finnes
+            if (current == null) {
+                return false;
+            }
+            // neste finnes ikke
+            else {
+                return true;
+            }
+        }
+
+        // sjekker og returner om det finnes en neste node (returner data fra noden)
+        public T next(){
+
+            // om neste node finnes, return data
+            if (hasNext()){
+                T data = current.innhold;
+                current = current.neste;
+                return data;
+            }
+            // om neste er tom
+            else {
+                return null;
+            }
+        }
+
+        // metode som kaster unntak
+        public void remove(){
+            throw new UnsupportedOperationException("Remove har ikke blitt implementert");
+        }
+    }
+
+    // Metode som returner nytt LenkelisteIterator-objekt
+    public Iterator<T> iterator() {
+        return new LenkelisteIterator();
+    }
 
 
     @Override // legger inn ny nod paa slutten
@@ -46,7 +92,6 @@ class Lenkeliste<T>  implements Liste<T>  {
             return verdi;
         }
     }
-
 
     @Override // bytter ut element fra parameter med node i gitt posisjon
     public void sett(int pos, T x) {
@@ -131,15 +176,18 @@ class Lenkeliste<T>  implements Liste<T>  {
     }
 
 
+    @Override // toemmer lenkelisten (13.04.20)
+    public void toem() {
+        forste = null;
+    }
 
-    // test funksjon som printer ut innhold i hver node
+    @Override // test metode som printer ut innhold i hver node
     public void hentAll() {
         Node naa = forste;
 
-        System.out.print("[ ");
         while(naa != null) {
-            System.out.print(" " + naa.innhold + " ");
+            System.out.print(naa.innhold + "\n");
             naa = naa.neste;
-        } System.out.println(" ] ");
+        }
     }
 }

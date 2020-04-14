@@ -7,4 +7,6 @@ interface Liste<T> extends Iterable<T> {
     public T hent(int pos);
     public T fjern(int pos);
     public T fjern();
+    public void hentAll(); // (13.04.20)
+    public void toem(); // (13.04.20)
 }

@@ -176,15 +176,18 @@ public class Lenkeliste<T> implements Liste<T>  {
     }
 
 
-    // test funksjon som printer ut innhold i hver node
+    @Override // toemmer lenkelisten (13.04.20)
+    public void toem() {
+        forste = null;
+    }
+
+    @Override // test metode som printer ut innhold i hver node
     public void hentAll() {
         Node naa = forste;
 
-        System.out.println("---------------------------------------------");
         while(naa != null) {
             System.out.print(naa.innhold + "\n");
             naa = naa.neste;
         }
-        System.out.println("---------------------------------------------");
     }
 }
