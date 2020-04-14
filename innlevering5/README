@@ -52,3 +52,5 @@ kaller vi asyklisk.
 Hvite ruter på kanten av labyrinten kalles åpninger, og en vei fra en gitt rute til en åpning
 kalles en utvei. Vi kan referere til en bestemt rute ved å bruke koordinatene slik: (kolonne,
 rad). F.eks. har figur 3 to åpninger; (0, 1) og (12, 11).
+
+- FERDIG -
