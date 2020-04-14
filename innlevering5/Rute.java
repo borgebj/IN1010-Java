@@ -1,4 +1,6 @@
 
+// Groenne kommentarer er en alternativ loesning for sykliske labyrinter (men flere linjer)
+
 public abstract class Rute {
 
     // variabel for kolonne, rad, koordinatene i String og labyrinten den er del av
@@ -6,6 +8,7 @@ public abstract class Rute {
     protected int kolonne;
     protected String mineKoordinater;
     protected Labyrint minLabyrint;
+    /** protected boolean besokt = false; */
 
     // nabo-ruter
     protected Rute nord, sor, ost, vest;
@@ -26,6 +29,21 @@ public abstract class Rute {
         this.vest = vest;
     }
 
+    // NYTT: Test for ny losning - setter naboer
+    public void settNord(Rute nord) {
+        this.nord = nord;
+    }
+    public void settSor(Rute sor) {
+        this.sor = sor;
+    }
+    public void settOst(Rute ost) {
+        this.ost = ost;
+    }
+    public void settVest(Rute vest) {
+        this.vest = vest;
+    }
+
+
     // setter referanse til rutens labyrint
     public void settReferanse(Labyrint ref) {
         this.minLabyrint = ref;
@@ -35,9 +53,11 @@ public abstract class Rute {
     public void gaa(Rute denne, String koordinater)  {
 
         // nytt basistilfelle for sykliske - stopper om stringen vi tar med oss inneholder denne rutens koordinater
-        if (koordinater.contains(mineKoordinater)) {
-            return;
-        }
+        // den sjekker altsaa om vi har vaert innom ruten foer
+        if (koordinater.contains(mineKoordinater)) { return; }
+
+        /**  // nytt basistilfelle for sykliske - stopper om ruten er besokt
+        if (besokt) { return; } */
 
         // for hver rute legges koordinatene til i stringen
         koordinater += mineKoordinater;
@@ -56,6 +76,9 @@ public abstract class Rute {
         // om ruten er godkjent til aa gaa videre:
         else {
 
+            /** // markerer ruten som besokt
+            besokt = true; */
+
             // om ruten gaar videre legges pil til
             koordinater += "-->";
 
@@ -72,6 +95,9 @@ public abstract class Rute {
             if (vest != denne) {
                 vest.gaa(this, koordinater);
             }
+
+            /** // naar kallene er ferdig - marker som ikke besokt
+            besokt = false; */
         }
     }
 

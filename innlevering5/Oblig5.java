@@ -22,6 +22,9 @@ class Oblig5 {
             System.exit(1);
         }
 
+        // lagt til selV: skriver ut brettet med hjelpe-tall paa siden og toppen
+        l.skrivMedTall();
+
         // les start-koordinater fra standard input
         Scanner inn = new Scanner(System.in);
         System.out.println("Skriv inn koordinater <kolonne> <rad> ('a' for aa avslutte)");
@@ -37,6 +40,10 @@ class Oblig5 {
                     for (String s : utveier) {
                         System.out.println(s);
                     }
+                    // lagt til selv: Skriver ut antall utveier og den korteste utveien
+                    System.out.println("\nAntall utveier: " + utveier.stoerrelse());
+                    System.out.println("Korteste utvei: " + l.finnKortestUtvei() + "\n");
+
                 } else {
                     System.out.println("Ingen utveier.");
                 }
