@@ -86,5 +86,24 @@ class testProgram {
 
         System.out.println("\n");
         TimeUnit.SECONDS.sleep(2);
+
+
+        ///////////////////////////////////////////////////////////
+        System.out.println("Tester toString()");
+
+        // tester toString-metoden
+        System.out.println( l );
+
+        System.out.println("\n");
+        TimeUnit.SECONDS.sleep(2);
+
+
+        ///////////////////////////////////////////////////////////
+        System.out.println("Tester finnKortestUtvei()");
+
+        System.out.println( l.finnKortestUtvei() );
+
+        System.out.println("\n");
+        TimeUnit.SECONDS.sleep(2);
     }
 }

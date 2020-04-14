@@ -29,54 +29,62 @@ public class Labyrint {
 
         Rute[][] brett = new Rute[rader][kolonner];
 
-        // leser gjennom selve labyrinten, tegn for tegn
-        while (lesFil.hasNext()) {
-
-            // oppretter ruter
-            for (int i = 0; i < brett.length; i++) {
-                String[] line = lesFil.nextLine().split("");
-
-                for (int j = 0; j < brett[i].length; j++) {
-
-                    // hvis tegn er "." - sjekk om den er ved kant foer oppretter rute
-                    if (line[j].equals(".")) {
-
-                        // sjekker kantene (hvis i/j er 0 eller i/j er lengden paa radene og kolonnene
-                        if (j == 0 || i == 0 || j == kolonner - 1 || i == rader - 1) {
-                            brett[i][j] = new Aapning(i, j);
-                        } else {
-                            brett[i][j] = new HvitRute(i, j);
-                        }
-                    }
-                    else if (line[j].equals("#")) {
-                        brett[i][j] = new SortRute(i, j);
-                    }
-                }
+        // oppretter rute-objekt for hver celle avhengig av tegn fra filen
+        for (int i = 0; i < rader; i++) {
+            String line = lesFil.nextLine();
+            for (int j = 0; j < kolonner; j++) {
+                brett[i][j] = lagRute(line.charAt(j), i, j, rader, kolonner);   // inspirasjon fra regneovelser 14.04.20
             }
         }
 
-        // oppretter labyrint-objektet
+        // oppretter labyrint-objektet for aa legge til referanse og naboer
         Labyrint labyrint = new Labyrint(rader, kolonner, brett);
-        Rute[][] rutenett = labyrint.rutenett;
 
-        // fordeler naboer og gir labyrint-referanse v2 - inspirasjon fra regneovelser 14.04.20
-        for (int rad = 0; rad < rader; rad++) {
-            for (int kol = 0; kol < kolonner; kol++) {
-                rutenett[rad][kol].settReferanse(labyrint);
-                if (rad > 0)
-                    rutenett[rad][kol].settNord(rutenett[rad - 1][kol]);
-                if (rad < rader - 1)
-                    rutenett[rad][kol].settSor(rutenett[rad + 1][kol]);
-                if (kol > 0)
-                    rutenett[rad][kol].settVest(rutenett[rad][kol - 1]);
-                if (kol < kolonner - 1)
-                    rutenett[rad][kol].settOst(rutenett[rad][kol + 1]);
-            }
-        }
+        // kaller paa hjelpemetode for aa sette naboer
+        settNaboer(labyrint);
 
         // returner labyrinten vi lagde tidligere - med baade naboer og labyrint-referanse
         return labyrint;
     }
+
+    // hjelpemtode for aa avgjoere rute-objekt til koordinater fra parameter - inspirasjon fra regneovelser 14.04.20
+    private static Rute lagRute(char tegn, int rad, int kolonne, int antRader, int antKolonner) {
+        if (tegn=='#')
+            return new SortRute(rad, kolonne);  // SortRute lages om tegn er "#"
+        if (rad==0 || kolonne==0 || rad==antRader-1 || kolonne==antKolonner-1 && tegn=='.')
+            return new Aapning(rad, kolonne); // Aapning lages om tegn er "." og er paa kanten
+        return new HvitRute(rad, kolonne);  // ellers lages en HvitRute
+    }
+
+    // hjelpemetode for "lesFraFil" - setter naboer og referanse til labyrint-objekt fra parameter
+    private static void settNaboer(Labyrint labyrint) {
+
+        // fordeler naboer og gir labyrint-referanse v2 - inspirasjon fra regneovelser 14.04.20
+        for (int rad = 0; rad < labyrint.antRader; rad++) {
+            for (int kol = 0; kol < labyrint.antKol; kol++) {
+                sjekkNaboer(rad, kol, labyrint);
+            }
+        }
+    }
+
+    // hjelpemetode for "settNaboer" - sjekker og legger til naboer for koordianter fra parameter
+    private static void sjekkNaboer(int rad, int kol, Labyrint labyrint) {
+        Rute[][] rutenett = labyrint.rutenett;
+
+        // setter referanse for alle rutene foerst
+        rutenett[rad][kol].settReferanse(labyrint);
+
+        // sjekker hvor i brettet ruten er, og gir naboer tilsvarende
+        if (rad > 0)
+            rutenett[rad][kol].settNabo(rutenett[rad - 1][kol], 'N');
+        if (rad < labyrint.antRader - 1)
+            rutenett[rad][kol].settNabo(rutenett[rad + 1][kol], 'S');
+        if (kol > 0)
+            rutenett[rad][kol].settNabo(rutenett[rad][kol - 1], 'O');
+        if (kol < labyrint.antKol - 1)
+            rutenett[rad][kol].settNabo(rutenett[rad][kol + 1], 'V');
+    }
+
 
     // metode som kaller paa finnUtvei() paa node i posisjon fra parameter, og returnerer en liste med utveier
     public Liste<String> finnUtveiFra(int kol, int rad) {
@@ -106,18 +114,16 @@ public class Labyrint {
         } return "Ingen utveier";
     }
 
-    @Override // toString metode som printer ut brettet som String
+    @Override // toString metode som printer ut brettet som String v2 - inspirasjon fra regneovelser 14.04.20
     public String toString() {
-        StringBuilder nett = new StringBuilder();
-
-        for (Rute[] a : rutenett) {
-            for (Rute b : a) {
-                nett.append(b.tilTegn() + " ");
+        String utskrift = new String(new char[50]).replace("\0", "\n");
+        for (int rad=0; rad < antRader; rad++) {
+            utskrift += "\n";
+            for (int kol=0; kol < antKol; kol++) {
+                utskrift += rutenett[rad][kol].tilTegn() + " ";
             }
-            nett.append("\n");
         }
-        nett.deleteCharAt(nett.length()-1);
-        return nett.toString();
+        return utskrift;
     }
 
 
@@ -130,14 +136,11 @@ public class Labyrint {
         // overste kant + tellere
         System.out.print("   | ");
         for (int i=0; i < antKol; i++) {
-            if (i>9) {
+            if (i>9)
                 System.out.print(i);
-            }
-            else {
+            else
                 System.out.print(i + " ");
-            }
-        }
-        System.out.print("|");
+        } System.out.print("|");
 
         System.out.println();
         for (int i=0; i < antKol; i++) {
@@ -150,8 +153,7 @@ public class Labyrint {
             System.out.printf("%2d | ", teller);
             for (Rute b : a) {
                 System.out.print(b.tilTegn() + " ");
-            }
-            System.out.print("|\n");
+            } System.out.print("|\n");
             teller++;
         }
 
@@ -159,12 +161,11 @@ public class Labyrint {
         for (int i=0; i < antKol; i++) {
             System.out.print("--");
         } System.out.print("-----");
-        System.out.println("\n");
+        System.out.println("");
     }
 
     // test metode - skriver ut alle aapninger til rutenettet
     public void finnApninger() {
-
         for (int i=0; i < rutenett.length; i++) {
             for (int j=0; j < rutenett[i].length; j++) {
                 if ( rutenett[i][j].erAapning() ) {
@@ -178,6 +179,7 @@ public class Labyrint {
     // test metode - skriver ut alle naboer til en celle fra parameter
     public void finnNaboer(int kol, int rad) {
         Rute denne = rutenett[rad][kol];
+        System.out.println("Denne: [" + denne + "]");
         System.out.println("Nord: [" + denne.nord + "]");
         System.out.println("Sor: [" + denne.sor + "]");
         System.out.println("Ost: [" + denne.ost + "]");
