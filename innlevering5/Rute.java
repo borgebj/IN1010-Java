@@ -1,6 +1,4 @@
 
-// Groenne kommentarer er en alternativ loesning for sykliske labyrinter (men flere linjer)
-
 public abstract class Rute {
 
     // variabel for kolonne, rad, koordinatene i String og labyrinten den er del av
@@ -8,7 +6,6 @@ public abstract class Rute {
     protected int kolonne;
     protected String mineKoordinater;
     protected Labyrint minLabyrint;
-    /** protected boolean besokt = false; */
 
     // nabo-ruter
     protected Rute nord, sor, ost, vest;
@@ -21,26 +18,12 @@ public abstract class Rute {
         this.mineKoordinater = "["+kolonne+","+rad+"]";
     }
 
-    // setter naboer
-    public void settNaboer(Rute nord, Rute sor, Rute ost, Rute vest) {
-        this.nord = nord;
-        this.sor = sor;
-        this.ost = ost;
-        this.vest = vest;
-    }
-
-    // NYTT: Test for ny losning - setter naboer
-    public void settNord(Rute nord) {
-        this.nord = nord;
-    }
-    public void settSor(Rute sor) {
-        this.sor = sor;
-    }
-    public void settOst(Rute ost) {
-        this.ost = ost;
-    }
-    public void settVest(Rute vest) {
-        this.vest = vest;
+    // sjekker parametere og legger til nabo i forhold til tegnet
+    public void settNabo(Rute rute, char tegn) {
+        if (tegn=='N') this.nord = rute;
+        if (tegn=='S') this.sor = rute;
+        if (tegn=='O') this.ost = rute;
+        if (tegn=='V') this.vest = rute;
     }
 
 
@@ -52,53 +35,36 @@ public abstract class Rute {
     // rekursjon metode som kaller paa sine naboer helt til den finner aapningen i labyrinten
     public void gaa(Rute denne, String koordinater)  {
 
-        // nytt basistilfelle for sykliske - stopper om stringen vi tar med oss inneholder denne rutens koordinater
-        // den sjekker altsaa om vi har vaert innom ruten foer
+        // basistilfelle for sykliske - stopper om om vi har vaert innom ruten foer
         if (koordinater.contains(mineKoordinater)) { return; }
-
-        /**  // nytt basistilfelle for sykliske - stopper om ruten er besokt
-        if (besokt) { return; } */
 
         // for hver rute legges koordinatene til i stringen
         koordinater += mineKoordinater;
 
-        // basistilfelle: om ruten er aapning
+        // basistilfelle: om ruten er aapning - legger til utvei og stopper
         if (erAapning()) {
-
-            // legger til stringen i utveier-listen og stopper
             minLabyrint.utveier.leggTil(koordinater);
             return;
         }
-        // basistilfelle: om ruten er svart
-        else if (tilTegn()=='#') {
-            return;
-        }
-        // om ruten er godkjent til aa gaa videre:
+        // basistilfelle: om ruten er svart - stopp
+        else if (tilTegn()=='#') { return; }
         else {
-
-            /** // markerer ruten som besokt
-            besokt = true; */
-
-            // om ruten gaar videre legges pil til
+            // ellers: legger til pil i melding og kall paa hjelpemetode
             koordinater += "-->";
-
-            // sjekk hver nabo om de ikke er den ruten de kom fra
-            if (nord != denne) {
-                nord.gaa(this, koordinater);
-            }
-            if (sor != denne) {
-                sor.gaa(this, koordinater);
-            }
-            if (ost != denne) {
-                ost.gaa(this, koordinater);
-            }
-            if (vest != denne) {
-                vest.gaa(this, koordinater);
-            }
-
-            /** // naar kallene er ferdig - marker som ikke besokt
-            besokt = false; */
+            sjekkOgGaa(denne, koordinater);
         }
+    }
+
+    // hjelpemetode - sjekker hver nabo om de ikke er den ruten de kom fra, og kaller gaa()
+    private void sjekkOgGaa(Rute denne, String koordinater) {
+        if (nord != denne)
+            nord.gaa(this, koordinater);
+        if (sor != denne)
+            sor.gaa(this, koordinater);
+        if (ost != denne)
+            ost.gaa(this, koordinater);
+        if (vest != denne)
+            vest.gaa(this, koordinater);
     }
 
     // kaller paa gaa() med denne ruten - starter med en tom string

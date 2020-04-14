@@ -14,6 +14,7 @@ public class Hovedprogram
 
     public static void main(String[] args)
     {
+        // rekkefolgen paa hva som skjer
         settScannerOgFil(args[0]);
         settRaderOgKolonner();
         settRutenett();
