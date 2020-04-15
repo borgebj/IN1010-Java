@@ -9,9 +9,4 @@ class SortRute extends Rute {
     public char tilTegn() {
         return '#';
     }
-
-    // returner false - fordi svart ikke er aapning
-    public boolean erAapning() {
-        return false;
-    }
 }

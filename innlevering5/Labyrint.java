@@ -168,7 +168,7 @@ public class Labyrint {
     public void finnApninger() {
         for (int i=0; i < rutenett.length; i++) {
             for (int j=0; j < rutenett[i].length; j++) {
-                if ( rutenett[i][j].erAapning() ) {
+                if ( rutenett[i][j] instanceof Aapning ) {
                     System.out.println("Fant aapning!");
                     System.out.println("Rad "+(i+1)+" Kolonne: "+(j+1)+ "  -  " + rutenett[i][j] + "\n");
                 }
