@@ -26,7 +26,6 @@ public class Labyrint {
         String [] tall = lesFil.nextLine().trim().split(" ");
         int rader = Integer.parseInt(tall[0]);
         int kolonner = Integer.parseInt(tall[1]);
-
         Rute[][] brett = new Rute[rader][kolonner];
 
         // oppretter rute-objekt for hver celle avhengig av tegn fra filen
@@ -36,7 +35,6 @@ public class Labyrint {
                 brett[i][j] = lagRute(line.charAt(j), i, j, rader, kolonner);   // inspirasjon fra regneovelser 14.04.20
             }
         }
-
         // oppretter labyrint-objektet for aa legge til referanse og naboer
         Labyrint labyrint = new Labyrint(rader, kolonner, brett);
 

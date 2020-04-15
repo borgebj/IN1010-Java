@@ -40,11 +40,14 @@ public class Legesystem {
     }
 
 
-    // egen sleep-metode for "artifical-delay"
+    // "utility" metoder - delay og clearScreen-metoder
     public void delay(long t) {
         try {
             Thread.sleep(t);
         } catch (InterruptedException e) {}
+    }
+    public static void clearScreen() {
+        System.out.println(new String(new char[50]).replace('\0', '\n'));
     }
 
     // metode som gaar gjennom filen, oppretter objekter og legger de til i listen (kaster 2 unntak)
@@ -298,6 +301,7 @@ public class Legesystem {
     /** Utskrift-delen **/
     // skriver ut alle pasienter
     public void skrivPasienter() {
+        clearScreen();
         Scanner scanner = new Scanner(System.in);
 
         // skriver ut alle pasienter
@@ -331,14 +335,14 @@ public class Legesystem {
                         Lenkeliste<Resept> liste = (Lenkeliste<Resept>) pasient.hentResepter();
 
                         for (Resept resept : liste) {
-                            delay(25);
+                            delay(100);
                             System.out.println(resept);
                             harResepter = true;
                         }
                         if (!harResepter) {
                             System.out.println("> Har ingen resepter <\n");
                         }
-                        delay(2250);
+                        delay(3000);
                         kommando = "a";
                     }
                 }
@@ -358,6 +362,7 @@ public class Legesystem {
 
     // skriver ut alle legemidler
     public void skrivLegemidler() {
+        clearScreen();
         System.out.println("\n-------- [ Legemidler ] ----------");
         for (Legemiddel x : legemidler) {
 
@@ -370,6 +375,7 @@ public class Legesystem {
 
     // skriver ut alle leger
     public void skrivLeger() {
+        clearScreen();
         System.out.println("\n----------- [ leger ] --------------");
         for (Lege x : leger) {
 
@@ -381,6 +387,7 @@ public class Legesystem {
 
     // skriver ut alle resepter
     public void skrivResepter() {
+        clearScreen();
         System.out.println("\n------- [ Resepter ] ---------------------------------------------------");
         for (Resept x : resepter) {
 
@@ -397,6 +404,7 @@ public class Legesystem {
     public void legeMeny() {
         // console-interface
         delay(500);
+        clearScreen();
         System.out.println("\n ---[Oppretting]----");
         System.out.print( " | 1. Lege         |" +
                 "\n | 2. Spesialist   |" +
@@ -407,6 +415,7 @@ public class Legesystem {
     public void pasientMeny() {
         // console-interface
         delay(500);
+        clearScreen();
         System.out.println("\n ---[Oppretting]---");
         System.out.print ( " | 1. Pasient     |" +
                 "\n | - - - -  - - - |" +
@@ -416,6 +425,7 @@ public class Legesystem {
     public void reseptMeny() {
         // console-interface
         delay(500);
+        clearScreen();
         System.out.println("\n -----[Resept]------");
         System.out.print( " | 1. Hvite        |" +
                 "\n | 2. Millitaer    |" +
@@ -428,6 +438,7 @@ public class Legesystem {
     public void middelMeny() {
         // console-interface
         delay(500);
+        clearScreen();
         System.out.println("\n ---[Oppretting]----");
         System.out.print( " | 1. Vanlig       |" +
                 "\n | 2. Vanedannende |" +
@@ -811,7 +822,9 @@ public class Legesystem {
     /** Bruk-delen **/
     // gir brukeren mulighet for aa bruke resepter til ulike pasienter
     public void reseptBruk() {
+        clearScreen();
         System.out.println("--------------------------------------------------------------------");
+        System.out.println("          [ PASIENTER ]");
         Scanner scanner = new Scanner(System.in);
 
         // viser fram alle pasienter og deres ID
@@ -990,9 +1003,9 @@ public class Legesystem {
     /** Statistikk-delen **/
     // printer ut alle vanedannende legemidler + antall
     public void hentVanedannende() {
+        clearScreen();
 
         int antall = 0;
-
         System.out.println("\n\n---[ VANEDANNENDE ] ---------------");
         for (Resept x : resepter) {
             Legemiddel middel = x.hentLegemiddel();
@@ -1011,9 +1024,9 @@ public class Legesystem {
 
     // printer ut alle narkotiske legemidler + antall
     public void hentNarkotiske() {
+        clearScreen();
 
         int antall = 0;
-
         System.out.println("\n\n---[ NARKOTISKE ] ------------------");
         for (Resept x : resepter) {
             Legemiddel middel = x.hentLegemiddel();
@@ -1033,6 +1046,7 @@ public class Legesystem {
     // printer ut alle leger som har skrevet ut minst en narkotisk resept + antall narkotiske
     public void muligMisbruk() {
         delay(250);
+        clearScreen();
 
         int antLeger = 0;
         System.out.println("\n\n---[ LEGER MED NARKOTISKE ] ---");
@@ -1060,6 +1074,7 @@ public class Legesystem {
                 System.out.println(" { " + lege + " } ");
                 System.out.println(" - Antall narkotiske: { " + antLegeNarkotiske + " } - \n");
                 antLeger++;
+                delay(100);
             }
         }
         if (antLeger <= 0) {
@@ -1075,7 +1090,6 @@ public class Legesystem {
 
         // gaar gjennom hver pasient og henter resept-liste
         for (Pasient pasient : pasienter) {
-            delay(25);
             int antPasientNarkotiske = 0;
             boolean pasientHarNarkotisk = false;
 
@@ -1092,6 +1106,7 @@ public class Legesystem {
                 System.out.println(" { " + pasient + " } ");
                 System.out.println(" - Antall narkotiske: { " + antPasientNarkotiske + " } - \n");
                 antPasienter++;
+                delay(100);
             }
         }
         if (antPasienter <= 0) {

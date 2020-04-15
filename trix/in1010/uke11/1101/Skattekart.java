@@ -29,15 +29,11 @@ class Skattekart {
         // oppretter selve brettet
         char [][] brett = new char [bredde][hoyde];
 
-        // leser hver linje etter bredde og hoyde
-        while (lesFil.hasNext()) {
+        for (int i=0; i < brett.length;  i++) {
+            String [] line = lesFil.next().split("");
 
-            for (int i=0; i < brett.length;  i++) {
-                String [] line = lesFil.next().split("");
-
-                for (int j=0; j < brett[i].length; j++) {
-                    brett[i][j] = line[j].charAt(0);
-                }
+            for (int j=0; j < brett[i].length; j++) {
+                brett[i][j] = line[j].charAt(0);
             }
         }
         // returner privat konstruktoer
