@@ -6,6 +6,7 @@ public abstract class Rute {
     protected int kolonne;
     protected String mineKoordinater;
     protected Labyrint minLabyrint;
+    boolean erBesokt = false;
 
     // nabo-ruter
     protected Rute nord, sor, ost, vest;
@@ -33,7 +34,7 @@ public abstract class Rute {
     }
 
     // rekursjon metode som kaller paa sine naboer helt til den finner aapningen i labyrinten
-    public void gaa(Rute denne, String koordinater)  {
+    public void gaa(Rute forrige, String koordinater)  {
 
         // basistilfelle for sykliske - stopper om om vi har vaert innom ruten foer
         if (koordinater.contains(mineKoordinater)) { return; }
@@ -41,29 +42,24 @@ public abstract class Rute {
         // for hver rute legges koordinatene til i stringen
         koordinater += mineKoordinater;
 
-        // basistilfelle: om ruten er aapning - legger til utvei og stopper
-        if (erAapning()) {
-            minLabyrint.utveier.leggTil(koordinater);
-            return;
-        }
         // basistilfelle: om ruten er svart - stopp
-        else if (tilTegn()=='#') { return; }
+        if (tilTegn()=='#') { return; }
         else {
             // ellers: legger til pil i melding og kall paa hjelpemetode
             koordinater += "-->";
-            sjekkOgGaa(denne, koordinater);
+            sjekkOgGaa(forrige, koordinater);
         }
     }
 
     // hjelpemetode - sjekker hver nabo om de ikke er den ruten de kom fra, og kaller gaa()
-    private void sjekkOgGaa(Rute denne, String koordinater) {
-        if (nord != denne)
+    private void sjekkOgGaa(Rute forrige, String koordinater) {
+        if (nord != forrige)
             nord.gaa(this, koordinater);
-        if (sor != denne)
+        if (sor != forrige)
             sor.gaa(this, koordinater);
-        if (ost != denne)
+        if (ost != forrige)
             ost.gaa(this, koordinater);
-        if (vest != denne)
+        if (vest != forrige)
             vest.gaa(this, koordinater);
     }
 
@@ -74,8 +70,5 @@ public abstract class Rute {
 
     // abstrakt metode som returner rutens tegnrepresentasjon
     abstract public char tilTegn();
-
-    // abstrakt metode som returner om ruten er aapning eller ikke
-    abstract public boolean erAapning();
 
 }

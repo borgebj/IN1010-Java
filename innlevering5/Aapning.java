@@ -4,8 +4,10 @@ class Aapning extends HvitRute {
         super(rad, kolonne);
     }
 
-    // metode som returner true - fordi rute er aapning
-    public boolean erAapning() {
-        return true;
+    @Override // basistilfelle: vha polymorfi stopper rekursjonen i en aapning-rute
+    public void gaa(Rute denne, String koordinater) {
+        koordinater += mineKoordinater;
+        minLabyrint.utveier.leggTil(koordinater);
+        return;
     }
 }
