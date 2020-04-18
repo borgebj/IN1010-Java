@@ -10,3 +10,4 @@ innlevering4/DelF.pdf
 *.pdf
 *.docx
 .idea
+.DS_Store
