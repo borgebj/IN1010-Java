@@ -4,14 +4,15 @@ public class Kino {
     String kinoNavn;
     ArrayList<Billett> mineBilletter;
 
-    public Kino (String navn, ) {
+    public Kino (String navn) {
         this.kinoNavn = navn;
+        mineBilletter = new ArrayList<Billett>();
     }
 
     public int finnLedigeBilletter() {
         int antall = 0;
         for (Billett b : mineBilletter) {
-            if (b.erLedig) antall++
+            if (b.erLedig) antall++;
         } return antall;
     }
 

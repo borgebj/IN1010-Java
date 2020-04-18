@@ -2,9 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
 class Oblig5 {
     public static void main(String[] args) {
-        String filnavn = null;
+        String filnavn;
 
         if (args.length > 0) {
             filnavn = args[0];

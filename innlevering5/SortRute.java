@@ -9,4 +9,9 @@ class SortRute extends Rute {
     public char tilTegn() {
         return '#';
     }
+
+    @Override // basistilfelle: stopper rekursjon paa SortRute
+    public void gaa(Rute forrige, String koordinater)  {
+        return;
+    }
 }

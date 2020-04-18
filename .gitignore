@@ -9,4 +9,5 @@ innlevering4/legesystem.txt
 innlevering4/DelF.pdf
 *.pdf
 *.docx
+.idea
 .DS_Store
