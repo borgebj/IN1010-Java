@@ -7,7 +7,7 @@ class Main {
         Node nyNode = new Node();
 
         start.settInn(nyNode);
-        nyNode.settNeste(new Node())
+        nyNode.settNeste(new Node());
 
         // generisk klasse som kan ta inn alt
         Boks<String> nyBoks = new Boks<String>("Hei");

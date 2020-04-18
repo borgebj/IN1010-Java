@@ -39,16 +39,11 @@ public abstract class Rute {
         // basistilfelle for sykliske - stopper om om vi har vaert innom ruten foer
         if (koordinater.contains(mineKoordinater)) { return; }
 
-        // for hver rute legges koordinatene til i stringen
-        koordinater += mineKoordinater;
+        // for hver rute vi gaar gjennom: legg til koordinat og strek til neste
+        koordinater += mineKoordinater + "-->";
 
-        // basistilfelle: om ruten er svart - stopp
-        if (tilTegn()=='#') { return; }
-        else {
-            // ellers: legger til pil i melding og kall paa hjelpemetode
-            koordinater += "-->";
-            sjekkOgGaa(forrige, koordinater);
-        }
+        // kaller metode som sjekker naboer og kaller "gaa()"
+        sjekkOgGaa(forrige, koordinater);
     }
 
     // hjelpemetode - sjekker hver nabo om de ikke er den ruten de kom fra, og kaller gaa()

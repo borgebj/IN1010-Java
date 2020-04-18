@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="21a92d9a-edf9-48c9-bc90-cc9541d987f5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/tull/annet/tegninger/swastika/Swastika.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gruppeoppgaver/HeiVerden.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gruppeoppgaver/uke2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gruppeoppgaver/uke4/oppg2/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/gruppeoppgaver/uke4/oppg2/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gruppeoppgaver/uke6/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/gruppeoppgaver/uke6/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gruppeoppgaver/uke8/oppgaver/VaarArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/gruppeoppgaver/uke8/oppgaver/VaarArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/innlevering5/HvitRute.java" beforeDir="false" afterPath="$PROJECT_DIR$/innlevering5/HvitRute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/innlevering5/Oblig5.java" beforeDir="false" afterPath="$PROJECT_DIR$/innlevering5/Oblig5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/innlevering5/Rute.java" beforeDir="false" afterPath="$PROJECT_DIR$/innlevering5/Rute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/innlevering5/SortRute.java" beforeDir="false" afterPath="$PROJECT_DIR$/innlevering5/SortRute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oving/subklasser/Subklasse1.java" beforeDir="false" afterPath="$PROJECT_DIR$/oving/subklasser/Subklasse1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trix/in1010/uke3/304/Hovedprogram.java" beforeDir="false" afterPath="$PROJECT_DIR$/trix/in1010/uke3/304/Hovedprogram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trix/infx1005/005/HeiVerden.java" beforeDir="false" afterPath="$PROJECT_DIR$/trix/infx1005/005/HeiVerden.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tull/annet/in1030/oblig5/Kino.java" beforeDir="false" afterPath="$PROJECT_DIR$/tull/annet/in1030/oblig5/Kino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tull/annet/in1030/oblig5/StandardBillett.java" beforeDir="false" afterPath="$PROJECT_DIR$/tull/annet/in1030/oblig5/StandardBillett.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tull/annet/in1030/oblig5/TilleggsBillet.java" beforeDir="false" afterPath="$PROJECT_DIR$/tull/annet/in1030/oblig5/TilleggsBillet.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1acrbFc7WiebpYsWNO41hO9u1ra" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="21a92d9a-edf9-48c9-bc90-cc9541d987f5" name="Default Changelist" comment="" />
+      <created>1587045792235</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587045792235</updated>
+      <workItem from="1587045793494" duration="33000" />
+      <workItem from="1587045837587" duration="459000" />
+      <workItem from="1587046368573" duration="360000" />
+      <workItem from="1587046739521" duration="511000" />
+      <workItem from="1587047265216" duration="1263000" />
+      <workItem from="1587052850144" duration="11131000" />
+      <workItem from="1587165836795" duration="2255000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="872" y="358" key="#Project_Structure" timestamp="1587046158521">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="872" y="358" key="#Project_Structure/0.0.2560.1400/2560.0.1920.1160@0.0.2560.1400" timestamp="1587046158521" />
+    <state x="1060" y="441" key="FileChooserDialogImpl" timestamp="1587046724707">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1060" y="441" key="FileChooserDialogImpl/0.0.2560.1400/2560.0.1920.1160@0.0.2560.1400" timestamp="1587046724707" />
+    <state x="760" y="274" key="SettingsEditor" timestamp="1587052900828">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="760" y="274" key="SettingsEditor/0.0.2560.1400/2560.0.1920.1160@0.0.2560.1400" timestamp="1587052900828" />
+    <state x="975" y="523" key="com.intellij.ide.util.TipDialog" timestamp="1587165838345">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="975" y="523" key="com.intellij.ide.util.TipDialog/0.0.2560.1400/2560.0.1920.1160@0.0.2560.1400" timestamp="1587165838345" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1587167238450">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400/2560.0.1920.1160@0.0.2560.1400" timestamp="1587167238450" />
+  </component>
+</project>
