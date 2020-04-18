@@ -45,4 +45,14 @@ public class Oppgave1 extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    private class Teller implements Runnable {
+        public void run() {
+            while(true) {
+                try { Thread.sleep(1000); }
+                catch (InterruptedException e) { System.out.println(e); }
+                tid.setText(naa());
+            }
+        }
+    }
 }
