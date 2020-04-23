@@ -65,4 +65,5 @@ public abstract class Rute {
 
     // abstrakt metode som returner rutens tegnrepresentasjon
     abstract public char tilTegn();
+
 }

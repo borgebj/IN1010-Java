@@ -9,7 +9,7 @@ public class Labyrint {
     private Rute [][] rutenett;
     int antRader;
     int antKol;
-    Liste<String> utveier;  // monitor?
+    Liste<String> utveier;
 
     // tar inn antall rader, antall kolonner, og et array av Ruter
     private Labyrint(int antRader, int antKol, Rute[][] rutenett) {

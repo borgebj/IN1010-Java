@@ -1,0 +1,19 @@
+
+Ledetråder:
+
+- run() skal "på en måte" erstatte gaa()
+> "Istedenfor å kalle på gaa() i neste hvit rute lager du et tråd-objekt 
+som du starter opp og lar run()-metodene gjøre det som gaa() 
+gjorde tidligere i den hvite ruten
+
+- "Du bør forandre gaa()-metoden til å ikke bare kalle gaa() i de neste rutene, 
+men lage tråder for alle neste hvite ruter (untatt en). 
+om Rute er abstrakt spiller ingen rolle, det er først i de ikke-abstrakte HVITE RUTENE
+du vil lage ny tråder
+
+- "kanskje ikke nødvendig å endre hovedprogrammet"
+
+- (annen elev) beholdt strukturen slik den var og "nesten alle" endringer i HvitRute 
+har laget monitoren i Rute (Edit lag den i Labyrint), og sender den som argument 
+til gaa() fra finnUtvei()
+Trådobjekt lages i HvitRute med nødvendige variabler for å kalle gaa() fra disse
