@@ -120,14 +120,14 @@ public class Labyrint {
 
     @Override // toString metode som printer ut brettet som String v2 - inspirasjon fra regneovelser 14.04.20
     public String toString() {
-        String utskrift = new String(new char[50]).replace("\0", "\n");
+        StringBuilder utskrift = new StringBuilder(new String(new char[50]).replace("\0", "\n"));
         for (int rad=0; rad < antRader; rad++) {
-            utskrift += "\n";
+            utskrift.append("\n");
             for (int kol=0; kol < antKol; kol++) {
-                utskrift += rutenett[rad][kol].tilTegn() + " ";
+                utskrift.append(rutenett[rad][kol].tilTegn()).append(" ");
             }
         }
-        return utskrift;
+        return utskrift.toString();
     }
 
     // for GUI-program - returner selve rutenettet med ruter

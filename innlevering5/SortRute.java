@@ -12,6 +12,5 @@ class SortRute extends Rute {
 
     @Override // basistilfelle: stopper rekursjon paa SortRute
     public void gaa(Rute forrige, String koordinater)  {
-        return;
     }
 }

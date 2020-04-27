@@ -10,3 +10,5 @@ class HvitRute extends Rute {
         return '.';
     }
 }
+
+// innlevering 7

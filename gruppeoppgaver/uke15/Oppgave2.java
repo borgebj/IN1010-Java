@@ -94,7 +94,7 @@ public class Oppgave2 extends Application {
     }
 
     // avslutter
-    class AvsluttBehandler implements EventHandler<ActionEvent> {
+    static class AvsluttBehandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent e) {
             Platform.exit();
