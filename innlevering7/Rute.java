@@ -1,6 +1,4 @@
-import java.util.concurrent.CountDownLatch;
 
-// bruk av indre klasse for runnable
 public abstract class Rute {
 
     // variabel for kolonne, rad, koordinatene i String og labyrinten den er del av
@@ -8,7 +6,6 @@ public abstract class Rute {
     protected int kolonne;
     protected String mineKoordinater;
     protected Labyrint minLabyrint;
-
 
     // nabo-ruter
     protected Rute nord, sor, ost, vest;
@@ -36,7 +33,6 @@ public abstract class Rute {
 
 
     // rekursjon metode som kaller paa sine naboer helt til den finner aapningen i labyrinten
-    // (kjorer kun i hvite ruter, fordi sort og aapning overrider)
     public void gaa(Rute forrige, String koordinater)  {
 
         // basistilfelle for sykliske - stopper om om vi har vaert innom ruten foer
@@ -51,26 +47,14 @@ public abstract class Rute {
 
     // hjelpemetode - sjekker hver nabo om de ikke er den ruten de kom fra, og kaller gaa()
     private void sjekkOgGaa(Rute forrige, String koordinater) {
-        try {
-            if (nord != forrige) {
-                Thread nord = new Thread(new Traad(this.nord, koordinater));
-                nord.start();
-                nord.join();
-            }
-            if (sor != forrige) {
-                Thread sor = new Thread(new Traad(this.sor, koordinater));
-                sor.start();
-                sor.join();
-            }
-            if (ost != forrige) {
-                Thread ost = new Thread(new Traad(this.ost, koordinater));
-                ost.start();
-                ost.join();
-            }
-            // siste / vest gaar videre paa samme traad
-            if (vest != forrige)
-                vest.gaa(this, koordinater);
-        } catch (InterruptedException e) { System.out.println("Feil"); }
+        if (nord != forrige)
+            nord.gaa(this, koordinater);
+        if (sor != forrige)
+            sor.gaa(this, koordinater);
+        if (ost != forrige)
+            ost.gaa(this, koordinater);
+        if (vest != forrige)
+            vest.gaa(this, koordinater);
     }
 
     // kaller paa gaa() med denne ruten - starter med en tom string
@@ -81,29 +65,4 @@ public abstract class Rute {
 
     // abstrakt metode som returner rutens tegnrepresentasjon
     abstract public char tilTegn();
-
-    protected static class Traad implements Runnable {
-
-        Rute rute;
-        String path;
-
-        // konstruktoer
-        Traad(Rute naboRute, String path) {
-            this.rute = naboRute;
-            this.path = path;
-        }
-
-        @Override // kode som kjoeres av traad
-        public void run() {
-            rute.gaa(rute, path);
-        }
-    }
 }
-
-/** Hva skjer om den gamle tråden først går videre til neste rute og så etterpå starter opp nye tråder? */
-/*
-- Det som skjer da er at siden den gamle traaden gaar videre med sitt rekursive kall foer den oppretter nye,
-- er at den gamle traaden maa bli ferdig med hele sitt rekursive-kall foer nye traader blir opprettet og startet.
-- Dette vil gjoere hele prosessen treigere.
- */
-

@@ -9,7 +9,7 @@ public class Labyrint {
     private Rute [][] rutenett;
     int antRader;
     int antKol;
-    Liste<String> utveier;  // monitor?
+    Liste<String> utveier;
 
     // tar inn antall rader, antall kolonner, og et array av Ruter
     private Labyrint(int antRader, int antKol, Rute[][] rutenett) {
@@ -26,13 +26,9 @@ public class Labyrint {
         int rader = lesFil.nextInt(), kolonner = lesFil.nextInt(); lesFil.nextLine();
         Rute[][] brett = new Rute[rader][kolonner];
 
-        // oppretter rute-objekt for hver celle avhengig av tegn fra filen
-        for (int i = 0; i < rader; i++) {
-            String line = lesFil.nextLine();
-            for (int j = 0; j < kolonner; j++) {
-                brett[i][j] = lagRute(line.charAt(j), i, j, rader, kolonner);   // inspirasjon fra regneovelser 14.04.20
-            }
-        }
+        // kaller paa hjelepmetode for aa fylle tomt (Rute[][]) brett med Ruter fra - leser fra scanner gitt i parameter
+        lagBrett(brett, rader, kolonner, lesFil);
+
         // oppretter labyrint-objektet for aa legge til referanse og naboer
         Labyrint labyrint = new Labyrint(rader, kolonner, brett);
 
@@ -41,6 +37,18 @@ public class Labyrint {
 
         // returner labyrinten vi lagde tidligere - med baade naboer og labyrint-referanse
         return labyrint;
+    }
+
+
+
+    // hjelpemetode for aa fylle et tomt (Rute[][]) brett med Ruter
+    private static void lagBrett(Rute[][] brett, int rader, int kolonner, Scanner lesFil) {
+        for (int i = 0; i < rader; i++) {
+            String line = lesFil.nextLine();
+            for (int j = 0; j < kolonner; j++) {
+                brett[i][j] = lagRute(line.charAt(j), i, j, rader, kolonner);   // inspirasjon fra regneovelser 14.04.20
+            }
+        }
     }
 
     // hjelpemtode for aa avgjoere rute-objekt til koordinater fra parameter - inspirasjon fra regneovelser 14.04.20
@@ -82,6 +90,7 @@ public class Labyrint {
     }
 
 
+
     // metode som kaller paa finnUtvei() paa node i posisjon fra parameter, og returnerer en liste med utveier
     public Liste<String> finnUtveiFra(int kol, int rad) {
 
@@ -120,6 +129,7 @@ public class Labyrint {
         }
         return utskrift;
     }
+
 
 
 
