@@ -8,6 +8,5 @@ class Aapning extends HvitRute {
     public void gaa(Rute denne, String koordinater) {
         koordinater += mineKoordinater;
         minLabyrint.utveier.leggTil(koordinater);
-        return;
-    }
+     }
 }

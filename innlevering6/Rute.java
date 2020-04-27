@@ -1,4 +1,3 @@
-import java.util.concurrent.CountDownLatch;
 
 // bruk av indre klasse for runnable
 public abstract class Rute {
@@ -8,7 +7,6 @@ public abstract class Rute {
     protected int kolonne;
     protected String mineKoordinater;
     protected Labyrint minLabyrint;
-
 
     // nabo-ruter
     protected Rute nord, sor, ost, vest;
@@ -100,7 +98,7 @@ public abstract class Rute {
     }
 }
 
-/** Hva skjer om den gamle tråden først går videre til neste rute og så etterpå starter opp nye tråder? */
+/** Hva skjer om den gamle tråden først går videre til neste rute og så etterpå starter opp nye tråder? **/
 /*
 - Det som skjer da er at siden den gamle traaden gaar videre med sitt rekursive kall foer den oppretter nye,
 - er at den gamle traaden maa bli ferdig med hele sitt rekursive-kall foer nye traader blir opprettet og startet.

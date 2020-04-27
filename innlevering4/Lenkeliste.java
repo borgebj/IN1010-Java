@@ -1,5 +1,6 @@
 import java.util.Iterator;
 
+
 public class Lenkeliste<T> implements Liste<T>  {
 
     // node-klasse som skal lenkes sammen i listen
@@ -24,17 +25,9 @@ public class Lenkeliste<T> implements Liste<T>  {
 
         Node current = forste;
 
-        // sjekker om lenkelisten har en til node
+        // returner om neste finnes eller ikke
         public boolean hasNext() {
-
-            // neste finnes
-            if (current == null) {
-                return false;
-            }
-            // neste finnes ikke
-            else {
-                return true;
-            }
+            return current != null;
         }
 
         // sjekker og returner om det finnes en neste node (returner data fra noden)

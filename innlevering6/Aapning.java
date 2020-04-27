@@ -9,6 +9,5 @@ class Aapning extends HvitRute {
         koordinater += mineKoordinater;
         koordinater += " (Thread som fant: " + Thread.currentThread() + ")";
         minLabyrint.utveier.leggTil(koordinater);
-        return;
     }
 }
