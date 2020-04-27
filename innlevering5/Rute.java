@@ -6,7 +6,6 @@ public abstract class Rute {
     protected int kolonne;
     protected String mineKoordinater;
     protected Labyrint minLabyrint;
-    boolean erBesokt = false;
 
     // nabo-ruter
     protected Rute nord, sor, ost, vest;
@@ -37,7 +36,7 @@ public abstract class Rute {
     public void gaa(Rute forrige, String koordinater)  {
 
         // basistilfelle for sykliske - stopper om om vi har vaert innom ruten foer
-        if (koordinater.contains(mineKoordinater)) { return; }
+        if (koordinater.contains(mineKoordinater)) return;
 
         // for hver rute vi gaar gjennom: legg til koordinat og strek til neste
         koordinater += mineKoordinater + "-->";

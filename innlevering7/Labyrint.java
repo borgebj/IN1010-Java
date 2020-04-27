@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.concurrent.locks.*;
 
 // "Vi bruker koordinater på formen (kolonne, rad)"
 
@@ -10,7 +9,7 @@ public class Labyrint {
     private final Rute [][] rutenett;
     int antRader;
     int antKol;
-    Monitor utveier;
+    Liste<String> utveier;  // monitor?
 
     // tar inn antall rader, antall kolonner, og et array av Ruter
     private Labyrint(int antRader, int antKol, Rute[][] rutenett) {
@@ -27,7 +26,7 @@ public class Labyrint {
         int rader = lesFil.nextInt(), kolonner = lesFil.nextInt(); lesFil.nextLine();
         Rute[][] brett = new Rute[rader][kolonner];
 
-        // lager ett brett med Rute-objekteroppretter rute-objekt for hver celle avhengig av tegn fra filen
+        // kaller paa hjelepmetode for aa fylle tomt (Rute[][]) brett med Ruter fra - leser fra scanner gitt i parameter
         lagBrett(brett, rader, kolonner, lesFil);
 
         // oppretter labyrint-objektet for aa legge til referanse og naboer
@@ -96,12 +95,12 @@ public class Labyrint {
     public Liste<String> finnUtveiFra(int kol, int rad) {
 
         // oppretter ny liste for hver gang vi kaller finnUtveiFra
-        utveier = new Monitor();
+        utveier = new Lenkeliste<String>();
 
         // kaller paa finnUtvei() paa ruten i koordinater fra parameter
         rutenett[rad][kol].finnUtvei();
 
-        return utveier.hentListe();
+        return utveier;
     }
 
     // metode som returner den korteste utveien
@@ -112,7 +111,7 @@ public class Labyrint {
 
             // gaar gjennom alle utveiene - oppdater minste om stringen er mindre enn stringen i "minste"
             String minste = utveier.hent(0);
-            for (String s : utveier.hentListe()) {
+            for (String s : utveier) {
                 if (s.length() < minste.length() )
                     minste = s;
             } return minste;
@@ -131,38 +130,11 @@ public class Labyrint {
         return utskrift;
     }
 
-
-
-    // egen monitor-klasse for aa ta hensyn til flere traader som legger inn
-    protected static class Monitor {
-        Lock laas = new ReentrantLock();
-        Lenkeliste<String> liste = new Lenkeliste<String>();
-
-
-        // egen metode som legger til utvei i listen
-        public void leggTil(String vei) {
-            laas.lock();
-            try {
-                liste.leggTil(vei);
-            }
-            finally {
-                laas.unlock();
-            }
-        }
-        // egen metode for stoerrelsen til listen
-        public int stoerrelse() {
-            return liste.stoerrelse();
-        }
-        // egen metode for aa hente utvei fra gitt posisjon
-        public String hent(int x) {
-            return liste.hent(x);
-        }
-
-        // metode for aa returne selve listen
-        public Liste<String> hentListe() {
-            return liste;
-        }
+    // for GUI-program - returner selve rutenettet med ruter
+    public Rute[][] hentbrett() {
+        return rutenett;
     }
+
 
 
 

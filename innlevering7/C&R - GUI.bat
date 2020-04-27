@@ -2,7 +2,7 @@
 
 javac *.java
 
-java Oblig6 4.in
+java GUI
 
 del *.class
 

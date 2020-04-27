@@ -15,7 +15,7 @@ public class Lenkeliste<T> implements Liste<T>  {
         }
     }
 
-    // instansvariabler - en som holder forste node, og en counter for antall noder
+    // instansvariabel: Forste node i listen
     protected Node forste;
 
 

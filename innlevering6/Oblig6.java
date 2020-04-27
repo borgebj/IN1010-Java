@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
-class Oblig5 {
+class Oblig6 {
     public static void main(String[] args) {
         String filnavn;
 
@@ -54,7 +54,7 @@ class Oblig5 {
                 System.out.println("Ugyldig input!");
             }
 
-            System.out.println("Skriv inn nye koordinater ('a' for aa avslutte)");
+            System.out.print("Skriv inn koordinater <kolonne> <rad> ('a' for aa avslutte) \n > ");
             ord = inn.nextLine().split(" ");
         }
     }
