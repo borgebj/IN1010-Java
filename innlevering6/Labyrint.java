@@ -84,10 +84,10 @@ public class Labyrint {
             rutenett[rad][kol].settNabo(rutenett[rad - 1][kol], 'N');
         if (rad < labyrint.antRader - 1)
             rutenett[rad][kol].settNabo(rutenett[rad + 1][kol], 'S');
-        if (kol > 0)
-            rutenett[rad][kol].settNabo(rutenett[rad][kol - 1], 'O');
         if (kol < labyrint.antKol - 1)
-            rutenett[rad][kol].settNabo(rutenett[rad][kol + 1], 'V');
+            rutenett[rad][kol].settNabo(rutenett[rad][kol + 1], 'O');
+        if (kol > 0)
+            rutenett[rad][kol].settNabo(rutenett[rad][kol - 1], 'V');
     }
 
 

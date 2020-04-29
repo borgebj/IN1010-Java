@@ -180,7 +180,7 @@ public class Oppgave3 extends Application {
     }
 
     // avslutter
-    class AvsluttBehandler implements EventHandler<ActionEvent> {
+    static class AvsluttBehandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent e) {
             Platform.exit();
@@ -192,7 +192,7 @@ public class Oppgave3 extends Application {
         @Override
         public void handle(ActionEvent e) {
             try {
-                String[] tall = tf.getText().split("x|\\ x ");
+                String[] tall = tf.getText().split("x| x ");
                 ruterY = Integer.parseInt(tall[0]);
                 ruterX = Integer.parseInt(tall[1]);
                 lagBrett();
@@ -210,8 +210,4 @@ public class Oppgave3 extends Application {
         }
     }
 }
-
-//TODO:
-// ide er at: naar man trykker paa fargen man vil ha, endres den globale variabelen "currentColor" til fargen du valgte
-// MinKnapp kan fjernes, og knappene kan bli gjort til vanlige knapper
-// endre "MinKnappBehandler" til aa sjekke "currentColor" og endre ruten til den fargen
+inKnappBehandler" til aa sjekke "currentColor" og endre ruten til den fargen

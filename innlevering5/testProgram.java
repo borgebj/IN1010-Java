@@ -1,10 +1,11 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.InterruptedException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-class testProgram {
+public class testProgram {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
 

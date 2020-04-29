@@ -6,7 +6,7 @@ class Aapning extends HvitRute {
 
     @Override // basistilfelle: vha polymorfi stopper rekursjonen i en aapning-rute
     public void gaa(Rute denne, String koordinater) {
-        koordinater += mineKoordinater;
+        koordinater += toString();
         minLabyrint.utveier.leggTil(koordinater);
      }
 }

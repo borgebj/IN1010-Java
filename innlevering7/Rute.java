@@ -4,7 +4,6 @@ public abstract class Rute {
     // variabel for kolonne, rad, koordinatene i String og labyrinten den er del av
     protected int rad;
     protected int kolonne;
-    protected String mineKoordinater;
     protected Labyrint minLabyrint;
 
     // nabo-ruter
@@ -15,7 +14,6 @@ public abstract class Rute {
     public Rute(int rad, int kolonne) {
         this.rad = rad;
         this.kolonne  = kolonne;
-        this.mineKoordinater = "["+kolonne+","+rad+"]";
     }
 
     // sjekker parametere og legger til nabo i forhold til tegnet
@@ -36,10 +34,10 @@ public abstract class Rute {
     public void gaa(Rute forrige, String koordinater)  {
 
         // basistilfelle for sykliske - stopper om om vi har vaert innom ruten foer
-        if (koordinater.contains(mineKoordinater)) return;
+        if (koordinater.contains(toString())) return;
 
         // for hver rute vi gaar gjennom: legg til koordinat og strek til neste
-        koordinater += mineKoordinater + "-->";
+        koordinater += toString() + "-->";
 
         // kaller metode som sjekker naboer og kaller "gaa()"
         sjekkOgGaa(forrige, koordinater);
@@ -60,6 +58,10 @@ public abstract class Rute {
     // kaller paa gaa() med denne ruten - starter med en tom string
     public void finnUtvei() {
         gaa(this, "");
+    }
+
+    public String toString() {
+        return "["+kolonne+"."+rad+"]";
     }
 
 
