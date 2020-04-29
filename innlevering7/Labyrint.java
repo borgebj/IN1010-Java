@@ -135,6 +135,10 @@ public class Labyrint {
         return rutenett;
     }
 
+    public Rute hentRute(int kol, int rad) {
+        return rutenett[rad][kol];
+    }
+
 
 
 

@@ -1,5 +1,5 @@
 
-class HvitRute extends Rute {
+public class HvitRute extends Rute {
 
     public HvitRute(int rad, int kolonne) {
         super(rad, kolonne);

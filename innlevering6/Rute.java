@@ -11,12 +11,14 @@ public abstract class Rute {
     // nabo-ruter
     protected Rute nord, sor, ost, vest;
 
+    static int threadcount = 0;
+
 
     // konstruktoer som setter rad, kolonne og mineKoordinater-stringen
     public Rute(int rad, int kolonne) {
         this.rad = rad;
         this.kolonne  = kolonne;
-        this.mineKoordinater = "["+kolonne+","+rad+"]";
+        this.mineKoordinater = "["+kolonne+"."+rad+"]";
     }
 
     // sjekker parametere og legger til nabo i forhold til tegnet
@@ -73,7 +75,9 @@ public abstract class Rute {
 
     // kaller paa gaa() med denne ruten - starter med en tom string
     public void finnUtvei() {
-        gaa(this, "");
+        gaa(this, ">>>");
+        System.out.println( "traader: " + threadcount);
+        threadcount = 0;
     }
 
 
@@ -93,6 +97,7 @@ public abstract class Rute {
 
         @Override // kode som kjoeres av traad
         public void run() {
+            threadcount++;
             rute.gaa(rute, path);
         }
     }

@@ -2,6 +2,6 @@
 
 javac *.java
 
-java Oblig5 3.in
+java Oblig5 1.in
 
 del *.class
