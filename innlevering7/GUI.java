@@ -72,7 +72,6 @@ public class GUI extends Application {
 
                     Button neste = new Button("Neste vei");
                     neste.setPrefWidth(knappStoerrelse*kolonner); neste.setPrefHeight(35);  // knappen er ca like lang som brettet
-                    System.out.println( root.getWidth() );
                     neste.setOnAction(new veiBehandler());
 
                 linje1.getChildren().add(neste);
@@ -98,7 +97,6 @@ public class GUI extends Application {
                 if (brett[rad][kol] instanceof HvitRute) {
                     settBakgrunn(b, 'H');
                     b.setOnAction(new RuteKlikk());
-                    b.setStyle("-fx-font: 15 arial; -fx-base: #ededed;");
 
                     if (brett[rad][kol] instanceof Aapning) // om den er aapning legg i tillegg til bokstaven "A" for Aapning
                         b.setText("A");
@@ -122,7 +120,7 @@ public class GUI extends Application {
     // hjelpemetode som setter bakgrunn - med character som identifikator
     private void settBakgrunn(LabKnapp knapp, char c) {
         if (c == 'H') {
-            knapp.setStyle("-fx-border-color: darkgrey; -fx-border-width: 1px; -fx-background-color: white;");
+            knapp.setStyle("-fx-font: "+(knappStoerrelse/4)+" arial;"); // dynamisk font-stoerrelse
             knapp.settFarge(c);
         }
         else if (c == 'S') {
@@ -130,7 +128,7 @@ public class GUI extends Application {
             knapp.settFarge(c);
         }
         else if (c == 'B') {
-            knapp.setStyle("-fx-border-color: darkgrey; -fx-border-width: 1px; -fx-background-color: #16C3EF;");
+            knapp.setStyle("-fx-font: "+(knappStoerrelse/3)+" arial; -fx-border-color: darkgrey; -fx-border-width: 1px; -fx-background-color: #16C3EF;");
             knapp.settFarge(c);
         }
     }
@@ -142,7 +140,6 @@ public class GUI extends Application {
                 LabKnapp knapp = (LabKnapp) hentKnappFraGrid(kol, rad);
                 if (knapp.hentFarge().equals("blaa")) {
                     settBakgrunn(knapp, 'H');
-                    knapp.setStyle("-fx-font: 22 arial; -fx-base: #ededed;");
                 }
             }
         }
