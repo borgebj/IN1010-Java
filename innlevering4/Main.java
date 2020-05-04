@@ -9,7 +9,7 @@ public class Main {
     public static void delay(long t) {
         try {
             Thread.sleep(t);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException ignored) {}
     }
     public static void clearScreen() {
         System.out.println(new String(new char[50]).replace('\0', '\n'));
@@ -64,7 +64,7 @@ public class Main {
                     System.out.println("\nUgyldig kommando - prov igjen\n");
                     delay(2000);
                     clearScreen();
-            } clearScreen();
+            }
 
             // spoer bruker paa nytt og oppdaterer loekke
             utskriftMeny();
