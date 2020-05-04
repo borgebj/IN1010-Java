@@ -9,4 +9,6 @@ interface Liste<T> extends Iterable<T> {
     T fjern();
     void hentAll(); // (13.04.20)
     void toem(); // (13.04.20)
+    boolean inneholder(T x); // (04.05.20)
+    void fjernInnhold(T x); // (04.05.20)
 }

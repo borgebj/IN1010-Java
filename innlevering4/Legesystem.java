@@ -252,7 +252,7 @@ public class Legesystem {
                     }
 
                     // sjekker om resepten er godkjent
-                    if (middelMatch==true && legeMatch==true && pasientMatch==true) { godkjent = true; }
+                    if (middelMatch && legeMatch && pasientMatch) { godkjent = true; }
 
                     if (godkjent) {
                         if (biter.length > 4) {
@@ -660,10 +660,10 @@ public class Legesystem {
                                 break;
                             }
                         }
-                        else if (b instanceof Lege) {
-                                legeMatch = true;
-                                lege = b;
-                                break;
+                        else {
+                            legeMatch = true;
+                            lege = b;
+                            break;
                         }
                     }
                 }
@@ -682,7 +682,7 @@ public class Legesystem {
                 }
 
                 // SJEKKE-delen
-                if (middelMatch == true && legeMatch == true && pasientMatch == true) {
+                if (middelMatch && legeMatch && pasientMatch) {
                     godkjent = true;
                 }
 
@@ -698,23 +698,25 @@ public class Legesystem {
                         scanner.nextLine();
 
                         // oppretter>legger til hvite
-                        if (reseptKommando.equals("1")) {
-                            resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
-                        }
+                        switch (reseptKommando) {
+                            case "1":
+                                resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
+                                break;
 
-                        // oppretter>legger til militaer
-                        else if (reseptKommando.equals("2")) {
-                            resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
-                        }
+                            // oppretter>legger til militaer
+                            case "2":
+                                resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
+                                break;
 
-                        // oppretter>legger til blaa
-                        else if (reseptKommando.equals("4")) {
-                            resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
+                            // oppretter>legger til blaa
+                            case "4":
+                                resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
+                                break;
                         }
                         reseptKommando = "a";
                     }
-                    // oppretter>legger til presept
-                    else if (reseptKommando.equals("3")) {
+                    // oppretter>legger til presept (om 3)
+                    else {
                         resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
 
                         delay(750);
@@ -790,13 +792,13 @@ public class Legesystem {
                         }
 
                         // 3 = narkotisk - opprett og legg til
-                        else if (middelKommando.equals("3")) {
+                        else {
                             legemidler.leggTil(new Narkotisk(middelNavn, pris, virkestoff, styrke));
                         }
                     }
 
                     // 1 = vanlig - opprett og legg till
-                    else if (middelKommando.equals("1")) {
+                    else {
                         legemidler.leggTil(new Vanlig(middelNavn, pris, virkestoff));
                     }
 
@@ -917,32 +919,9 @@ public class Legesystem {
 
                                 }
                             }
-
-                            // Backup for ^
-                            /*
-                            // gaar gjennom alle resepter
-                            for (Resept resept : resepter) {
-                                int reseptID = resept.hentId();
-
-                                // hvis resept-id matcher brukerinput - bruk resept og fortell bruker
-                                if (reseptID == Integer.parseInt(reseptInput)) {
-                                    gyldigResept = true;
-
-                                    // sjekker antall reit /om tomt eller ikke/
-                                    if (resept.hentReit() > 0) {
-                                        resept.bruk();
-                                        System.out.println("\nBrukte resept paa " + resept.hentLegemiddel().hentNavn() + ".  Antall gjenvaerende reit: " + resept.hentReit() + "\n");
-                                        delay(2000);
-                                    } else {
-                                        System.out.println("\nKunne ikke bruke resept paa " + resept.hentLegemiddel().hentNavn() + ": Ingen reit igjen\n");
-                                        delay(2000);
-                                    }
-                                }
-                            }
-                             */
-
                         }
-                        else if (reseptInput.equals("a")) {
+                        // om kommando er "a"
+                        else {
                             delay(500);
                             System.out.println("\nAvbryter ...\n");
                             delay(1000);
