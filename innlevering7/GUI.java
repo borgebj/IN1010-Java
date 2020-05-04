@@ -16,27 +16,12 @@ import javafx.scene.Node;
 import javafx.geometry.Pos;
 import javafx.scene.text.Font;
 
-
-
 // non-javafx
 import java.io.File;
 import java.io.FileNotFoundException;
 
 
-
-public class GUI extends Application {
-
-    private static Labyrint minLab;
-    private int rader;
-    private int kolonner;
-    private final GridPane root = new GridPane();
-    private final FileChooser fileChooser = new FileChooser(); // Filechooser for aa starte programmet
-    Alert alert = new Alert(Alert.AlertType.INFORMATION); // alert-boks
-    LabKnapp current; // knappen vi er på nå
-    double knappStoerrelse = 0.0;
-
-
-    /* Representasjon av GUI 
+/* Representasjon av GUI
     <VBox>
         <children<
             <root>
@@ -57,7 +42,19 @@ public class GUI extends Application {
     - Hovedpane er VBox
     - Inne i hovedpane er GridPane og HBox
     - Inne i HBox er knapp
-     */
+ */
+
+
+public class GUI extends Application {
+
+    private static Labyrint minLab;
+    private int rader;
+    private int kolonner;
+    private final GridPane root = new GridPane();
+    private final FileChooser fileChooser = new FileChooser(); // Filechooser for aa starte programmet
+    Alert alert = new Alert(Alert.AlertType.INFORMATION); // alert-boks
+    LabKnapp current; // knappen vi er på nå
+    double knappStoerrelse = 0.0;
 
 
     @Override
