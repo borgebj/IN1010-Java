@@ -20,7 +20,6 @@ import javafx.scene.text.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-
 /* Representasjon av GUI
     <VBox>
         <children<
@@ -41,20 +40,21 @@ import java.io.FileNotFoundException;
 
     - Hovedpane er VBox
     - Inne i hovedpane er GridPane og HBox
-    - Inne i HBox er knapp
+    - Inne i GridPane er rutenett med knapper
+    - Inne i HBox er èn lang knapp
  */
-
 
 public class GUI extends Application {
 
-    private static Labyrint minLab;
+    private final FileChooser fileChooser = new FileChooser(); // Filechooser for aa starte programmet
+    private final Alert alert = new Alert(Alert.AlertType.INFORMATION); // alert-boks
+
+    private static Labyrint minLab; // referense til labyrinten den tilhoerer
+    private final GridPane root = new GridPane(); // og rutenettet labyrinten lages til
     private int rader;
     private int kolonner;
-    private final GridPane root = new GridPane();
-    private final FileChooser fileChooser = new FileChooser(); // Filechooser for aa starte programmet
-    Alert alert = new Alert(Alert.AlertType.INFORMATION); // alert-boks
-    LabKnapp current; // knappen vi er på nå
-    double knappStoerrelse = 0.0;
+    private double knappStoerrelse;
+    private LabKnapp current; // knappen vi er på nå
 
 
     @Override
@@ -67,6 +67,7 @@ public class GUI extends Application {
 
             opprettBrett( minLab.hentbrett() );
 
+            // lager hoved-panen i programmet og legger til rutenettet og HBox for "neste vei"-knapp
             VBox main = new VBox(); root.setAlignment(Pos.BASELINE_CENTER);
                 HBox linje1 = new HBox(); linje1.setAlignment(Pos.BASELINE_CENTER); //linje1.setStyle("-fx-background-color: black");
 
@@ -81,30 +82,30 @@ public class GUI extends Application {
             teater.setScene(scene);
             teater.setTitle(fil.getName()); // tittel = navn paa fil
             teater.show();
-        } catch (FileNotFoundException e) { System.out.println("feil ved innlesing av fil"); }
+        } catch (FileNotFoundException e) { System.out.println("Feil ved innlesing av fil"); }
     }
 
 
     private void opprettBrett(Rute[][] brett) {
-        knappStoerrelse = 1900.0/(rader+kolonner);
+        knappStoerrelse = 2000.0/(rader+kolonner); // lager knappstoerrelsen
 
         for (int rad = 0; rad < rader; rad++) {
             for (int kol=0; kol < kolonner; kol++) {
-
                 LabKnapp b = new LabKnapp(kol, rad);
 
                 //hvit
                 if (brett[rad][kol] instanceof HvitRute) {
-                    settBakgrunn(b, 'H');
                     b.setOnAction(new RuteKlikk());
+                    settStyle(b, 'H');
 
+                    // aapning
                     if (brett[rad][kol] instanceof Aapning) // om den er aapning legg i tillegg til bokstaven "A" for Aapning
                         b.setText("A");
                 }
                 //sort
                 else if (brett[rad][kol] instanceof SortRute) {
                     b.setFont(new Font(150));
-                    settBakgrunn(b, 'S');
+                    settStyle(b, 'S');
                 }
 
                 // dyanmisk skalering av knappene i forhold til brettet
@@ -118,7 +119,7 @@ public class GUI extends Application {
     }
 
     // hjelpemetode som setter bakgrunn - med character som identifikator
-    private void settBakgrunn(LabKnapp knapp, char c) {
+    private void settStyle(LabKnapp knapp, char c) {
         if (c == 'H') {
             knapp.setStyle("-fx-font: "+(knappStoerrelse/4)+" arial;"); // dynamisk font-stoerrelse
             knapp.settFarge(c);
@@ -137,9 +138,9 @@ public class GUI extends Application {
     private void resetHvite()  {
         for (int rad=0; rad < rader; rad++) {
             for (int kol=0; kol < kolonner; kol++) {
-                LabKnapp knapp = (LabKnapp) hentKnappFraGrid(kol, rad);
+                LabKnapp knapp = (LabKnapp) hentKnappFraGrid(kol, rad); // henter knappen fra hver rute
                 if (knapp.hentFarge().equals("blaa")) {
-                    settBakgrunn(knapp, 'H');
+                    settStyle(knapp, 'H');
                 }
             }
         }
@@ -189,11 +190,11 @@ public class GUI extends Application {
         }
     }
 
+    // lyser opp veien til en string med koordianter
     public void lysVei(String vei) {
-        // lager en liste av koordinater ved aa splitte ved pil
         String[] ruter = vei.split("-->");
 
-        // fjerner alle klammer
+        // fjerner alle paranteser
         for (String s : ruter) {
             s = s.replace("[", "");
             s = s.replace("]", "");
@@ -203,8 +204,9 @@ public class GUI extends Application {
             int ruteKol = Integer.parseInt(ruten[0]);
             int ruteRad = Integer.parseInt(ruten[1]);
 
+            // henter knappen vha casting og setter style
             LabKnapp knapp = (LabKnapp) hentKnappFraGrid(ruteKol, ruteRad);
-            settBakgrunn(knapp, 'B');
+            settStyle(knapp, 'B');
         }
     }
 
@@ -238,8 +240,10 @@ public class GUI extends Application {
         }
     }
 
+    // eventhandler som viser hver vei i labyrinten, en etter en
     class veiBehandler implements EventHandler<ActionEvent> {
 
+        // counter oekes kun 1 gang hver gang knappen trykkes
         int counter = 0;
 
         @Override
@@ -262,6 +266,7 @@ public class GUI extends Application {
                 alert.setContentText(null);
                 alert.show();
             }
+            // oppstaar ugyldigindeks reseter vi counteren
             catch (UgyldigListeIndeks uli) {
                 counter = -1;
             }
