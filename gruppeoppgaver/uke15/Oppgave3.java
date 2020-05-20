@@ -210,4 +210,3 @@ public class Oppgave3 extends Application {
         }
     }
 }
-inKnappBehandler" til aa sjekke "currentColor" og endre ruten til den fargen
