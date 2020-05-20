@@ -3,6 +3,7 @@ import java.util.Iterator;
 
 public class Lenkeliste<T> implements Liste<T>  {
 
+
     // node-klasse som skal lenkes sammen i listen
     protected class Node {
 
