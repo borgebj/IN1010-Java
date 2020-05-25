@@ -146,7 +146,7 @@ public class GUI extends Application {
         }
     }
 
-    // metode som henter noden=knappen paa plassen til
+    // metode som henter noden=knappen paa plassen til col og row
     private Node hentKnappFraGrid(int col, int row) {
 
         //itererer gjennom gridpane sine nodes og sjekker om ruten stemmer
