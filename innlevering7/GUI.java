@@ -192,6 +192,7 @@ public class GUI extends Application {
 
     // lyser opp veien til en string med koordianter
     public void lysVei(String vei) {
+        System.out.println(vei);
         String[] ruter = vei.split("-->");
 
         // fjerner alle paranteser
