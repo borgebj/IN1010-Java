@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -20,6 +21,8 @@ import javafx.scene.text.Font;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.Alert;
+import javafx.scene.text.Text;
 
 // non-javafx
 import java.util.ArrayList;
@@ -37,6 +40,21 @@ public class SpillBrett extends Application {
     int rader = 5;
     int kolonner = 5;
 
+    private void lagOverBar() {
+        HBox linje1 = new HBox(30);
+        linje1.setAlignment(Pos.BASELINE_CENTER); linje1.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
+        linje1.setPadding(new Insets(5, 0, 5, 0));
+        rootPane.setStyle("-fx-background-color: lightyellow");
+
+        Font font = new Font(19);
+
+        Text intro = new Text(" 1 tilfeldig person er valgt - Finn personen ved aa skrive inn attributter i feltet nedenfor. Etter 3 forsok, kan du gjette navnet.");
+        intro.setFont(font);
+
+        linje1.getChildren().add(intro);
+        rootPane.getChildren().add(linje1);
+    }
+
     private void lagBrett() {
         int i =0;
 
@@ -51,7 +69,7 @@ public class SpillBrett extends Application {
 
                 // opprett + tilpass bildet
                 ImageView img = new ImageView(imgNavn); i++;
-                img.setFitHeight(250); img.setFitWidth(250);
+                img.setFitHeight(180); img.setFitWidth(180);
 
                 // legg til border
                 BorderPane imgBorder = new BorderPane(img);
@@ -141,8 +159,8 @@ public class SpillBrett extends Application {
 
     private void lagUnderBar() {
         HBox linje2 = new HBox(30);
-        linje2.setAlignment(Pos.BASELINE_CENTER); linje2.setStyle("-fx-border-color: black; -fx-border-width: 3px;");
-        grid.setAlignment(Pos.BASELINE_CENTER); linje2.setStyle("-fx-border-color: black; -fx-border-width: 3px;");
+        linje2.setAlignment(Pos.BASELINE_CENTER); linje2.setStyle("-fx-border-color: black; -fx-border-width:2px;");
+        grid.setAlignment(Pos.BASELINE_CENTER);
 
             Font font = new Font(12);
 
@@ -150,7 +168,8 @@ public class SpillBrett extends Application {
             b1.setOnAction(new AvsluttBehandler());
             b1.setPrefWidth(100); b1.setPrefHeight(45); b1.setFont(font);
 
-            t1 = new TextField(" 'HER GJETTER DU' ");
+            t1 = new TextField();
+            t1.setPromptText(" 'HER GJETTER DU' ");
             t1.setPrefWidth(140); t1.setPrefHeight(45); t1.setFont(font);
 
             Button b2 = new Button("Gjett");
@@ -168,56 +187,55 @@ public class SpillBrett extends Application {
 
     private String[] finnAttributter(String navn) {
         if (navn.equals("Kenneth"))
-            return new String[] {"hvit", "hvit hud", "briller", "har briller", "haar", "har haar", "brunt haar", "smil", "smiler"};
+            return new String[] {"hvit", "hvit hud", "briller", "har briller", "glad", "haar", "har haar", "brunt haar", "smil", "smiler", "tenner", "viser tenner"};
         if (navn.equals("Borris"))
-            return new String[] {"hvit", "hvit hud", "fattig", "skjegg", "svart skjegg", "blond", "haar", "blondt haar", "smil", "smiler", "rar", "genser", "har genser", "blaa genser"};
+            return new String[] {"hvit", "hvit hud", "fattig", "skjegg", "svart skjegg", "blond", "haar", "blondt haar", "glad", "smil", "smiler", "rar", "genser", "har genser", "blaa genser", "tenner", "viser tenner"};
         if (navn.equals("Morpheus"))
-            return new String[] {"svart", "svart hud", "briller", "har briller", "svarte briller", "skallet", "bald", "jakke", "har jakke", "svart jakke"};
+            return new String[] {"svart", "svart hud", "sort", "sort hud", "briller", "har briller", "svarte briller", "skallet", "bald", "jakke", "har jakke", "svart jakke"};
         if (navn.equals("Bill Clinton"))
-            return new String[] {"hvit", "hvit hud", "rik", "haar", "hvitt haar", "smil", "smiler", "dodende", "doedende", "rod nese", "roed nese", "svart dress", "dress", "har dress"};
+            return new String[] {"hvit", "hvit hud", "rik", "haar", "hvitt haar", "glad", "slips", "har slips", "svart slips", "smil", "smiler", "dodende", "doedende", "rod nese", "roed nese", "svart dress", "dress", "har dress", "tenner", "viser tenner"};
         if (navn.equals("VSauce"))
             return new String[] {"hvit", "hvit hud", "briller", "har briller", "skjegg", "svart skjegg", "skallet", "bald", "rod genser", "brun dress", "dress", "har dress"};
         if (navn.equals("Jan Kaare"))
-            return new String[] {"hvit", "hvit hud", "fattig", "briller", "har briller", "haar", "har haar", "hvitt haar", "bart", "har bart", "sur"};
+            return new String[] {"hvit", "hvit hud", "fattig", "trist", "briller", "har briller", "haar", "har haar", "hvitt haar", "bart", "har bart", "jakke","har jakke", "beige jakke", "sur", "tenner", "viser tenner"};
         if (navn.equals("Oskar"))
-            return new String[] {"hvit", "hvit hud", "smil", "smiler", "haar", "har haar", "blond", "blondt haar", "rod genser", "watermark"};
+            return new String[] {"hvit", "hvit hud", "smil", "smiler", "glad", "haar", "har haar", "blond", "blondt haar", "genser", "har genser", "rod genser", "watermark", "tenner", "viser tenner"};
         if (navn.equals("Casey Neistat"))
-            return new String[] {"hvit", "hvit hud", "briller", "har briller", "svarte briller", "haar", "har haar", "svart haar", "hvit genser", "stripete genser"};
-        if (navn.equals("Dr Phil"))
-            return new String[] {"hvit", "hvit hud", "rik", "smil", "smiler", "skallet", "bald", "dress", "har dress", "svart dress", "bart", "har bart", "svart bart", "sidehaar"};
+            return new String[] {"hvit", "hvit hud", "briller", "har briller", "svarte briller", "haar", "har haar", "svart haar", "genser", "har genser", "hvit genser", "stripete genser"};
         if (navn.equals("Steve Harvey"))
-            return new String[] {"svart", "svart hud", "rik", "bleket tenner", "smil", "smiler", "bart", "har bart", "svart bart", "dress", "har dress", "svart dress", "skallet", "bald", "tenner", "rar"};
+            return new String[] {"svart", "svart hud", "sort", "sort hud", "rik", "bleket tenner", "glad", "slips", "har slips", "svart slips", "sort slips", "smil", "smiler", "bart", "har bart", "svart bart", "dress", "har dress", "svart dress", "skallet", "bald", "tenner", "rar", "tenner", "viser tenner"};
         if (navn.equals("Erna Solberg"))
             return new String[] {"hvit", "hvit hud", "smil", "smiler", "sulten", "haar", "har haar", "gratt haar", "graa haar", "dress", "har dress", "rosa dress", "feit", "rar"};
         if (navn.equals("The Rock"))
-            return new String[] {"hvit", "hvit hud", "smil", "rik",  "smiler", "briller", "har briller", "svarte briller", "skallet", "bald", "dress", "har dress", "brun dress"};
+            return new String[] {"hvit", "hvit hud", "smil", "rik", "glad", "smiler", "briller", "har briller", "svarte briller", "skallet", "bald", "dress", "har dress", "brun dress", "tenner", "viser tenner"};
         if (navn.equals("Danny Devito"))
-            return new String[] {"hvit", "hvit hud", "smil", "rik", "smiler", "briller", "har briller", "skallet", "bald", "rar", "sidehaar", "dress", "har dress", "svart dress", "skjegg", "har skjegg", "svart skjegg", "bart", "har bart", "svart bart", "feit"};
+            return new String[] {"hvit", "hvit hud", "smil", "rik", "glad", "smiler", "sidehaar", "briller", "har briller", "skallet", "bald", "rar", "sidehaar", "dress", "har dress", "svart dress", "skjegg", "har skjegg", "svart skjegg", "bart", "har bart", "svart bart", "feit", "tenner", "viser tenner"};
         if (navn.equals("Larry King"))
-            return new String[] {"hvit", "hvit hud", "pensjonist", "skummel", "briller", "har briller", "haar", "har haar", "hvitt haar", "rar", "blaa genser", "sur"};
+            return new String[] {"hvit", "hvit hud", "pensjonist", "skummel", "briller", "har briller", "slips", "har slips", "blaatt slips", "haar", "har haar", "hvitt haar", "rar", "genser", "har genser", "blaa genser", "sur"};
         if (navn.equals("Barack Obama"))
-            return new String[] {"svart", "svart hud", "rik", "trist", "dress", "haar", "har haar", "har dress", "svart dress", "president"};
+            return new String[] {"svart", "svart hud", "sort", "sort hud", "rik", "trist", "dress", "haar", "har haar", "har dress", "svart dress", "president"};
         if (navn.equals("Harrison Ford"))
-            return new String[] {"hvit", "hvit hud", "rik", "haar", "hvitt haar", "smil", "smiler", "skjegg", "hvitt skjegg", "mye skjegg", "svart dress", "dress", "har dress"};
+            return new String[] {"hvit", "hvit hud", "rik", "haar", "hvitt haar", "sloyfe", "har sloyfe", "glad", "smil", "smiler", "skjegg", "hvitt skjegg", "mye skjegg", "svart dress", "dress", "har dress", "tenner", "viser tenner"};
         if (navn.equals("Donald Trump"))
-            return new String[] {"hvit", "hvit hud", "rik", "oransj", "oransj hud", "oransje", "oransje hud", "smil", "smiler", "haar", "har haar", "blond", "blondt haar", "bleket haar", "dress", "har dress", "svart dress", "president"};
+            return new String[] {"hvit", "hvit hud", "rik", "oransj", "glad", "oransj hud", "oransje", "oransje hud", "smil", "smiler", "haar", "har haar", "blond", "blondt haar", "bleket haar", "dress", "har dress", "svart dress", "president", "tenner", "viser tenner"};
         if (navn.equals("Snoop Dogg"))
-            return new String[] {"svart", "svart hud", "rik", "hvit genser", "har genser", "genser", "briller", "har briller", "sint", "rod genser", "skjegg", "har skjegg", "svart skjegg", "sidehaar"};
+            return new String[] {"svart", "svart hud", "sort", "sort hud", "rik", "hvit genser", "har genser", "genser", "briller", "har briller", "sint", "rod genser", "skjegg", "har skjegg", "svart skjegg", "sidehaar"};
         if (navn.equals("Tove Bjorgaas"))
-            return new String[] {"hvit", "hvit hud", "rar", "dust", "genser", "har genser", "blaa genser", "haar", "har haar", "svart haar", "rasist", "redd", "oredobber", "tenner", "aapen munn"};
+            return new String[] {"hvit", "hvit hud", "rar", "dust", "genser", "har genser", "blaa genser", "haar", "har haar", "svart haar", "rasist", "redd", "oredobber", "tenner", "aapen munn", "tenner", "viser tenner", "tenner", "viser tenner"};
         if (navn.equals("Oprah"))
-            return new String[] {"svart", "svart hud", "rik", "sint", "briller", "hvite briller", "har briller", "genser", "har genser", "hvit genser", "kroller", "har kroller", "haar", "har haar", "brunt haar", "feit"};
+            return new String[] {"svart", "svart hud", "rik", "sint", "briller", "dust", "hvite briller", "har briller", "genser", "har genser", "hvit genser", "kroller", "har kroller", "haar", "har haar", "brunt haar", "feit", "viser tenner", "tenner"};
         if (navn.equals("Jackie Chan"))
             return new String[] {"gul", "gul hud", "asian", "briller", "har briller", "haar", "har haar", "svart haar", "genser", "har genser", "svart genser", "hvit genser", "kort haar", "sur", "sint"};
         if (navn.equals("Kpop dust"))
-            return new String[] {"gul", "gul hud", "asian", "dust", "haar", "har haar", "hvitt haar", "bleket haar", "oredobber", "genser", "har genser", "rod genser", "svart genser", "dum", "rar", "kpop"};
+            return new String[] {"gul", "gul hud", "asian", "dust", "haar", "har haar", "hvitt haar", "bleket haar", "oredobber", "genser", "har genser", "rod genser", "svart genser", "dum", "rar", "kpop", "tenner", "viser tenner"};
+        if (navn.equals("Dr Phil"))
+            return new String[] {"hvit", "hvit hud", "rik", "smil", "smiler", "slips", "har slip", "blaatt slips", "glad", "skallet", "bald", "dress", "har dress", "svart dress", "bart", "har bart", "svart bart", "sidehaar", "tenner", "viser tenner"};
         if (navn.equals("Sheik"))
-            return new String[] {"hvit", "hvit hud", "rik", "skjegg", "har skjegg", "svart skjegg", "smil", "smiler", "hodeplagg", "har hodeplagg", "genser", "har genser", "hvit genser"};
+            return new String[] {"hvit", "hvit hud", "rik", "hette", "har hette", "glad", "skjegg", "har skjegg", "svart skjegg", "smil", "smiler", "hodeplagg", "har hodeplagg", "genser", "har genser", "hvit genser"};
         if (navn.equals("Vegard"))
-            return new String[] {"hvit", "hvit hud", "fattig", "haar", "har haar", "brunt haar", "rar", "jakke", "har jakke", "hette", "har hette", "svart jakke"};
+            return new String[] {"hvit", "hvit hud", "fattig", "haar", "har haar", "glad", "brunt haar", "smil", "smiler", "rar", "jakke", "har jakke", "hette", "har hette", "svart jakke", "tenner", "viser tenner"};
         if (navn.equals("Beyonce"))
-            return new String[] {"svart", "svart hud", "rik", "haar", "har haar", "blondt haar", "smil", "smiler", "genser", "har genser", "hvit genser", "leppestift"};
-
+            return new String[] {"svart", "svart hud", "sort", "sort hud", "rik", "haar", "har haar", "glad", "blondt haar", "blond", "smil", "smiler", "genser", "har genser", "hvit genser", "leppestift", "tenner", "viser tenner"};
         return null;
     }
 
@@ -246,6 +264,7 @@ public class SpillBrett extends Application {
     @Override //hoved-shiten
     public void start(Stage teater) {
 
+        lagOverBar();
         lagBrett();
         lagUnderBar();
         velgPerson();
@@ -275,28 +294,46 @@ public class SpillBrett extends Application {
         @Override
         public void handle(ActionEvent e) {
             hoved.fjernSvart();
+            hoved.velgPerson();
         }
     }
 
     private class InputBehandler implements EventHandler<ActionEvent> {
+
+        int antForsok = 0;
+        private final Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
         @Override
         public void handle(ActionEvent e) {
-            String input = t1.getText();
 
-            for (SpillPerson pers : personer) {
-                if (pers.contains(input, person)) {
-                    int rad = pers.hentRad();
-                    int kolonne = pers.hentKol();
+            try { // try-catch om input er tom
+                String input = t1.getText();
 
-                    BorderPane bilde = (BorderPane) hentImgFraGrid(kolonne, rad);
-                    ImageView img = (ImageView) bilde.getCenter();
+                if (input.equals(person.hentNavn()) && antForsok > 3) {
+                    alert.setHeaderText(input + " er riktig!");
+                    alert.setContentText("Du vant!");
+                    alert.show();
+                    antForsok = 0;
+                } else {
+                    antForsok++;
 
-                    ColorAdjust blackout = new ColorAdjust();
-                    blackout.setBrightness(-1.0);
+                    for (SpillPerson pers : personer) {
+                        if (pers.contains(input, person)) {
+                            int rad = pers.hentRad();
+                            int kolonne = pers.hentKol();
 
-                    img.setEffect(blackout);
+                            BorderPane bilde = (BorderPane) hentImgFraGrid(kolonne, rad);
+                            assert bilde != null; // assert om bildet ikke er null
+                            ImageView img = (ImageView) bilde.getCenter();
+
+                            ColorAdjust blackout = new ColorAdjust();
+                            blackout.setBrightness(-1.0);
+
+                            img.setEffect(blackout);
+                        }
+                    }
                 }
-            }
+            } catch(StringIndexOutOfBoundsException ignored) {}
         }
     }
 }

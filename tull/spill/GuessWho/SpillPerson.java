@@ -27,6 +27,7 @@ public class SpillPerson {
     public int hentRad() {
         return rad;
     }
+    public String hentNavn() { return navn; }
 
     @Override
     public String toString(){
