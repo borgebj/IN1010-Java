@@ -210,8 +210,3 @@ public class Oppgave3 extends Application {
         }
     }
 }
-
-//TODO:
-// ide er at: naar man trykker paa fargen man vil ha, endres den globale variabelen "currentColor" til fargen du valgte
-// MinKnapp kan fjernes, og knappene kan bli gjort til vanlige knapper
-// endre "MinKnappBehandler" til aa sjekke "currentColor" og endre ruten til den fargen
