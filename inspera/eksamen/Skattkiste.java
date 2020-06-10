@@ -10,11 +10,10 @@ public class Skattkiste {
     Random rand = new Random();
 
 
+    // konstruktoer sikrer at en kiste aldri kan holde 0 skatter
     public Skattkiste(int maksAntSkatter) {
-        if (maksAntSkatter <= 0)
-            this.maksAntSkatter = 1;
-        else
-            this.maksAntSkatter = maksAntSkatter;
+        if (maksAntSkatter <= 0) this.maksAntSkatter = 1;
+        else this.maksAntSkatter = maksAntSkatter;
     }
 
     // returner en tilfeldig gjenstand om kisten ikke er tom
@@ -22,13 +21,8 @@ public class Skattkiste {
         int index = rand.nextInt(innhold.size());
         Gjenstand fjern = innhold.get(index);
         innhold.remove(fjern);
+
         return fjern;
-
-    }
-
-    public void fjern(Gjenstand g) {
-        if (innhold.contains(g)) innhold.remove(g);
-        else System.out.println("Den gjenstanden finnes ikke her");
     }
 
     // legger inn inn gjenstand fra parameter om den ikke er full og returner verdien
@@ -40,6 +34,11 @@ public class Skattkiste {
         verdi = rand.nextInt(verdi) + (verdi + 5) / 2;
 
         return verdi;
+    }
+
+    public void fjern(Gjenstand g) {
+        if (innhold.contains(g)) innhold.remove(g);
+        else System.out.println("Den gjenstanden finnes ikke her");
     }
 
     // hjelpemetode

@@ -11,7 +11,7 @@ public class Terminal implements Brukergrensesnitt {
         this.scanner = scanner;
     }
 
-    // setter spilleren som bruker terminalen fra paraemeter
+    @Override // setter spilleren som bruker terminalen fra paraemeter
     public void settSpiller(Spiller spiller) {
         this.spiller = spiller;
     }
@@ -71,5 +71,41 @@ public class Terminal implements Brukergrensesnitt {
         try {
             Thread.sleep(t);
         } catch (InterruptedException ignored) {}
+    }
+
+    @Override
+    public void informer(String feilType, String ting, int tall, Gjenstand objekt) {
+        switch (feilType) {
+            case "tom":
+            case "full":
+                if (ting.equals("ryggsekk")) {
+                    System.out.println("\nRyggsekken din er "+feilType);
+                } else if (ting.equals("skattkiste")) {
+                    System.out.println("\nSkattkisten er " +feilType);
+                }
+                break;
+
+            case "annet":
+                if (ting.equals("formue")) {
+                    System.out.println("\nDin formue er oppdatert: " + tall + "kr");
+                } else if (ting.equals("tattOpp")) {
+                    System.out.println("\n" + objekt + " er tatt opp");
+                } else if (ting.equals("sammeGjenstand")) {
+                    System.out.println("\nDu kan ikke selge samme gjenstand du tok fra samme sted");
+                } else if (ting.equals("taUt")) {
+                    System.out.println("\nDu kan bare ta ut en gjenstand");
+                } else if (ting.equals("trekkFerdig")) {
+                    System.out.println("\nFerdig med trekk");
+                } else if (ting.equals("Hoeyre") || ting.equals("Venstre") || ting.equals("Rett fram")) {
+                    System.out.println("\nDu har valgt " + ting + ". Gaar til " + ting);
+                } else if (ting.equals("gjenstandTyv")) {
+                    System.out.println("\nDet kom en tyv og tok alle gjenstandene dine!");
+                } else if (ting.equals("pengeTyv")) {
+                    System.out.println("\nDet kom en tyv og tok 1/4 av formuen din!");
+                } else if (ting.equals("heldig")) {
+                    System.out.println("\nEn tyv forsoekte aa stjele fra deg, men du hadde ingenting han ville ha.");
+                }
+                break;
+        }
     }
 }

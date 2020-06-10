@@ -26,6 +26,11 @@ public class TraadSpiller extends Robot {
         // ignore
     }
 
+    @Override
+    public void informer(String feilType, String objekt, int formue, Gjenstand tatt) {
+        // ignore
+    }
+
     // ved aa override og ignorere koden i superklassens metoder, kvitter vi oss med
     // baade mye tekst, og Thread.sleep, slik at traadene faar utfoert saa fort som mulig
 }
