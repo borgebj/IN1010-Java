@@ -127,7 +127,7 @@ public class Spiller implements Comparable<Spiller> {
             System.out.println(new String(new char[50]).replace('\0', '\n'));
 
             // kan entene stjele gjenstander, eller 1/4 av formuen din
-            if (rand.nextInt(4) < 3 && !ryggsekk.erTom()) {
+            if (rand.nextInt(8) < 6 && !ryggsekk.erTom()) {
                 terminal.informer("annet", "gjenstandTyv", 0, null);
                 ryggsekk.innhold.clear();
             } else if (formue != 0){
