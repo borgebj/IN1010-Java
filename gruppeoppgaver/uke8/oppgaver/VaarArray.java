@@ -17,7 +17,7 @@ class VaarArray<T> implements Iterable<T> {
             // sjekker om indeks er element eller tom - legger inn om indeks er tom
             if (arr[i]==null) {
                 arr[i] = elem;
-                return true,
+                return true;
             } return false;
         }
     }
@@ -31,7 +31,7 @@ class VaarArray<T> implements Iterable<T> {
         // sjekker om posisjon er tom eller ikke - gjoer tom om ikke
         else if (arr[n] != null) {
             arr[n] = null;
-            return true,
+            return true;
         } return false;
     }
 

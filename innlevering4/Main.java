@@ -5,11 +5,14 @@ import java.util.Scanner;
 public class Main {
 
 
-    // egen"sleep-metode for "artifical-delay"
+    // "utility" metoder - delay og clearScreen-metoder
     public static void delay(long t) {
         try {
             Thread.sleep(t);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException ignored) {}
+    }
+    public static void clearScreen() {
+        System.out.println(new String(new char[50]).replace('\0', '\n'));
     }
 
 
@@ -17,6 +20,7 @@ public class Main {
     // metode som kjoerer for de ulike delene av programmet
     public static void utskriftsDel(Legesystem lege) {
         Scanner scanner = new Scanner(System.in);
+        clearScreen();
 
         // viser meny og spoer bruker om input
         utskriftMeny();
@@ -58,6 +62,8 @@ public class Main {
                 default:
                     delay(350);
                     System.out.println("\nUgyldig kommando - prov igjen\n");
+                    delay(2000);
+                    clearScreen();
             }
 
             // spoer bruker paa nytt og oppdaterer loekke
@@ -114,6 +120,7 @@ public class Main {
                 default:
                     delay(350);
                     System.out.println("\nUgyldig kommando - prov igjen\n");
+                    delay(2000);
             }
 
             opprettMeny();
@@ -145,6 +152,7 @@ public class Main {
                 default:
                     delay(350);
                     System.out.println("\nUgyldig kommando - prov igjen\n");
+                    delay(2000);
             }
 
             brukMeny();
@@ -156,6 +164,7 @@ public class Main {
 
     public static void statistikkDel(Legesystem lege) {
         Scanner scanner = new Scanner(System.in);
+        clearScreen();
 
         // viser meny og spoer bruker om input
         statistikkMeny();
@@ -182,9 +191,10 @@ public class Main {
                     lege.muligMisbruk();
                     break;
 
-
                 default:
                     System.out.println("\nUgyldig kommando - prov igjen\n");
+                    delay(2000);
+                    clearScreen();
             }
 
             statistikkMeny();
@@ -195,7 +205,7 @@ public class Main {
     }
 
     /** Console-interfacer **/
-    // Terminal "User-interface" for ulike menyer
+    // Terminal "User-interface" for ulike menyerz
     public static void hovedMeny() {
         System.out.println("\n\n-----[Hovedmeny]-----");
         System.out.println("| 1. Utskrift     - |");
@@ -219,6 +229,7 @@ public class Main {
         System.out.println("--------------------\n");
     }
     public static void opprettMeny() {
+        clearScreen();
         System.out.println("\n\n----[Opprette]----");
         System.out.println("| 1. Lege       - |");
         System.out.println("| 2. Pasient    - |");
@@ -229,6 +240,7 @@ public class Main {
         System.out.println("--------------------\n");
     }
     public static void brukMeny() {
+        clearScreen();
         System.out.println("\n\n------[Bruk]------");
         System.out.println("| 1. Se pasienter - |");
         System.out.println("| - - - - - - - - - |");
@@ -296,6 +308,7 @@ public class Main {
                 case "1":
                     delay(500);
                     utskriftsDel(lege);
+                    clearScreen();
 
                     // vis hovedmeny og spoer om ny input
                     hovedMeny();
@@ -308,6 +321,7 @@ public class Main {
                 case "2":
                     delay(500);
                     opprettDel(lege);
+                    clearScreen();
 
                     // vis hovedmeny og spoer om ny input
                     hovedMeny();
@@ -320,6 +334,7 @@ public class Main {
                 case "3":
                     delay(500);
                     brukDel(lege);
+                    clearScreen();
 
                     // vis hovedmeny og spoer om ny input
                     hovedMeny();
@@ -332,6 +347,7 @@ public class Main {
                 case "4":
                     delay(500);
                     statistikkDel(lege);
+                    clearScreen();
 
                     // vis hovedmeny og spoer om ny input
                     hovedMeny();
@@ -344,6 +360,7 @@ public class Main {
                 case "5":
                     delay(500);
                     lege.lagFil();
+                    clearScreen();
 
                     // vis hovedmeny og spoer om ny input
                     hovedMeny();

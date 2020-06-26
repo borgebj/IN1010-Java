@@ -1,0 +1,64 @@
+
+
+a)
+    class ParametereA {
+        public static void main(String[] args) {
+            String a = "en tekst!";
+
+            metodeEn(a);
+
+            System.out.println(a);
+
+        }
+
+        public static void metodeEn(String a) {
+            a = a + 12;
+        }
+    }
+
+- Forsøker vi å kompilere og kjøre denne kommer programmet til å skrive ut "en tekst!"
+- Dette er fordi metoden "metodeEn(a)" returner ingenting som kan endre variabelen a.
+- Scopet her sier at a er kun "en tekst!12" inne i metoden, og ikke utenfor.
+
+
+b)
+    class ParametereB {
+        public static void main(String[] args) {
+            int b = 5;
+
+            metodeTo(b);
+
+            System.out.println(b);
+
+        }
+
+        public static int metodeTo(int b) {
+            b = b + 2;
+            return b;
+        }
+    }
+
+- Forsøker vi å kompilere og kjøre denne kommer programmet til å skrive ut "5"
+- Dette er fordi  selv om metoden returner b, så endres ikke den tidligere variabelen "b", fordi metoden er kalt uten noen variabel før den.
+
+
+c)
+    class Parametere {
+        public static void main(String[] args) {
+
+            String c = "hei! ";
+            String d = metodeTre(c);
+
+            System.out.println(c);
+            System.out.println(d);
+
+        }
+
+        public static String metodeTre(String noe) {
+            noe = noe + "og hallo!";
+            return noe;
+        }
+    }
+
+- Forsøker vi å kompilere og kjøre denne kommer programmet til å skrive ut "hei! " og deretter "hei! og hallo!";
+- Dette er fordi vi skriver string d = metodeTre(c). Metoden her returner da en ny verdi, og variabelen d blir gitt denne verdien

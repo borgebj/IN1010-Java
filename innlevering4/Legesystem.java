@@ -40,11 +40,14 @@ public class Legesystem {
     }
 
 
-    // egen sleep-metode for "artifical-delay"
+    // "utility" metoder - delay og clearScreen-metoder
     public void delay(long t) {
         try {
             Thread.sleep(t);
         } catch (InterruptedException e) {}
+    }
+    public static void clearScreen() {
+        System.out.println(new String(new char[50]).replace('\0', '\n'));
     }
 
     // metode som gaar gjennom filen, oppretter objekter og legger de til i listen (kaster 2 unntak)
@@ -249,7 +252,7 @@ public class Legesystem {
                     }
 
                     // sjekker om resepten er godkjent
-                    if (middelMatch==true && legeMatch==true && pasientMatch==true) { godkjent = true; }
+                    if (middelMatch && legeMatch && pasientMatch) { godkjent = true; }
 
                     if (godkjent) {
                         if (biter.length > 4) {
@@ -298,6 +301,7 @@ public class Legesystem {
     /** Utskrift-delen **/
     // skriver ut alle pasienter
     public void skrivPasienter() {
+        clearScreen();
         Scanner scanner = new Scanner(System.in);
 
         // skriver ut alle pasienter
@@ -331,14 +335,14 @@ public class Legesystem {
                         Lenkeliste<Resept> liste = (Lenkeliste<Resept>) pasient.hentResepter();
 
                         for (Resept resept : liste) {
-                            delay(25);
+                            delay(100);
                             System.out.println(resept);
                             harResepter = true;
                         }
                         if (!harResepter) {
                             System.out.println("> Har ingen resepter <\n");
                         }
-                        delay(2250);
+                        delay(3000);
                         kommando = "a";
                     }
                 }
@@ -358,6 +362,7 @@ public class Legesystem {
 
     // skriver ut alle legemidler
     public void skrivLegemidler() {
+        clearScreen();
         System.out.println("\n-------- [ Legemidler ] ----------");
         for (Legemiddel x : legemidler) {
 
@@ -370,6 +375,7 @@ public class Legesystem {
 
     // skriver ut alle leger
     public void skrivLeger() {
+        clearScreen();
         System.out.println("\n----------- [ leger ] --------------");
         for (Lege x : leger) {
 
@@ -381,6 +387,7 @@ public class Legesystem {
 
     // skriver ut alle resepter
     public void skrivResepter() {
+        clearScreen();
         System.out.println("\n------- [ Resepter ] ---------------------------------------------------");
         for (Resept x : resepter) {
 
@@ -397,6 +404,7 @@ public class Legesystem {
     public void legeMeny() {
         // console-interface
         delay(500);
+        clearScreen();
         System.out.println("\n ---[Oppretting]----");
         System.out.print( " | 1. Lege         |" +
                 "\n | 2. Spesialist   |" +
@@ -407,6 +415,7 @@ public class Legesystem {
     public void pasientMeny() {
         // console-interface
         delay(500);
+        clearScreen();
         System.out.println("\n ---[Oppretting]---");
         System.out.print ( " | 1. Pasient     |" +
                 "\n | - - - -  - - - |" +
@@ -416,6 +425,7 @@ public class Legesystem {
     public void reseptMeny() {
         // console-interface
         delay(500);
+        clearScreen();
         System.out.println("\n -----[Resept]------");
         System.out.print( " | 1. Hvite        |" +
                 "\n | 2. Millitaer    |" +
@@ -428,6 +438,7 @@ public class Legesystem {
     public void middelMeny() {
         // console-interface
         delay(500);
+        clearScreen();
         System.out.println("\n ---[Oppretting]----");
         System.out.print( " | 1. Vanlig       |" +
                 "\n | 2. Vanedannende |" +
@@ -649,10 +660,10 @@ public class Legesystem {
                                 break;
                             }
                         }
-                        else if (b instanceof Lege) {
-                                legeMatch = true;
-                                lege = b;
-                                break;
+                        else {
+                            legeMatch = true;
+                            lege = b;
+                            break;
                         }
                     }
                 }
@@ -671,7 +682,7 @@ public class Legesystem {
                 }
 
                 // SJEKKE-delen
-                if (middelMatch == true && legeMatch == true && pasientMatch == true) {
+                if (middelMatch && legeMatch && pasientMatch) {
                     godkjent = true;
                 }
 
@@ -687,23 +698,25 @@ public class Legesystem {
                         scanner.nextLine();
 
                         // oppretter>legger til hvite
-                        if (reseptKommando.equals("1")) {
-                            resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
-                        }
+                        switch (reseptKommando) {
+                            case "1":
+                                resepter.leggTil(lege.skrivHvitResept(legemiddel, pasient, reit));
+                                break;
 
-                        // oppretter>legger til militaer
-                        else if (reseptKommando.equals("2")) {
-                            resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
-                        }
+                            // oppretter>legger til militaer
+                            case "2":
+                                resepter.leggTil(lege.skrivMilitaerResept(legemiddel, pasient, reit));
+                                break;
 
-                        // oppretter>legger til blaa
-                        else if (reseptKommando.equals("4")) {
-                            resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
+                            // oppretter>legger til blaa
+                            case "4":
+                                resepter.leggTil(lege.skrivBlaaResept(legemiddel, pasient, reit));
+                                break;
                         }
                         reseptKommando = "a";
                     }
-                    // oppretter>legger til presept
-                    else if (reseptKommando.equals("3")) {
+                    // oppretter>legger til presept (om 3)
+                    else {
                         resepter.leggTil(lege.skrivPResept(legemiddel, pasient));
 
                         delay(750);
@@ -779,13 +792,13 @@ public class Legesystem {
                         }
 
                         // 3 = narkotisk - opprett og legg til
-                        else if (middelKommando.equals("3")) {
+                        else {
                             legemidler.leggTil(new Narkotisk(middelNavn, pris, virkestoff, styrke));
                         }
                     }
 
                     // 1 = vanlig - opprett og legg till
-                    else if (middelKommando.equals("1")) {
+                    else {
                         legemidler.leggTil(new Vanlig(middelNavn, pris, virkestoff));
                     }
 
@@ -811,6 +824,9 @@ public class Legesystem {
     /** Bruk-delen **/
     // gir brukeren mulighet for aa bruke resepter til ulike pasienter
     public void reseptBruk() {
+        clearScreen();
+        System.out.println("--------------------------------------------------------------------");
+        System.out.println("          [ PASIENTER ]");
         Scanner scanner = new Scanner(System.in);
 
         // viser fram alle pasienter og deres ID
@@ -825,13 +841,14 @@ public class Legesystem {
         try {
             // spoer om hvilken pasient de vil se - input her blir altsaa ID-en til pasienten
             System.out.print("\nHvilken pasient vil du se resepter for? \n > ");
-            String kommando = scanner.next();
+            String kommando = scanner.next(); scanner.nextLine();
 
             while (!kommando.equals("a")) {
 
-                // counter for antall reseter og pasientnavn for bruk senere
+                // counter for antall reseter, pasientnavn og placeholder for pasientID for bruk senere
                 int antResept = 0;
                 String pasientNavn = " [ Ugyldig pasient-id ] ";
+                int pasientID = 0;
 
                 if (kommando.equals("a")) {
                     System.out.println("\n\nOk avslutter\n\n");
@@ -839,12 +856,13 @@ public class Legesystem {
                 } else {
                     // gaar gjennom alle pasienter og sjekker ID til hver for aa finne pasient fra input
                     for (Pasient b : pasienter) {
-                        int pasientID = b.hentId();
+                        pasientID = b.hentId();
 
                         // sjekker "kommando" med pasientID etter konvertering til String
                         if (kommando.equals(Integer.toString(pasientID))) {
 
                             // pasienten er funnet, vises til terminalen
+                            delay(500);
                             System.out.print("\nPasient valgt: ");
                             pasientNavn = b.hentNavn();
                             System.out.println(b.hentNavn());
@@ -867,27 +885,50 @@ public class Legesystem {
 
                     // om det komer opp resepter
                     if (antResept > 0) {
-                        System.out.print("\nHvilken resept vil du bruke? \n > ");
-                        int reseptInput = scanner.nextInt();
+                        System.out.print("\nHvilken resept vil du bruke (ID/a)? \n > ");
+                        String reseptInput = scanner.nextLine().toLowerCase();
+                        boolean gyldigResept = false;
                         delay(800);
 
-                        // gaar gjennom alle resepter
-                        for (Resept resept : resepter) {
-                            int reseptID = resept.hentId();
+                        if (!reseptInput.equals("a")) {
 
-                            // hvis resept-id matcher brukerinput - bruk resept og fortell bruker
-                            if (reseptID == reseptInput) {
 
-                                // sjekker antall reit /om tomt eller ikke/
-                                if (resept.hentReit() > 0) {
-                                    resept.bruk();
-                                    System.out.println("\nBrukte resept paa " + resept.hentLegemiddel().hentNavn() + ".  Antall gjenvaerende reit: " + resept.hentReit());
-                                    delay(750);
-                                } else {
-                                    System.out.println("\nKunne ikke bruke resept paa " + resept.hentLegemiddel().hentNavn() + ": Ingen reit igjen\n");
-                                    delay(1000);
+                            // gaar gjennom pasienter og deres reseptliste og ser om baade reseptID og pasientID matcher input fra bruker
+                            for (Pasient pasient : pasienter) {
+                                if ((pasientID-1) == pasient.hentId()) {
+
+                                    @SuppressWarnings("unchecked")  // oppretter variabel > caster > "suppress warning"
+                                    Lenkeliste<Resept> liste = (Lenkeliste<Resept>) pasient.hentResepter();
+
+                                    for (Resept resept : liste) {
+                                        if (resept.hentId() == Integer.parseInt(reseptInput)) {
+                                            gyldigResept = true;
+
+                                            // sjekker antall reit /om tomt eller ikke/
+                                            if (resept.hentReit() > 0) {
+                                                resept.bruk();
+                                                System.out.println("\nBrukte resept paa " + resept.hentLegemiddel().hentNavn() + ".  Antall gjenvaerende reit: " + resept.hentReit() + "\n");
+                                                delay(2000);
+                                            } else {
+                                                System.out.println("\nKunne ikke bruke resept paa " + resept.hentLegemiddel().hentNavn() + ": Ingen reit igjen\n");
+                                                delay(2000);
+                                            }
+
+                                        }
+                                    }
+
                                 }
                             }
+                        }
+                        // om kommando er "a"
+                        else {
+                            delay(500);
+                            System.out.println("\nAvbryter ...\n");
+                            delay(1000);
+                        }
+                        if (!gyldigResept && !reseptInput.equals("a")) {
+                            System.out.println("\n [ Ugylidg resept-id : " + reseptInput + " ]\n");
+                            delay(750);
                         }
                     }
 
@@ -911,7 +952,7 @@ public class Legesystem {
                 }
 
                 System.out.print("\nHvilken pasient vil du se resepter for? (alle/ID/a) \n > ");
-                kommando = scanner.next();
+                kommando = scanner.next(); scanner.nextLine();
 
                 // bruker kan velge aa see alle paa nytt
                 if (kommando.equals("alle")) {
@@ -924,7 +965,7 @@ public class Legesystem {
                 }
             }
             delay(750);
-            System.out.println("\nGaar tilbake ...\n");
+            System.out.println("\nAvbryter ...\n");
             delay(1000);
         }
         // fanger feil om tegnet til scanner er ugyldig
@@ -934,15 +975,16 @@ public class Legesystem {
             System.out.println("Gaar tilbake ... \n\n");
             delay(1000);
         }
+        System.out.println("--------------------------------------------------------------------");
     }
 
 
     /** Statistikk-delen **/
     // printer ut alle vanedannende legemidler + antall
     public void hentVanedannende() {
+        clearScreen();
 
         int antall = 0;
-
         System.out.println("\n\n---[ VANEDANNENDE ] ---------------");
         for (Resept x : resepter) {
             Legemiddel middel = x.hentLegemiddel();
@@ -961,9 +1003,9 @@ public class Legesystem {
 
     // printer ut alle narkotiske legemidler + antall
     public void hentNarkotiske() {
+        clearScreen();
 
         int antall = 0;
-
         System.out.println("\n\n---[ NARKOTISKE ] ------------------");
         for (Resept x : resepter) {
             Legemiddel middel = x.hentLegemiddel();
@@ -983,6 +1025,7 @@ public class Legesystem {
     // printer ut alle leger som har skrevet ut minst en narkotisk resept + antall narkotiske
     public void muligMisbruk() {
         delay(250);
+        clearScreen();
 
         int antLeger = 0;
         System.out.println("\n\n---[ LEGER MED NARKOTISKE ] ---");
@@ -1010,6 +1053,7 @@ public class Legesystem {
                 System.out.println(" { " + lege + " } ");
                 System.out.println(" - Antall narkotiske: { " + antLegeNarkotiske + " } - \n");
                 antLeger++;
+                delay(100);
             }
         }
         if (antLeger <= 0) {
@@ -1025,7 +1069,6 @@ public class Legesystem {
 
         // gaar gjennom hver pasient og henter resept-liste
         for (Pasient pasient : pasienter) {
-            delay(25);
             int antPasientNarkotiske = 0;
             boolean pasientHarNarkotisk = false;
 
@@ -1042,6 +1085,7 @@ public class Legesystem {
                 System.out.println(" { " + pasient + " } ");
                 System.out.println(" - Antall narkotiske: { " + antPasientNarkotiske + " } - \n");
                 antPasienter++;
+                delay(100);
             }
         }
         if (antPasienter <= 0) {

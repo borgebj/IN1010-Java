@@ -19,7 +19,7 @@ class Student {
 
     // felles metode
     boolean gyldigTlf() {
-        tlf >= 10000000 && tlfnr <= 99999999;
+        return tlf >= 10000000 && tlfnr <= 99999999;
     }
 
     // egen metode

@@ -1,0 +1,20 @@
+
+
+klasser:
+- personer (navn og alder)
+- studenter (i tillegg: kurs og lærested)
+- bachelorstudenter (læringsted med åpningstider)
+- masterstudenter (læringsted uten åpningstider)
+- ansatte (timelønn)
+- forskere (i tillegg: fagområde)
+- professorer (forsker, underviser et gitt kurs)
+
+
+
+                   | Person(A)  |
+                  /              \
+                 /                \
+     |Ansatt (A)|                  |Student(A)|
+     /           \                /            \
+|Forsker|     |Professor|  |BachelorStudent|  |MasterStudent|
+

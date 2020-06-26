@@ -24,9 +24,16 @@ class Array1 {
         //maate nr 2 - forhandsbestemme elementer - full array
         int[] array2 = {1, 2, 3, 4, 5};
 
+        System.out.println("Vanlig for-loop");
+
         // printer ut hvert element i array2
         for (int a=0; a<array2.length; a++) {
             System.out.println(a);
+        }
+
+        System.out.println("Enhanced for-loop");
+        for (int tall : array2) {
+            System.out.println( tall );
         }
     }
 }

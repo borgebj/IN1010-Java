@@ -1,0 +1,59 @@
+
+<IN1010 Proveeksamen 2020>
+
+<Oppgave 1 - Emaballasje>
+<notater>
+
+- Alt de produserer er "Emballasje" (dvs <- er superklasse)
+- 4 hovetyper (subklasser)
+	- Glassembalasje
+	- Metallemballasje
+	- Plastemballasje
+	- Pappemballasje
+- Noe av emballasjen er pant paa, noe er nedbrytbar. (egenskaper som kommer i TILLEGG)
+- Produseres kun:
+	- Liten plastflaske med pant
+	- Liten nedbrytbar plastflaske med pant
+	- Stor nedbrytbar pappflaske med pant
+- (oppgavetekst hinter til grensesnitt / interface?)
+
+1b
+- ALL emballasje har: int volum (kubikkcentimeter) og String prodIndikator (tekst)
+- Plastemballasje har ingen flere egenskaper enn emballasje
+- Papp har i tillegg int vekt (gram)
+
+- Emballasje med pant må vite hvor stor panten > int pant (øre) og String returodrning (tekst)
+- Emballasje som er nedbrytbar må kunne vite hvor lenge det tar før tingen er gått i oppløsning
+> int varighet? (år)
+
+- liten pant > alltid 100 øre
+- På slutten av konstruktører "System.out.println("Konstruktoeren til klassen xxx utfoeres");
+- Hovedklasse: "BrukPant" - main opprettet ETT objekt av hver klasse (som kan lages objekter av) (finn på verdier selv)
+
+</notater
+<Klassehierarki>
+1a)
+-------------------------------------------------------
+|					                                  |
+|					 | Emballasje |                   |
+|				    /  |        |  \                  |
+|				   /   |	    |   \				  |                 
+| |GlassEmballasje|    |        |    |PappEmballasje| |
+|                      |        |                     |
+|	    |MetallEmballasje|    |PlastEmballasje|       |
+|                                                     |
+-------------------------------------------------------
+eller ?
+--------------------------------------------------------
+|					                                   |
+|					 | Emballasje |                    |
+|				    /      |       \                   |
+|				   /       |        \				   |                 
+|                 /   |LitenPlast|   \                 |
+|                /                    \                |
+|    |LitenNedbrytbarPlast|   |StorNedbrytbarPapp|     |             
+|                                                      |
+-------------------------------------------------------|
+
+</klassehierarki>
+</oppgave 1 - Emballasje>

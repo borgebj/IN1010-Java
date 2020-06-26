@@ -12,10 +12,10 @@ public class TicTacToe {
 
         // lager brettet (gameBoard) - en nested-array med 5 arrayer inne
         char[][] gameBoard = {{' ', '|', ' ', '|', ' '},
-                            {'-', '+', '-', '+', '-'},
-                            {' ', '|', ' ', '|', ' '},
-                            {'-', '+', '-', '+', '-'},
-                            {' ', '|', ' ', '|', ' '}};
+                              {'-', '+', '-', '+', '-'},
+                              {' ', '|', ' ', '|', ' '},
+                              {'-', '+', '-', '+', '-'},
+                              {' ', '|', ' ', '|', ' '}};
 
         // printer tomt brett
         printGameBoard(gameBoard);
@@ -37,6 +37,7 @@ public class TicTacToe {
             // sjekker resultat etter spiller har spilt
             String result = checkWinner();
             if (result.length() > 0 ){
+                printGameBoard(gameBoard);
                 System.out.println(result);
                 break;
             }
@@ -56,6 +57,7 @@ public class TicTacToe {
             // sjekker resultat etter CPU har spilt
             result = checkWinner();
             if (result.length() > 0 ){
+                printGameBoard(gameBoard);
                 System.out.println(result);
                 break;
             }

@@ -1,10 +1,12 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-class Oblig5 {
+
+public class Oblig5 {
     public static void main(String[] args) {
-        String filnavn = null;
+        String filnavn;
 
         if (args.length > 0) {
             filnavn = args[0];
@@ -22,10 +24,14 @@ class Oblig5 {
             System.exit(1);
         }
 
+        // lagt til selV: skriver ut brettet med hjelpe-tall paa siden og toppen
+        l.skrivMedTall();
+
         // les start-koordinater fra standard input
         Scanner inn = new Scanner(System.in);
-        System.out.println("Skriv inn koordinater <kolonne> <rad> ('a' for aa avslutte)");
+        System.out.print("Skriv inn koordinater <kolonne> <rad> ('a' for aa avslutte) \n > ");
         String[] ord = inn.nextLine().split(" ");
+        System.out.println("\nAlle utveier:");
         while (!ord[0].equals("a")) {
 
             try {
@@ -37,6 +43,10 @@ class Oblig5 {
                     for (String s : utveier) {
                         System.out.println(s);
                     }
+                    // lagt til selv: Skriver ut antall utveier og den korteste utveien
+                    System.out.println("\nAntall utveier: " + utveier.stoerrelse());
+                    System.out.println("Korteste utvei: " + l.finnKortestUtvei() + "\n");
+
                 } else {
                     System.out.println("Ingen utveier.");
                 }
