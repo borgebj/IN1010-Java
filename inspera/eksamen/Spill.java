@@ -3,7 +3,10 @@ import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Random;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
+// essensielle fx-imports
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -23,12 +26,17 @@ import javafx.event.EventHandler;
 import javafx.application.Platform;
 
 
+
+
 public class Spill extends Application {
 
     private static final Random rand = new Random();
     private static final Scanner scanner = new Scanner(System.in);
     private static Terreng terreng;
     private static ArrayList<Spiller> spillere = new ArrayList<Spiller>();
+
+    // laas ved bruk av TraadSpiller - hindrer blant annet bruk av felles data
+    static Lock laas = new ReentrantLock();
 
 
     // oppretter terreng avhengig av typen i parameter
@@ -42,7 +50,7 @@ public class Spill extends Application {
     private static void opprettSpillere(String[] navnListe, int antall, int antallTrekk, String spillType) {
         try {
             for (int i = 0; i < antall; i++) {
-                Terminal brukerTerminal = new Terminal(scanner);
+                Brukergrensesnitt brukerTerminal = new Terminal(scanner);
                 Sted startSted = terreng.hentStart();
                 String navn = navnListe[rand.nextInt(navnListe.length)] + "-" + (i + 1);
 
@@ -58,13 +66,13 @@ public class Spill extends Application {
     }
 
     // oppretter en robot med eller uten VeivalgSpiller
-    private static void opprettRoboter(String[] navnListe, int antall, int antallTrekk, String spillType, String robotType) {
+    private static void opprettRoboter(int antall, int antallTrekk, String spillType, String robotType) {
         try {
             for (int i = 0; i < antall; i++) {
                 Sted startSted = terreng.hentStart();
                 String navn = "Robot" + "-" + (i + 1);
 
-                Robot robot;
+                Brukergrensesnitt robot;
                 if (robotType.equals("traad")) robot = new TraadSpiller();
                 else robot = new Robot();
 
@@ -86,11 +94,11 @@ public class Spill extends Application {
 
         switch (spillerType) {
             case "robot":
-                opprettRoboter(navn, antallRoboter, maksAntallTrekk, spillType, "robot");
+                opprettRoboter(antallRoboter, maksAntallTrekk, spillType, "robot");
                 break;
 
             case "traad":
-                opprettRoboter(navn, antallRoboter, maksAntallTrekk, spillType, "traad");
+                opprettRoboter(antallRoboter, maksAntallTrekk, spillType, "traad");
                 break;
 
             case "spiller":
@@ -99,7 +107,7 @@ public class Spill extends Application {
 
             case ("begge"):
                 opprettSpillere(navn, antallSpillere, maksAntallTrekk, spillType);
-                opprettRoboter(navn, antallRoboter, maksAntallTrekk, spillType, "robot");
+                opprettRoboter(antallRoboter, maksAntallTrekk, spillType, "robot");
                 break;
         }
     }
@@ -190,8 +198,7 @@ public class Spill extends Application {
 
         // sorterer spilerListe
         spillere.sort(Collections.reverseOrder());
-
-
+        
         // dynamis hoyde brukt for GUI-brett
         int hoyde = (spillere.size() * 50) + 180;
 
@@ -250,6 +257,18 @@ public class Spill extends Application {
     }
 
 
+    // metode med laas som gjoer at spill med traader forblir "turn-based" og hindrer aksessering av samme data
+    public static void spillRunde(Spiller spiller) {
+        laas.lock();
+        try {
+            while (spiller.hentTrekk() > 0) {
+                spiller.nyttTrekk();
+            }
+        }
+        finally { laas.unlock(); }
+    }
+
+
     public static void main(String[] args) {
         try {
             // konstante verdier fra parameter naar en kjoerer filen
@@ -282,15 +301,13 @@ public class Spill extends Application {
                         Thread robotTraad = new Thread(new RobotTraad(spiller));
                         robotTraad.start();
                         robotTraad.join();
-                    } catch (InterruptedException ignored) {
-                    }
+                    } catch (InterruptedException ignored) {}
                 }
                 // fortsetter som vanlig
                 else {
-                    while (spiller.hentTrekk() > 0) {
-                        spiller.nyttTrekk();
-                    }
+                    spillRunde(spiller);
                     System.out.println("\n\nFerdig med runden til " + spiller.hentNavn());
+                    spiller.hentGrensesnitt().sleep(2000);
                 }
             }
             scanner.close();
@@ -315,9 +332,7 @@ public class Spill extends Application {
 
         @Override
         public void run() {
-            while (spiller.hentTrekk() > 0) {
-                spiller.nyttTrekk();
-            }
+            spillRunde(spiller);
         }
     }
 

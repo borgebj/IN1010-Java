@@ -34,7 +34,7 @@ import java.io.FileNotFoundException;
                 <children>
                     <LabKnapp>
                 </children>
-            </linje2>
+            </linje1>
         </children>
     </VBox>
 

@@ -71,6 +71,8 @@ public class SpillBrett extends Application {
                 // opprett + tilpass bildet
                 ImageView img = new ImageView(imgNavn); i++;
                 img.setFitHeight(180); img.setFitWidth(180);
+                img.setPreserveRatio(true);
+
 
                 // legg til border
                 BorderPane imgBorder = new BorderPane(img);

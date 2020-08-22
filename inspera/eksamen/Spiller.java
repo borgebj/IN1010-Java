@@ -1,17 +1,18 @@
-import java.util.concurrent.locks.*;
+import java.util.Random;
+
 
 public class Spiller implements Comparable<Spiller> {
 
     // spiller-navn, trekk og poeng (starter paa 0)
     String navn;
     int antallTrekk;
+    int rundeNr = 0;
     int formue;
-
-    // laas for bruk av TraadSpiller
-    Lock laas = new ReentrantLock();
 
     // referanse til startsted for spiller - endres underveis
     Sted startsted;
+
+    Random rand = new Random();
 
     // tom ryggsegg og referanse til brukerterminalen
     Skattkiste ryggsekk = new Skattkiste(2);
@@ -23,7 +24,7 @@ public class Spiller implements Comparable<Spiller> {
         this.antallTrekk = antallTrekk;
         this.terminal = terminal;
         this.startsted = startsted;
-        formue = 0;
+        this.formue = 0;
     }
 
     public String hentNavn() {
@@ -53,20 +54,18 @@ public class Spiller implements Comparable<Spiller> {
 
     // metode for valg nr 0
     protected void seInnhold(Skattkiste current) {
-        laas.lock();
         terminal.sleep(1000);
 
         terminal.skrivInnhold(current);
 
         terminal.sleep(1000);
-        laas.unlock();
     }
 
     // gaar videre (overrides i VeivalgSpiller)
     protected void gaaVidere() {
 
         // informerer at runden er ferdig
-        System.out.println("\nFerdig med trekk");
+        terminal.informer("annet", "trekkFerdig", 0, null);
         terminal.sleep(1500);
 
         // gaar videre og trekker fra total antall trekk
@@ -74,32 +73,28 @@ public class Spiller implements Comparable<Spiller> {
     }
 
     private Gjenstand taFraKiste(Skattkiste kiste, boolean harTatt) {
-        laas.lock();
         if (!kiste.erTom()) {
             if (!ryggsekk.erFull()) {
                 if (!harTatt) {
 
                     Gjenstand tatt = kiste.taUt();
                     ryggsekk.leggNed(tatt);
-                    System.out.println("\n" + tatt + " er tatt opp");
-                    laas.unlock();
+                    terminal.informer("annet", "tattOpp", 0, tatt);
                     return tatt;
 
                 } else {
-                    System.out.println("\nDu kan bare ta ut en gjenstand");
+                    terminal.informer("annet", "taUt", 0,null);
                 }
             } else {
-                System.out.println("\nRyggsekken din er full");
+                terminal.informer("full", "ryggsekk", 0, null);
             }
         } else {
-            System.out.println("\nSkattkisten er tom");
+            terminal.informer("tom", "skattkiste", 0, null);
         }
-        laas.unlock();
         return null;
     }
 
     private void selgFraRyggsekk(Skattkiste kiste, Gjenstand tatt) {
-        laas.lock();
         if (!ryggsekk.erTom()) {
             if (!kiste.erFull()) {
                 System.out.println();
@@ -110,27 +105,47 @@ public class Spiller implements Comparable<Spiller> {
 
                 // sjekker om gjenstand er tatt fra samme sted
                 if (valgtGjenstand == tatt) {
-                    System.out.println("\nDu kan ikke selge samme gjenstand du tok fra samme sted");
+                    terminal.informer("annet", "sammeGjenstand", 0, null);
                 } else {
                     ryggsekk.fjern(valgtGjenstand);
                     formue += kiste.leggNed(valgtGjenstand);
 
                     terminal.sleep(500);
-                    System.out.println("\nDin formue er oppdatert: " + formue + "kr");
+                    terminal.informer("annet", "formue", formue, null);
                 }
             } else {
-                System.out.println("\nSkattkisten er full");
+                terminal.informer("full", "skattkiste", 0, null);
             }
         } else {
-            System.out.println("\nRyggsekken din er tom");
+            terminal.informer("tom", "ryggsekk", 0, null);
         }
-        laas.unlock();
+    }
+
+    // "random-encounter" - tyv som stjeler - skjer sjeldent
+    private void randomEncounter() {
+        if (rand.nextInt(200) > 180 && rundeNr > 2) {
+            System.out.println(new String(new char[50]).replace('\0', '\n'));
+
+            // kan entene stjele gjenstander, eller 1/4 av formuen din
+            if (rand.nextInt(8) < 6 && !ryggsekk.erTom()) {
+                terminal.informer("annet", "gjenstandTyv", 0, null);
+                ryggsekk.innhold.clear();
+            } else if (formue != 0){
+                terminal.informer("annet", "pengeTyv", 0, null);
+                formue -= formue/4;
+            } else {
+                terminal.informer("annet", "heldig", 0, null);
+            }
+            terminal.sleep(2500);
+        }
     }
 
     public void nyttTrekk() {
         Skattkiste currentKiste = startsted.hentKiste();
         boolean harTatt = false;
         Gjenstand tatt = null;
+
+        randomEncounter();
 
         // lokke som fortsetter til bruker er ferdig
         int valg = 10;
@@ -167,6 +182,7 @@ public class Spiller implements Comparable<Spiller> {
 
         // gaar videre ti slutt og trekker fra antallTrekk
         gaaVidere();
+        rundeNr++;
         antallTrekk--;
     }
 

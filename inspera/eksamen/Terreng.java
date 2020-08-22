@@ -15,7 +15,7 @@ public class Terreng {
     Scanner scanner;
 
 
-    // konstruktor: gaar gjennom fil, lager Steder og legger til i Lenkeliste
+    // konstruktor: gaar gjennom fil, lager Steder og legger til i ArrayList
     public Terreng(String filnavn) {
         File fil = new File(filnavn);
         try {

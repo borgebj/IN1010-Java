@@ -31,14 +31,13 @@ public class VeivalgSpiller extends Spiller {
 
         // finner neste sted og informerer bruker
         Sted gaaTil = ((VeivalgSted) startsted).hentSted(retning);
-        System.out.println("\nDu har valgt " + retning + ". Gaar til " + retning);
+        terminal.informer("annet", retning, 0, null);
 
         // gaar videre til sted fra parameter
         startsted = gaaTil;
 
-        terminal.sleep(1500);
         // informerer at runden er ferdig
-        System.out.println("\nFerdig med trekk\n");
+        terminal.informer("annet", "ferdigTrekk", 0, null);
         terminal.sleep(1500);
     }
 }
