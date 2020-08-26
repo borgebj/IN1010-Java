@@ -22,7 +22,9 @@ import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 
 // non-javafx
 import java.util.ArrayList;
@@ -272,7 +274,10 @@ public class SpillBrett extends Application {
         lagUnderBar();
         velgPerson();
 
-        Scene scene = new Scene(rootPane);
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(rootPane);
+        sp.setPannable(true);
+        Scene scene = new Scene(sp);
 
         teater.setTitle("Guess Who");
         teater.setScene(scene);
