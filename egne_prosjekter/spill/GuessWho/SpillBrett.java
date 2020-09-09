@@ -279,8 +279,8 @@ public class SpillBrett extends Application {
 
         Optional<ButtonType> resultat = alert.showAndWait();
         if (resultat.get() == laptop) {
-                bildeStoerrelse = 90; // 90
-                overBarfont = new Font(14); // 10
+                bildeStoerrelse = 105; // 90
+                overBarfont = new Font(12); // 10
         }
     }
 
