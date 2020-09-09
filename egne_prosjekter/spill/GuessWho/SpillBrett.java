@@ -25,6 +25,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import java.util.Optional;
+import javafx.scene.control.ScrollPane;
+
 
 // non-javafx
 import java.util.ArrayList;
@@ -74,6 +76,7 @@ public class SpillBrett extends Application {
                 // opprett + tilpass bildet
                 ImageView img = new ImageView(imgNavn); i++;
                 img.setFitHeight(bildeStoerrelse); img.setFitWidth(bildeStoerrelse);
+                img.setPreserveRatio(true);
 
                 // legg til border
                 BorderPane imgBorder = new BorderPane(img);
@@ -291,7 +294,10 @@ public class SpillBrett extends Application {
         lagUnderBar();
         velgPerson();
 
-        Scene scene = new Scene(rootPane);
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(rootPane);
+        sp.setPannable(true);
+        Scene scene = new Scene(sp);
 
         teater.setTitle("Guess Who");
         teater.setScene(scene);

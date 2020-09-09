@@ -8,7 +8,7 @@ innlevering4/fileError.txt
 innlevering4/legesystem.txt
 innlevering4/DelF.pdf
 *.pdf
-*.docx
-.idea
+*.idea
 .DS_Store
 *.zip
+*.docx

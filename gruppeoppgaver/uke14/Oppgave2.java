@@ -20,11 +20,9 @@ public class Oppgave2 extends Application {
     public void start(Stage teater) {
 
         StackPane pane = new StackPane();
-
-
-        Rectangle r = new Rectangle(300, 100, Color.WHITE);
-        r.setStyle("-fx-stroke: black; -fx-stroke-width: 8;");
-        r.setFill(Color.LIGHTGREY);
+            Rectangle r = new Rectangle(300, 100, Color.WHITE);
+            r.setStyle("-fx-stroke: black; -fx-stroke-width: 8;");
+            r.setFill(Color.LIGHTGREY);
         pane.getChildren().add(r);
 
         // setter font paa tekst og legger til
