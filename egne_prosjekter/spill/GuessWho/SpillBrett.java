@@ -22,9 +22,11 @@ import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Scale;
+import java.util.Optional;
+import javafx.scene.control.ScrollPane;
+
 
 // non-javafx
 import java.util.ArrayList;
@@ -43,16 +45,17 @@ public class SpillBrett extends Application {
     int rader = 5;
     int kolonner = 5;
 
+    int bildeStoerrelse = 185;
+    Font overBarfont = new Font(19);
+
     private void lagOverBar() {
         HBox linje1 = new HBox(30);
         linje1.setAlignment(Pos.BASELINE_CENTER); linje1.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
         linje1.setPadding(new Insets(5, 0, 5, 0));
         rootPane.setStyle("-fx-background-color: lightyellow");
 
-        Font font = new Font(19);
-
         Text intro = new Text(" 1 tilfeldig person er valgt - Finn personen ved aa skrive inn attributter i feltet nedenfor. Etter 3 forsok, kan du gjette navnet.");
-        intro.setFont(font);
+        intro.setFont(overBarfont);
 
         linje1.getChildren().add(intro);
         rootPane.getChildren().add(linje1);
@@ -72,9 +75,8 @@ public class SpillBrett extends Application {
 
                 // opprett + tilpass bildet
                 ImageView img = new ImageView(imgNavn); i++;
-                img.setFitHeight(180); img.setFitWidth(180);
+                img.setFitHeight(bildeStoerrelse); img.setFitWidth(bildeStoerrelse);
                 img.setPreserveRatio(true);
-
 
                 // legg til border
                 BorderPane imgBorder = new BorderPane(img);
@@ -265,10 +267,28 @@ public class SpillBrett extends Application {
         } return null;
     }
 
+    private void spoerBruk() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Vindu-stoerrelse");
+        alert.setHeaderText("Velg din PC-type.");
+
+        ButtonType laptop = new ButtonType("Laptop");
+        ButtonType stasjonaer = new ButtonType("Stasjonaer");
+
+        alert.getButtonTypes().addAll(laptop, stasjonaer);
+
+        Optional<ButtonType> resultat = alert.showAndWait();
+        if (resultat.get() == laptop) {
+                bildeStoerrelse = 90; // 90
+                overBarfont = new Font(14); // 10
+        }
+    }
+
 
     @Override //hoved-shiten
     public void start(Stage teater) {
 
+        spoerBruk();
         lagOverBar();
         lagBrett();
         lagUnderBar();
@@ -315,7 +335,7 @@ public class SpillBrett extends Application {
         @Override
         public void handle(ActionEvent e) {
             try { // try-catch om input er tom
-                String input = t1.getText();
+                String input = t1.getText().toLowerCase();
 
                 String[] NoNoWords = new String[]{"hvit", "hvit hud", "sort", "sort hud", "svart", "svart hud", "rik"};
                 boolean erI = Arrays.stream(NoNoWords).anyMatch(input::equals);
