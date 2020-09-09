@@ -15,9 +15,8 @@ public class SpillPerson {
     }
 
     public boolean contains(String attributt, SpillPerson person) {
-        attributt = attributt.toLowerCase();
         for (String denne : attributter) {
-            if (denne.equals(attributt) && this != person)
+            if (denne.equals(attributt.toLowerCase()) && this != person)
                 return true;
         } return false;
     }

@@ -2,7 +2,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -21,10 +21,13 @@ import javafx.scene.text.Font;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.Alert;
+import javafx.scene.text.Text;
 
 // non-javafx
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Arrays;
 
 
 public class SpillBrett extends Application {
@@ -38,6 +41,21 @@ public class SpillBrett extends Application {
     int rader = 5;
     int kolonner = 5;
 
+    private void lagOverBar() {
+        HBox linje1 = new HBox(30);
+        linje1.setAlignment(Pos.BASELINE_CENTER); linje1.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
+        linje1.setPadding(new Insets(5, 0, 5, 0));
+        rootPane.setStyle("-fx-background-color: lightyellow");
+
+        Font font = new Font(19);
+
+        Text intro = new Text(" 1 random person is chosen - find the person by typing in attributes in the field down below. After 3 tries, you can guess their name.");
+        intro.setFont(font);
+
+        linje1.getChildren().add(intro);
+        rootPane.getChildren().add(linje1);
+    }
+
     private void lagBrett() {
         int i =0;
 
@@ -48,6 +66,7 @@ public class SpillBrett extends Application {
                 String imgNavn = "pers"+i+".jpg";
                 String navn = finnNavn(imgNavn);
                 String[] attributter = finnAttributter(navn);
+
                 lagPersoner(navn, attributter, x, y);
 
                 // opprett + tilpass bildet
@@ -142,82 +161,83 @@ public class SpillBrett extends Application {
 
     private void lagUnderBar() {
         HBox linje2 = new HBox(30);
-        linje2.setAlignment(Pos.BASELINE_CENTER); linje2.setStyle("-fx-border-color: black; -fx-border-width: 3px;");
-        grid.setAlignment(Pos.BASELINE_CENTER); linje2.setStyle("-fx-border-color: black; -fx-border-width: 3px;");
+        linje2.setAlignment(Pos.BASELINE_CENTER); linje2.setStyle("-fx-border-color: black; -fx-border-width:2px;");
+        grid.setAlignment(Pos.BASELINE_CENTER);
 
-        Font font = new Font(12);
+            Font font = new Font(12);
 
-        Button b1 = new Button("Exit");
-        b1.setOnAction(new AvsluttBehandler());
-        b1.setPrefWidth(100); b1.setPrefHeight(45); b1.setFont(font);
+            Button b1 = new Button("Exit");
+            b1.setOnAction(new AvsluttBehandler());
+            b1.setPrefWidth(100); b1.setPrefHeight(45); b1.setFont(font);
 
-        t1 = new TextField(" 'YOU GUESS HERE' ");
-        t1.setPrefWidth(140); t1.setPrefHeight(45); t1.setFont(font);
+            t1 = new TextField();
+            t1.setPromptText(" 'GUESS HERE ' ");
+            t1.setPrefWidth(140); t1.setPrefHeight(45); t1.setFont(font);
 
-        Button b2 = new Button("Guess");
-        b2.setOnAction(new InputBehandler());
-        b2.setPrefWidth(100); b2.setPrefHeight(45); b2.setFont(font);
+            Button b2 = new Button("Guess");
+            b2.setOnAction(new InputBehandler());
+            b2.setPrefWidth(100); b2.setPrefHeight(45); b2.setFont(font);
 
-        Button b3 = new Button("Reset");
-        b3.setOnAction(new LagNyBehandler(this));
-        b3.setPrefWidth(100); b3.setPrefHeight(45); b3.setFont(font);
+            Button b3 = new Button("Reset");
+            b3.setOnAction(new LagNyBehandler(this));
+            b3.setPrefWidth(100); b3.setPrefHeight(45); b3.setFont(font);
 
 
         linje2.getChildren().addAll(b1, t1, b2, b3);
         rootPane.getChildren().add(linje2);
     }
 
-    private String[] finnAttributter(String name) {
-        if (name.equals ("Kenneth"))
-            return new String [] {"white", "white skin", "glasses", "has glasses", "happy", "hair", "has hair", "brown hair", "smiles", "smile"} ;
-        if (name.equals ("Borris"))
-            return new String [] {"white", "white skin", "poor", "beard", "black beard", "blonde", "has hair", "hair", "blonde hair", "happy", "smiles", "smile", "weird", "sweater", "has sweater","blue sweater"};
-        if (name.equals ("Morpheus"))
-            return new String [] {"black", "black skin", "glasses", "has glasses", "black glasses", "bald", "jacket", "has jacket", "black jacket" };
-        if (name.equals ("Bill Clinton"))
-            return new String [] {"white", "white skin", "rich", "hair", "white hair", "happy", "smiles", "smile", "dying", "is dying", "red nose", "black dress", "dress", "has dress"};
-        if (name.equals ("VSauce"))
-            return new String [] {"white", "white skin", "glasses", "has glasses", "beard", "black beard", "bald", "red sweater", "brown dress" , "dress", "has dress"};
-        if (name.equals ("Jan Kaare"))
-            return new String [] {"white", "white skin", "poor", "sad", "glasses", "has glasses", "hair", "has hair", "white hair", "mustache", "has mustache", "angry"};
-        if (name.equals ("Oskar"))
-            return new String [] {"white", "white skin", "smiles", "smile", "happy", "hair", "has hair", "blonde", "blonde hair", "red sweater", "Watermark"};
-        if (name.equals ("Casey Neistat"))
-            return new String [] {"white", "white skin", "glasses", "has glasses", "black glasses", "hair", "has hair", "black hair", "white sweater", "striped sweater"};
-        if (name.equals ("Dr Phil"))
-            return new String [] {"white", "white skin", "rich", "smiles", "smile", "happy", "bald", "dress", "has dress", "black dress ","mustache", "has mustache", "black mustache", "side hair", "sidehair"};
-        if (name.equals ("Steve Harvey"))
-            return new String [] {"black", "black skin", "rich", "bleached teeth", "happy", "smiles", "smile", "mustache", "has mustache", "black mustache", "dress", "has dress", "black dress", "bald", "teeth", "weird"};
-        if (name.equals ("Erna Solberg"))
-            return new String [] {"white", "white skin", "smile", "smile", "hungry", "hair", "have hair", "gray hair", "gray hair", "dress", "has dress", "pink dress", "fat", "rar"};
-        if (name.equals ("The Rock"))
-            return new String [] {"white", "white skin", "smile", "rich", "happy", "smile", "glasses", "have glasses", "black glasses", "bald", "dress", "has dress", "brown dress"};
-        if (name.equals ("Danny Devito"))
-            return new String [] {"white", "white skin", "smile", "rich", "happy", "smiles", "side hair", "glasses", "has glasses", "bald "," weird ","sidehair","dress","has dress","black dress","beard","has beard","black beard","mustache","has mustache","black mustache","fat"};
-        if (name.equals ("Larry King"))
-            return new String [] {"white", "white skin", "retiree", "creepy", "glasses", "has glasses", "hair", "has hair", "white hair", "weird", "blue sweater", "angry"};
-        if (name.equals ("Barack Obama"))
-            return new String [] {"black", "black skin", "rich", "sad", "dress", "hair", "has hair", "has dress", "black dress", "president"} ;
-        if (name.equals ("Harrison Ford"))
-            return new String [] {"white", "white skin", "rich", "hair", "white hair", "happy", "smiles", "smile", "beard", "white beard", "has beard","black suit","suit","has suit"};
-        if (name.equals ("Donald Trump"))
-            return new String [] {"white", "white skin", "rich", "orange", "happy", "orange skin", "orange", "orange skin", "smiles", "smile", "hair","has hair","blonde","blonde hair","bleached hair","dress","has dress","black dress","president"};
-        if (name.equals ("Snoop Dogg"))
-            return new String [] {"black", "black skin", "rich", "white sweater", "has sweater", "sweater", "glasses", "has glasses", "angry", "red sweater" , "beard", "has beard", "black beard", "sidehair", "side hair"};
-        if (name.equals ("Tove Bjorgaas"))
-            return new String [] {"white", "white skin", "weird", "jerk", "sweater", "has sweater", "blue sweater", "hair", "has hair", "black hair" , "racist", "scared", "earrings", "teeth", "open mouth"};
-        if (name.equals ("Oprah"))
-            return new String [] {"black", "black skin", "rich", "angry", "glasses", "jerk", "white glasses", "has glasses", "sweater", "has sweater", "white sweater", "curler", "hair curler", "hair", "has hair", "brown hair", "fat"};
-        if (name.equals ("Jackie Chan"))
-            return new String [] {"yellow", "yellow skin", "asian", "glasses", "has glasses", "hair", "has hair", "black hair", "sweater", "has sweater" , "black sweater", "white sweater", "short hair", "angry"};
-        if (name.equals ("Kpop dust"))
-            return new String [] {"yellow", "yellow skin", "asian", "jerk", "hair", "has hair", "white hair", "bleached hair", "earrings", "sweater", "has sweater", "red sweater", "black sweater", "stupid", "weird", "kpop"};
-        if (name.equals ("Sheik"))
-            return new String [] {"white", "white skin", "rich", "hood", "has hood", "happy", "beard", "has beard", "black beard", "smile", "smiles", "hood", "has hood", "sweater", "has sweater", "white sweater"};
-        if (name.equals ("Vegard"))
-            return new String [] {"white", "white skin", "poor", "hair", "has hair", "happy", "brown hair", "smiles", "smile", "weird", "jacket","has jacket","hood","has hood","black jacket"};
-        if (name.equals ("Beyonce"))
-            return new String [] {"black", "black skin", "rich", "hair", "has hair", "happy", "blonde hair", "blonde", "smile", "smiles", "sweater","has sweater","white sweater","lipstick"};
+    private String[] finnAttributter(String navn) {
+        if (navn.equals("Kenneth"))
+            return new String[] {"white", "white skin", "glasses", "has glasses", "happy", "hair", "has hair", "brown hair", "smile", "smiles", "teeth", "showing teeth", "shows teeth"};
+        if (navn.equals("Borris"))
+            return new String[] {"white", "white skin", "poor", "beard", "black beard", "blond", "hair", "blond hair", "happy", "smile", "smiles", "weird", "sweater", "has a sweater", "blue sweater",  "teeth", "showing teeth", "shows teeth"};
+        if (navn.equals("Morpheus"))
+            return new String[] {"black", "black skin", "glasses", "has glasses", "black glasses", "bald", "bald", "jacket", "has a jacket", "black jacket"};
+        if (navn.equals("Bill Clinton"))
+            return new String[] {"white", "white skin", "rich", "hair", "white hair", "happy", "tie", "has a tie", "black tie", "smile", "smiles", "dying", "is dying", "red nose", "red nose", "black dress", "dress", "has a dress", "teeth", "showing teeth", "shows teeth"};
+        if (navn.equals("VSauce"))
+            return new String[] {"white", "white skin", "glasses", "has glasses", "beard", "black beard", "bald", "bald", "red sweater", "brown dress", "dress", "has a dress"};
+        if (navn.equals("Jan Kaare"))
+            return new String[] {"white", "white skin", "poor", "sad", "glasses", "has glasses", "hair", "has hair", "white hair", "mustache", "has a mustache", "jacket","has a jacket", "beige jacket", "angry", "teeth", "shows teeth", "showing teeth"};
+        if (navn.equals("Oskar"))
+            return new String[] {"white", "hvit skin", "smile", "smiles", "happy", "hair", "has hair", "blonde", "blonde hair", "sweater", "has a sweater", "red sweater", "watermark", "teeth", "shows teeth", "showing teeth"};
+        if (navn.equals("Casey Neistat"))
+            return new String[] {"white", "hvit skin", "glasses", "has glasses", "black glasses", "hair", "has hair", "black haar", "sweater", "has a sweater", "white sweater", "striped sweater"};
+        if (navn.equals("Steve Harvey"))
+            return new String[] {"black", "black skin", "rich", "bleached teeth", "happy", "tie", "has a tie", "svart slips", "black tie", "smile", "smiles", "mustache", "has a mustache", "black mustache", "dress", "has a dress", "black dress", "bald", "bald", "teeth", "weird", "showing teeth", "shows tenner"};
+        if (navn.equals("Erna Solberg"))
+            return new String[] {"white", "white skin", "smile", "smiles", "hungry", "hair", "has hair", "gray hair", "grey hair", "dress", "has a dress", "pink dress", "fat", "weird"};
+        if (navn.equals("The Rock"))
+            return new String[] {"white", "white skin", "smile", "rich", "happy", "smiles", "glasses", "has glasses", "black glasses", "bald", "bald", "dress", "has a dress", "brown dress", "teeth", "shows teeth", "showing tenner"};
+        if (navn.equals("Danny Devito"))
+            return new String[] {"white", "white skin", "smile", "smiles", "rich", "happy", "smiles", "sidehair", "glasses", "has glasses", "bald", "bald", "weird", "sidehair", "dress", "has a dress", "black dress", "beard", "has a beard", "black beard", "mustache", "has a mustache", "black mustache", "fat", "teeth", "showing teeth", "shows teeth"};
+        if (navn.equals("Larry King"))
+            return new String[] {"white", "white skin", "senior", "smiles", "scary", "glasses", "has glasses", "tie", "has a tie", "blue tie", "hair", "has hair", "white hair", "weird", "sweater", "has a sweater", "blue sweater", "angry"};
+        if (navn.equals("Barack Obama"))
+            return new String[] {"black", "black skin", "rich", "sad", "dress", "hair", "has hair", "has a dress", "black dress", "president"};
+        if (navn.equals("Harrison Ford"))
+            return new String[] {"white", "white skin", "rich", "hair", "white hair", "tie", "has a tie", "bowtie", "has a bowtie", "happy", "smile", "smiles", "beard", "white beard", "has a beard", "black dress", "dress", "has a dress", "teeth", "shows teeth", "showing teeth"};
+        if (navn.equals("Donald Trump"))
+            return new String[] {"white", "white skin", "rich", "orange", "happy", "orange skin", "orange", "orange skin", "smile", "smiles", "hair", "has hair", "blonde", "blonde hair", "bleached hair", "dress", "has a dress", "black dress", "president", "teeth", "shows teeth", "showing teeth"};
+        if (navn.equals("Snoop Dogg"))
+            return new String[] {"black", "black skin", "rich", "hair", "has hair", "black hair", "white sweater", "has a sweater", "sweater", "glasses", "has glasses", "angry", "red sweater", "beard", "has a beard", "black beard", "sidehair"};
+        if (navn.equals("Tove Bjorgaas"))
+            return new String[] {"white", "hvit skin", "weird", "jerk", "sweater", "has a sweater", "blue sweater", "hair", "has hair", "black hair", "racist", "scared", "eardubs", "teeth", "open mouth", "teeth", "shows teeth", "showing teeth", "tenner", "viser tenner"};
+        if (navn.equals("Oprah"))
+            return new String[] {"black", "black skin", "rich", "angry", "glasses", "jerk", "white glasses", "has glasses", "sweater", "has sweater", "white sweater", "curls", "curly hair", "hair", "hashair", "brown hair", "fat", "shows teeth", "teeth", "showing teeth"};
+        if (navn.equals("Jackie Chan"))
+            return new String[] {"yellow", "yellow skin", "asian", "glasses", "has glasses", "hair", "has hair", "black haar", "sweater", "has a sweater", "black sweater", "white sweater", "short hair", "angry", "sint"};
+        if (navn.equals("Kpop dust"))
+            return new String[] {"yellow", "yellow skin", "asian", "jerk", "hair", "has hair", "white hair", "bleached hair", "eardubs", "sweater", "has sweater", "red sweater", "black sweater", "stupid", "weird", "kpop", "teeth", "shows sweater", "showing teeth"};
+        if (navn.equals("Dr Phil"))
+            return new String[] {"white", "white skin", "rich", "smile", "smiles", "tie", "has a tie", "blue tie", "happy", "bald", "bald", "dress", "has a dress", "black dress", "mustache", "has a mustache", "black mustache", "sidehair", "teeth", "showing teeth", "shows teeth"};
+        if (navn.equals("Sheik"))
+            return new String[] {"white", "white skin", "rich", "hood", "has a hood", "has a hoodie", "hoodie", "happy", "beard", "has a beard", "black beard", "smile", "smiles", "headgear", "has headgear", "sweater", "has a sweater", "white sweater"};
+        if (navn.equals("Vegard"))
+            return new String[] {"white", "white skin", "poor", "hair", "has hair", "happy", "brown hair", "smile", "smiles", "weird", "jacket", "has a jacket", "hood", "hoodie", "has a hood", "had a hoodie", "black jacket", "teeth", "showing teeth", "shows teeth"};
+        if (navn.equals("Beyonce"))
+            return new String[] {"black", "black skin", "black skin", "rich", "hair", "has hair", "happy", "blonde hair", "blonde", "smile", "smiles", "sweater", "has a sweater", "white sweater", "lipstick", "teeth", "shows teeth", "showing teeth"};
         return null;
     }
 
@@ -246,6 +266,7 @@ public class SpillBrett extends Application {
     @Override //hoved-shiten
     public void start(Stage teater) {
 
+        lagOverBar();
         lagBrett();
         lagUnderBar();
         velgPerson();
@@ -282,37 +303,51 @@ public class SpillBrett extends Application {
     private class InputBehandler implements EventHandler<ActionEvent> {
 
         int antForsok = 0;
+        int antallGjemt = 0;
         private final Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         @Override
         public void handle(ActionEvent e) {
-            String input = t1.getText();
-            String navn = input.substring(0, 1).toUpperCase() + input.substring(1);
+            try { // try-catch om input er tom
+                String input = t1.getText();
 
-            if (input.equals(navn) && antForsok>3) {
-                alert.setHeaderText(input + " er riktig!");
-                alert.setContentText("Du vant!");
-                alert.show();
-                antForsok = 0;
-            }
-            else {
-                antForsok++;
+                // oversatt
+                String[] NoNoWords = new String[]{"white", "white skin", "black", "black skin", "rich"};
+                boolean erI = Arrays.stream(NoNoWords).anyMatch(input::equals);
 
-                for (SpillPerson pers : personer) {
-                    if (pers.contains(input, person)) {
-                        int rad = pers.hentRad();
-                        int kolonne = pers.hentKol();
+                if (antForsok < 3 && erI) {
+                    alert.setHeaderText("Try again");
+                    alert.setContentText(input + " is too op, wait a few rounds first.");
+                    alert.show();
+                }
+                else {
+                    if (input.equals(person.hentNavn()) && antForsok > 3 && antallGjemt > 20) {
+                        alert.setHeaderText(input + " is correct!");
+                        alert.setContentText("You won!");
+                        alert.show();
+                        antForsok = 0;
+                    } else {
+                        antForsok++;
 
-                        BorderPane bilde = (BorderPane) hentImgFraGrid(kolonne, rad);
-                        ImageView img = (ImageView) bilde.getCenter();
+                        for (SpillPerson pers : personer) {
+                            if (pers.contains(input, person)) {
+                                int rad = pers.hentRad();
+                                int kolonne = pers.hentKol();
 
-                        ColorAdjust blackout = new ColorAdjust();
-                        blackout.setBrightness(-1.0);
+                                BorderPane bilde = (BorderPane) hentImgFraGrid(kolonne, rad);
+                                assert bilde != null; // assert om bildet ikke er null
+                                ImageView img = (ImageView) bilde.getCenter();
 
-                        img.setEffect(blackout);
+                                ColorAdjust blackout = new ColorAdjust();
+                                blackout.setBrightness(-1.0);
+
+                                img.setEffect(blackout);
+                                antallGjemt++;
+                            }
+                        }
                     }
                 }
-            }
+            } catch(StringIndexOutOfBoundsException ignored) {}
         }
     }
 }
