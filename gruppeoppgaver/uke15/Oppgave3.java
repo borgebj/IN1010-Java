@@ -44,19 +44,33 @@ public class Oppgave3 extends Application {
 
     FileChooser fileChooser = new FileChooser();
     GridPane rootPane;
+    TextField tf;
+
+    // default-options
     int ruterX  = 15;
     int ruterY = 15;
+    double borderWidth = 0.1;
     boolean grid = true;
-    boolean svartBorder = false;
-    TextField tf;
+    boolean svartBorder = true;
     String currentColor = "black";
 
 
+    // fikser noen av fargene som er feil
+    private String fiksFarger() {
+        switch (currentColor) {
+            case "burlywood":
+            case "brown": return "burlywood";
+            case "bisque":
+            case "beige": return "bisque";
+        } return currentColor;
+    }
+
     // hjelpemetode for klikk og drag av knapper i lagBrett()
     private void farger(Region b) {
+        currentColor = fiksFarger();
         if (!grid) b.setStyle("-fx-background-color:"+currentColor+";");
-        else b.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
-        if (currentColor.equals("black") && svartBorder) b.setStyle("-fx-border-color: white; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
+        else b.setStyle("-fx-border-color: black; -fx-border-width:"+borderWidth+"px; -fx-background-color:"+currentColor+";");
+        if (svartBorder && currentColor.equals("black")) b.setStyle("-fx-border-color: white; -fx-border-width:"+borderWidth+"px; -fx-background-color:"+currentColor+";");
     }
 
     // lager brettet og linjene under
@@ -66,7 +80,7 @@ public class Oppgave3 extends Application {
             for (int x=0; x < ruterX; x++) {
 
                 Region b = new Region();
-                if (grid) b.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
+                if (grid) b.setStyle("-fx-border-color: black; -fx-border-width:"+borderWidth+"px;");
                 b.setPrefWidth(40);  b.setPrefHeight(40);
 
                 // registrere muse-drag
@@ -99,28 +113,25 @@ public class Oppgave3 extends Application {
 
     private Menu opprettFilMenu() {
         Menu fileMenu = new Menu("_File");
-        MenuItem newBoard = new MenuItem("Nytt brett...");  newBoard.setOnAction(a->{lagBrett();});
+        MenuItem newBoard = new MenuItem("Nytt brett...");  newBoard.setOnAction(a->{a.consume(); lagBrett();});
         MenuItem lagre = new MenuItem("Lagre...");  lagre.setOnAction(new BildeBehandler());
         MenuItem settings = new MenuItem("Innstillinger...");  settings.setOnAction(new settingsBehandler());
-        MenuItem avslutt = new MenuItem("Avslutt...");  avslutt.setOnAction(b->{Platform.exit();});
+        MenuItem avslutt = new MenuItem("Avslutt...");  avslutt.setOnAction(b->{b.consume(); Platform.exit();});
         fileMenu.getItems().addAll(lagre, newBoard, new SeparatorMenuItem(), settings, new SeparatorMenuItem(), avslutt);
         return fileMenu;
     }
 
     private HBox opprettLinje1() {
-        // oppretter linje 1 /////////////////////////////////////////////
         HBox linje1 = new HBox(); linje1.setAlignment(Pos.BASELINE_CENTER);
 
         rootPane = new GridPane(); rootPane.setStyle("-fx-border-color: black; -fx-border-width:2px;");
         lagBrett();
 
         linje1.getChildren().add(rootPane);
-        // avslutter linje 1 /////////////////////////////////////////////
         return linje1;
     }
 
     private HBox opprettLinje2() {
-        // oppretter linje 2 /////////////////////////////////////////////
         HBox linje2 = new HBox(20); linje2.setAlignment(Pos.BASELINE_CENTER);
         Font font = new Font(15);
 
@@ -131,7 +142,7 @@ public class Oppgave3 extends Application {
         // endre knapp
         Button b = new Button("Endre");
         b.setPrefWidth(80);
-        b.setOnAction(ae->{nyttBrett();});
+        b.setOnAction(ae->{ae.consume(); nyttBrett();});
         b.setFont(font);
 
         // skille streker
@@ -144,43 +155,41 @@ public class Oppgave3 extends Application {
         Button reset = new Button("Reset");
         reset.setPrefWidth(80);
         reset.setFont(font);
-        reset.setOnAction(be->{lagBrett();});
+        reset.setOnAction(be->{be.consume(); lagBrett();});
 
         // avslutt knapp
         Button avslutt = new Button("Avslutt");
         avslutt.setPrefWidth(90);
         avslutt.setFont(font);
-        avslutt.setOnAction(ce->{Platform.exit();});
+        avslutt.setOnAction(ce->{ce.consume(); Platform.exit();});
 
         linje2.getChildren().addAll(t1, tf, b, t2, reset, avslutt, t3);
-        // avslutter linje 2 /////////////////////////////////////////////
         return linje2;
     }
 
     private HBox opprettLinje3() {
-        // oppretter linje 3 /////////////////////////////////////////////
         HBox linje3 = new HBox(20);linje3.setAlignment(Pos.BASELINE_CENTER); linje3.setPadding(new Insets(10, 0, 0, 0));
 
         StackPane linje3Stack = new StackPane();
 
-        Rectangle rrr = new Rectangle(508, 27); rrr.setFill(Color.GRAY);
+        Rectangle rrr = new Rectangle(565, 27); rrr.setFill(Color.GRAY);
 
         HBox box = new HBox(15); box.setAlignment(Pos.BASELINE_CENTER);
-        Button b1 = new Button("red"); b1.setOnAction(new SettFargeBehandler()); b1.setStyle("-fx-background-color: red; -fx-border-color: black;");
-        Button b2 = new Button("orange"); b2.setOnAction(new SettFargeBehandler()); b2.setStyle("-fx-background-color: orange; -fx-border-color: black;");
-        Button b3 = new Button("yellow"); b3.setOnAction(new SettFargeBehandler()); b3.setStyle("-fx-background-color: yellow; -fx-border-color: black;");
-        Button b4 = new Button("green"); b4.setOnAction(new SettFargeBehandler()); b4.setStyle("-fx-background-color: green; -fx-border-color: black;");
-        Button b5 = new Button("blue"); b5.setOnAction(new SettFargeBehandler()); b5.setStyle("-fx-background-color: blue; -fx-border-color: black;");
-        Button b6 = new Button("brown"); b6.setOnAction(new SettFargeBehandler()); b6.setStyle("-fx-background-color: brown; -fx-border-color: black;");
-        Button b7 = new Button("grey"); b7.setOnAction(new SettFargeBehandler()); b7.setStyle("-fx-background-color: grey; -fx-border-color: black;");
-        Button b8 = new Button("white"); b8.setOnAction(new SettFargeBehandler()); b8.setStyle("-fx-background-color: white; -fx-border-color: black;");
-        Button b9 = new Button("black"); b9.setOnAction(new SettFargeBehandler()); b9.setStyle("-fx-background-color: black; -fx-border-color: black;");
-        box.getChildren().addAll(b1, b2, b3, b4, b5, b6, b7, b8, b9);
+        Button b1 = new Button("red"); b1.setOnAction(ae->{ae.consume(); currentColor=b1.getText();}); b1.setStyle("-fx-background-color: red; -fx-border-color: black;");
+        Button b2 = new Button("orange"); b2.setOnAction(be->{be.consume(); currentColor=b2.getText();}); b2.setStyle("-fx-background-color: orange; -fx-border-color: black;");
+        Button b3 = new Button("yellow"); b3.setOnAction(ce->{ce.consume(); currentColor=b3.getText();}); b3.setStyle("-fx-background-color: yellow; -fx-border-color: black;");
+        Button b4 = new Button("green"); b4.setOnAction(de->{de.consume(); currentColor=b4.getText();}); b4.setStyle("-fx-background-color: green; -fx-border-color: black;");
+        Button b5 = new Button("blue"); b5.setOnAction(ee->{ee.consume(); currentColor=b5.getText();}); b5.setStyle("-fx-background-color: blue; -fx-border-color: black;");
+        Button b6 = new Button("brown"); b6.setOnAction(fe->{fe.consume(); currentColor=b6.getText();}); b6.setStyle("-fx-background-color: burlywood; -fx-border-color: black;");
+        Button b7 = new Button("beige"); b7.setOnAction(ge->{ge.consume(); currentColor=b7.getText();}); b7.setStyle("-fx-background-color: bisque; -fx-border-color: black;");
+        Button b8 = new Button("grey"); b8.setOnAction(he->{he.consume(); currentColor=b8.getText();}); b8.setStyle("-fx-background-color: grey; -fx-border-color: black;");
+        Button b9 = new Button("white"); b9.setOnAction(ie->{ie.consume(); currentColor=b9.getText();}); b9.setStyle("-fx-background-color: white; -fx-border-color: black;");
+        Button b10 = new Button("black"); b10.setOnAction(je->{je.consume(); currentColor=b10.getText();}); b10.setStyle("-fx-background-color: black; -fx-border-color: black;");
+        box.getChildren().addAll(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10);
 
         linje3Stack.getChildren().addAll(rrr, box);
 
         linje3.getChildren().add(linje3Stack);
-        // avslutter linje 3 /////////////////////////////////////////////
         return linje3;
     }
 
@@ -248,9 +257,9 @@ public class Oppgave3 extends Application {
         public void handle(ActionEvent ignore) {
             Alert settingsBox = new Alert(Alert.AlertType.CONFIRMATION);
             settingsBox.setTitle("Settings...");
-            settingsBox.setHeaderText("Velg hva du vil endre.");
+            settingsBox.setHeaderText("Velg hva du vil endre. (NB! endringer vil resette brett!");
 
-            ButtonType border = new ButtonType("Border");
+            ButtonType border = new ButtonType("Sorte-ruter");
             ButtonType grid = new ButtonType("Grid");
 
             settingsBox.getButtonTypes().addAll(border, grid);
@@ -262,7 +271,7 @@ public class Oppgave3 extends Application {
         private void gridOption() {
             Alert gridBox = new Alert(Alert.AlertType.CONFIRMATION);
             gridBox.setTitle("Settings...");
-            gridBox.setHeaderText("Velg grid-type. '(vil resette brett.!)'");
+            gridBox.setHeaderText("Velg grid-type.");
 
             ButtonType med = new ButtonType("Med grid");
             ButtonType uten = new ButtonType("Uten grid");
@@ -288,13 +297,6 @@ public class Oppgave3 extends Application {
             if (resultat.get() == ja) svartBorder = true;
             else svartBorder = false;
             lagBrett();
-        }
-    }
-    class SettFargeBehandler implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent e) {
-            Button m = (Button) e.getSource();
-            currentColor = m.getText();
         }
     }
 }
