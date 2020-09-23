@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
@@ -15,21 +16,38 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 
 import javafx.event.*;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Menu;
+import javafx.scene.control.SeparatorMenuItem;
 
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javafx.embed.swing.SwingFXUtils;
+import java.io.File;
+import javafx.scene.image.WritableImage;
+import javafx.scene.SnapshotParameters;
+import javafx.stage.FileChooser;
 
 /** IDE fra Oppgave 3 fra gruppeovelser 23.04.20 - endret for det meste ALT selv */
 
 
 public class Oppgave3 extends Application {
 
+    FileChooser fileChooser = new FileChooser();
     GridPane rootPane;
-    int ruterX  = 14;
-    int ruterY = 14;
+    int ruterX  = 15;
+    int ruterY = 15;
+    boolean grid = true;
+    boolean svartBorder = false;
     TextField tf;
     String currentColor = "black";
 
@@ -41,21 +59,25 @@ public class Oppgave3 extends Application {
             for (int x=0; x < ruterX; x++) {
 
                 Region b = new Region();
-                b.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
+                if (grid) b.setStyle("-fx-border-color: black; -fx-border-width: 1px;");
                 b.setPrefWidth(40);  b.setPrefHeight(40);
 
                 // registrere muse-drag
                 b.setOnMouseDragEntered(
                         event -> {
                             event.consume();
-                            b.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
+                            if (!grid) b.setStyle("-fx-background-color:"+currentColor+";");
+                            else b.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
+                            if (currentColor.equals("black") && svartBorder) b.setStyle("-fx-border-color: white; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
                         });
 
                 // registrere museklikk
                 b.setOnMouseClicked(
                         event -> {
                             event.consume();
-                            b.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
+                            if (!grid) b.setStyle("-fx-background-color:"+currentColor+";");
+                            else b.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
+                            if (currentColor.equals("black") && svartBorder) b.setStyle("-fx-border-color: white; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
                         });
 
                 rootPane.add(b, x, y);
@@ -129,7 +151,6 @@ public class Oppgave3 extends Application {
     }
 
 
-
     @Override
     public void start(Stage teater) {
 
@@ -142,16 +163,29 @@ public class Oppgave3 extends Application {
         linje1.getChildren().add(rootPane);
         // avslutter linje 1 /////////////////////////////////////////////
 
+        Menu fileMenu = new Menu("_File");
+
+        MenuItem newBoard = new MenuItem("Nytt brett...");  newBoard.setOnAction(new ResetBehandler());
+        MenuItem lagre = new MenuItem("Lagre...");  lagre.setOnAction(new BildeBehandler());
+        MenuItem settings = new MenuItem("Innstillinger...");  settings.setOnAction(new settingsBehandler());
+        MenuItem avslutt = new MenuItem("Avslutt...");  avslutt.setOnAction(new AvsluttBehandler());
+        fileMenu.getItems().addAll(lagre, newBoard, new SeparatorMenuItem(), settings, new SeparatorMenuItem(), avslutt);
+
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().addAll(fileMenu);
+
+        BorderPane layout = new BorderPane();
+        layout.setTop(menuBar);
+
 
         HBox linje2 = opprettLinje2();
-
 
         HBox linje3 = opprettLinje3();
 
 
         // legger sammen alle linjene i en hoved-pane
         VBox root = new VBox();
-        root.getChildren().addAll(linje1, linje2, linje3);
+        root.getChildren().addAll(layout, linje1, linje2, linje3);
 
         // start full press-drag-release gesture
         root.setOnDragDetected(
@@ -161,6 +195,11 @@ public class Oppgave3 extends Application {
                         root.startFullDrag();
                     }
                 });
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("jpg", "*.jpg"),
+                new FileChooser.ExtensionFilter("jpeg", "*.jpeg"));
 
         // oppretter scene og starter "teatret"
         Scene scene = new Scene(root);
@@ -172,6 +211,68 @@ public class Oppgave3 extends Application {
 
 
     // ulike behandlere - "EventHandlers"
+
+    class BildeBehandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent e) {
+            WritableImage image = rootPane.snapshot(new SnapshotParameters(), null);
+
+            fileChooser.setTitle("Lagre bilde-fil");
+            File f1 = fileChooser.showSaveDialog(null);
+
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", f1);
+            } catch (IOException ignore) {}
+        }
+    }
+
+    class settingsBehandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent ignore) {
+            Alert settingsBox = new Alert(Alert.AlertType.CONFIRMATION);
+            settingsBox.setTitle("Settings...");
+            settingsBox.setHeaderText("Velg hva du vil endre.");
+
+            ButtonType border = new ButtonType("Border");
+            ButtonType grid = new ButtonType("Grid");
+
+            settingsBox.getButtonTypes().addAll(border, grid);
+            Optional<ButtonType> resultat = settingsBox.showAndWait();
+
+            if (resultat.get() == border) borderOption();
+            else if (resultat.get() == grid) gridOption();
+        }
+        private void gridOption() {
+            Alert gridBox = new Alert(Alert.AlertType.CONFIRMATION);
+            gridBox.setTitle("Settings...");
+            gridBox.setHeaderText("Velg grid-type. '(vil resette brett.!)'");
+
+            ButtonType med = new ButtonType("Med grid");
+            ButtonType uten = new ButtonType("Uten grid");
+
+            gridBox.getButtonTypes().addAll(med, uten);
+            Optional<ButtonType> resultat = gridBox.showAndWait();
+
+            if (resultat.get() == uten) grid = false;
+            else grid = true;
+            lagBrett();
+        }
+        private void borderOption() {
+            Alert borderBox = new Alert(Alert.AlertType.CONFIRMATION);
+            borderBox.setTitle("Settings...");
+            borderBox.setHeaderText("Skal sorte ruter ha hvite borders?");
+
+            ButtonType ja = new ButtonType("Ja");
+            ButtonType nei = new ButtonType("Nei");
+
+            borderBox.getButtonTypes().addAll(ja, nei);
+            Optional<ButtonType> resultat = borderBox.showAndWait();
+
+            if (resultat.get() == ja) svartBorder = true;
+            else svartBorder = false;
+            lagBrett();
+        }
+    }
 
     // reset = lager bretter paa nytt igjen med hvite ruter
     class ResetBehandler implements EventHandler<ActionEvent> {
