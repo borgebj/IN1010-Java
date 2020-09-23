@@ -52,6 +52,13 @@ public class Oppgave3 extends Application {
     String currentColor = "black";
 
 
+    // hjelpemetode for klikk og drag av knapper i lagBrett()
+    private void farger(Region b) {
+        if (!grid) b.setStyle("-fx-background-color:"+currentColor+";");
+        else b.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
+        if (currentColor.equals("black") && svartBorder) b.setStyle("-fx-border-color: white; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
+    }
+
     // lager brettet og linjene under
     private void lagBrett() {
         rootPane.getChildren().clear();
@@ -66,23 +73,50 @@ public class Oppgave3 extends Application {
                 b.setOnMouseDragEntered(
                         event -> {
                             event.consume();
-                            if (!grid) b.setStyle("-fx-background-color:"+currentColor+";");
-                            else b.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
-                            if (currentColor.equals("black") && svartBorder) b.setStyle("-fx-border-color: white; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
+                            farger(b);
                         });
 
                 // registrere museklikk
                 b.setOnMouseClicked(
                         event -> {
                             event.consume();
-                            if (!grid) b.setStyle("-fx-background-color:"+currentColor+";");
-                            else b.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
-                            if (currentColor.equals("black") && svartBorder) b.setStyle("-fx-border-color: white; -fx-border-width: 1px; -fx-background-color:"+currentColor+";");
+                            farger(b);
                         });
-
                 rootPane.add(b, x, y);
             }
         }
+    }
+
+    private void nyttBrett() {
+        try {
+            String[] tall = tf.getText().split("x| x ");
+            ruterY = Integer.parseInt(tall[0]);
+            ruterX = Integer.parseInt(tall[1]);
+            lagBrett();
+        } catch (NumberFormatException c) {
+            tf.setText("Ugyldig input");
+        }}
+
+    private Menu opprettFilMenu() {
+        Menu fileMenu = new Menu("_File");
+        MenuItem newBoard = new MenuItem("Nytt brett...");  newBoard.setOnAction(a->{lagBrett();});
+        MenuItem lagre = new MenuItem("Lagre...");  lagre.setOnAction(new BildeBehandler());
+        MenuItem settings = new MenuItem("Innstillinger...");  settings.setOnAction(new settingsBehandler());
+        MenuItem avslutt = new MenuItem("Avslutt...");  avslutt.setOnAction(b->{Platform.exit();});
+        fileMenu.getItems().addAll(lagre, newBoard, new SeparatorMenuItem(), settings, new SeparatorMenuItem(), avslutt);
+        return fileMenu;
+    }
+
+    private HBox opprettLinje1() {
+        // oppretter linje 1 /////////////////////////////////////////////
+        HBox linje1 = new HBox(); linje1.setAlignment(Pos.BASELINE_CENTER);
+
+        rootPane = new GridPane(); rootPane.setStyle("-fx-border-color: black; -fx-border-width:2px;");
+        lagBrett();
+
+        linje1.getChildren().add(rootPane);
+        // avslutter linje 1 /////////////////////////////////////////////
+        return linje1;
     }
 
     private HBox opprettLinje2() {
@@ -97,7 +131,7 @@ public class Oppgave3 extends Application {
         // endre knapp
         Button b = new Button("Endre");
         b.setPrefWidth(80);
-        b.setOnAction(new NyttBrettBehandler());
+        b.setOnAction(ae->{nyttBrett();});
         b.setFont(font);
 
         // skille streker
@@ -110,13 +144,13 @@ public class Oppgave3 extends Application {
         Button reset = new Button("Reset");
         reset.setPrefWidth(80);
         reset.setFont(font);
-        reset.setOnAction(new ResetBehandler());
+        reset.setOnAction(be->{lagBrett();});
 
         // avslutt knapp
         Button avslutt = new Button("Avslutt");
         avslutt.setPrefWidth(90);
         avslutt.setFont(font);
-        avslutt.setOnAction(new AvsluttBehandler());
+        avslutt.setOnAction(ce->{Platform.exit();});
 
         linje2.getChildren().addAll(t1, tf, b, t2, reset, avslutt, t3);
         // avslutter linje 2 /////////////////////////////////////////////
@@ -154,34 +188,18 @@ public class Oppgave3 extends Application {
     @Override
     public void start(Stage teater) {
 
-        // oppretter linje 1 /////////////////////////////////////////////
-        HBox linje1 = new HBox(); linje1.setAlignment(Pos.BASELINE_CENTER);
+        Menu fileMenu = opprettFilMenu();
 
-        rootPane = new GridPane();
-        lagBrett();
-
-        linje1.getChildren().add(rootPane);
-        // avslutter linje 1 /////////////////////////////////////////////
-
-        Menu fileMenu = new Menu("_File");
-
-        MenuItem newBoard = new MenuItem("Nytt brett...");  newBoard.setOnAction(new ResetBehandler());
-        MenuItem lagre = new MenuItem("Lagre...");  lagre.setOnAction(new BildeBehandler());
-        MenuItem settings = new MenuItem("Innstillinger...");  settings.setOnAction(new settingsBehandler());
-        MenuItem avslutt = new MenuItem("Avslutt...");  avslutt.setOnAction(new AvsluttBehandler());
-        fileMenu.getItems().addAll(lagre, newBoard, new SeparatorMenuItem(), settings, new SeparatorMenuItem(), avslutt);
-
-        MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(fileMenu);
-
+        // lager en BorderPane for aa legge til MenuBar
         BorderPane layout = new BorderPane();
+            MenuBar menuBar = new MenuBar();
+            menuBar.getMenus().addAll(fileMenu);
         layout.setTop(menuBar);
 
-
+        // henter linje1, 2 og 3 fra hver sine funksjoner som oppretter dem
+        HBox linje1 = opprettLinje1();
         HBox linje2 = opprettLinje2();
-
         HBox linje3 = opprettLinje3();
-
 
         // legger sammen alle linjene i en hoved-pane
         VBox root = new VBox();
@@ -196,6 +214,7 @@ public class Oppgave3 extends Application {
                     }
                 });
 
+        // gjoer at man kan enkelt lagre bildet sitt
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PNG", "*.png"),
                 new FileChooser.ExtensionFilter("jpg", "*.jpg"),
@@ -216,8 +235,6 @@ public class Oppgave3 extends Application {
         @Override
         public void handle(ActionEvent e) {
             WritableImage image = rootPane.snapshot(new SnapshotParameters(), null);
-
-            fileChooser.setTitle("Lagre bilde-fil");
             File f1 = fileChooser.showSaveDialog(null);
 
             try {
@@ -273,36 +290,6 @@ public class Oppgave3 extends Application {
             lagBrett();
         }
     }
-
-    // reset = lager bretter paa nytt igjen med hvite ruter
-    class ResetBehandler implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent e) {
-            lagBrett();
-        }
-    }
-
-    // avslutter
-    static class AvsluttBehandler implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent e) {
-            Platform.exit();
-        }
-    }
-
-    // lager stoerre brett
-    class NyttBrettBehandler implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent e) {
-            try {
-                String[] tall = tf.getText().split("x| x ");
-                ruterY = Integer.parseInt(tall[0]);
-                ruterX = Integer.parseInt(tall[1]);
-                lagBrett();
-            } catch (NumberFormatException c) {
-                tf.setText("Ugyldig input"); } }
-    }
-
     class SettFargeBehandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent e) {
