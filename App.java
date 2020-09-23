@@ -7,6 +7,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseButton;
 
+/** Hentet fra
+ * https://stackoverflow.com/questions/60012383/mousedragged-detection-for-multiple-nodes-while-holding-the-button-javafx
+ * brukt for inspirasjon og hjelp
+ */
+
 public class App extends Application {
 
     @Override
