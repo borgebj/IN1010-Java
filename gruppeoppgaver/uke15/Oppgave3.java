@@ -18,6 +18,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import java.util.Optional;
 
 import javafx.event.*;
@@ -37,6 +38,13 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.SnapshotParameters;
 import javafx.stage.FileChooser;
 
+import java.awt.Toolkit;
+import javafx.scene.transform.Scale;
+import java.awt.Dimension;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /** IDE fra Oppgave 3 fra gruppeovelser 23.04.20 - endret for det meste ALT selv */
 
 
@@ -49,6 +57,8 @@ public class Oppgave3 extends Application {
     // default-options
     int ruterX  = 15;
     int ruterY = 15;
+    int resX = 1920;
+    int resY = 1200;
     double borderWidth = 0.1;
     boolean grid = true;
     boolean svartBorder = true;
@@ -193,6 +203,26 @@ public class Oppgave3 extends Application {
         return linje3;
     }
 
+    private void resolutionOption() {
+        List<String> choices = new ArrayList<>();
+        choices.add("1920x1200");
+        choices.add("2560x1440");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("....", choices);
+        dialog.setTitle("Oppstart");
+        dialog.setHeaderText("Velg din resolution");
+        dialog.setContentText("Valg:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.get().equals("1920x1200")) {
+            resX = 1920;
+            resY = 1200;
+        } else if (result.get().equals("2560x1440")) {
+            resX = 2560;
+            resY = 1440;
+        }
+    }
+
 
     @Override
     public void start(Stage teater) {
@@ -209,9 +239,17 @@ public class Oppgave3 extends Application {
         HBox linje1 = opprettLinje1();
         HBox linje2 = opprettLinje2();
         HBox linje3 = opprettLinje3();
+        resolutionOption();
 
         // legger sammen alle linjene i en hoved-pane
         VBox root = new VBox();
+            Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
+            double width = resolution.getWidth();
+            double height = resolution.getHeight();
+            double w = width/resX;
+            double h = height/resY;
+            Scale scale = new Scale(w, h, 0, 0);
+            root.getTransforms().add(scale);
         root.getChildren().addAll(layout, linje1, linje2, linje3);
 
         // start full press-drag-release gesture
@@ -234,6 +272,7 @@ public class Oppgave3 extends Application {
         teater.setScene(scene);
         teater.show();
     }
+
 
 
 
