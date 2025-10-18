@@ -1,3 +1,5 @@
+package spill.GuessWho;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -26,6 +28,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 import java.util.Optional;
 import javafx.scene.control.ScrollPane;
+import spill.GuessWho_eng.SpillBrett_eng;
 
 
 // non-javafx

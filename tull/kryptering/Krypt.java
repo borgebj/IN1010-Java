@@ -1,3 +1,5 @@
+package kryptering;
+
 import java.util.Scanner;
 
 class Krypt {

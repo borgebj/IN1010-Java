@@ -1,3 +1,5 @@
+package uke11;
+
 class HovedprogramEn {
     public static void main(String[] args) {
 

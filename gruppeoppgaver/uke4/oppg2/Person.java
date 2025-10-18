@@ -1,3 +1,4 @@
+package uke4.oppg2;
 
 class Person {
     String navn = "ikke registrert.";

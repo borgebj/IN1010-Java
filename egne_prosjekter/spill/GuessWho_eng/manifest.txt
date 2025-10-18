@@ -1,1 +1,1 @@
-Main-Class: SpillBrett 
+Main-Class: SpillBrett_eng

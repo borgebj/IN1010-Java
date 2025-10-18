@@ -1,4 +1,7 @@
-import en.*;
+package packagetest;
+
+import pasta.Kalkulator;
+
 import java.util.*;
 
 public class Kladd {
@@ -13,10 +16,9 @@ public class Kladd {
         System.out.print("Tall2: ");
         int y = scanner.nextInt();
 
-        int sum = kladd.regn(y);
+        kladd.gange(y);
+
+        int sum = kladd.regn();
         System.out.println("Produkt: "+sum);
     }
 }
-
-// er ikke sikker hvor man starter når man skriver import
-// java.util er kort liksom

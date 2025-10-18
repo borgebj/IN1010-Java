@@ -1,3 +1,4 @@
+package uke6.oppgaver.oppgave2;
 
 class OrdnetPar<K, V> implements Par {
 

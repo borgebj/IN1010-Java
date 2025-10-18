@@ -1,3 +1,5 @@
+package highlow;
+
 import java.util.Scanner;
 import java.util.Random;
 

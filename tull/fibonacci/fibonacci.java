@@ -1,3 +1,5 @@
+package fibonacci;
+
 import java.util.Scanner;
 import java.util.InputMismatchException;
 

@@ -1,3 +1,5 @@
+package uke15.tegning_ver1;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;

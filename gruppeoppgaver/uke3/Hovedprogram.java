@@ -1,3 +1,4 @@
+package uke3;
 
 class Hovedprogram {
     public static void main(String[] args) {

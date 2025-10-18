@@ -3,7 +3,7 @@ class A {}
 class B {}
 class C {}
 
-class Hovedprogram {
+class foreach {
     public static void main(String[] args) {
 
         A [] list = new A [5];

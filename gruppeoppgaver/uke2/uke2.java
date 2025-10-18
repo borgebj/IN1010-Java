@@ -1,3 +1,5 @@
+package uke2;
+
 import java.util.Arrays;
 
 class uke2 {

@@ -1,3 +1,4 @@
+package uke6;
 
 class Main {
     public static void main(String[] args) {
@@ -6,8 +7,7 @@ class Main {
         Node start = new Node();
         Node nyNode = new Node();
 
-        start.settInn(nyNode);
-        nyNode.settNeste(new Node());
+        nyNode.settNeste(nyNode);
 
         // generisk klasse som kan ta inn alt
         Boks<String> nyBoks = new Boks<String>("Hei");

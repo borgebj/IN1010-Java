@@ -1,3 +1,4 @@
+package tictac;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -25,11 +26,11 @@ public class TicTacToe {
 
             // scanner-objekt som tar tall fra bruker og lagrer i variabel
             Scanner scan = new Scanner(System.in);
-            System.out.print("Enter your placement (1-9): ");
+            System.out.print("\nEnter your placement (1-9): ");
             int playerPos = scan.nextInt();
 
             while(playerPositions.contains(playerPos) || cpuPositions.contains(playerPos)) {
-                System.out.print("Position taken! Enter a correct position: ");
+                System.out.print("\nPosition taken! Enter a correct position: ");
                 playerPos = scan.nextInt();
             }
             placePiece(gameBoard, playerPos, "player");
@@ -65,6 +66,7 @@ public class TicTacToe {
     }
 
     public static void printGameBoard(char [] [] gameBoard) {
+        System.out.printf("\n\n\n");
 
         // printer ut brettet (gameBoard) med 2 for-loops
         for (char[] row : gameBoard) {

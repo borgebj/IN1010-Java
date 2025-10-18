@@ -1,6 +1,7 @@
+package uke4.oppg2;
 
-class Sudent extends Person {
-    string idnr = "ikke registrert.";
+class Student extends Person {
+    String idnr = "ikke registrert.";
 
     @Override // overload
     public void registrerPerson(String n, String i) {

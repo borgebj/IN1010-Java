@@ -1,3 +1,4 @@
+package uke6;
 
 class Boks<T> {
 

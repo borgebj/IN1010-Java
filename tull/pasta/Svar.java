@@ -1,4 +1,5 @@
-import kalkulator.Kalkulator;
+package pasta;
+
 import java.util.Scanner;
 
 public class Svar {

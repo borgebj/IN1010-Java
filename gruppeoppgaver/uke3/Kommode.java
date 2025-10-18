@@ -1,3 +1,4 @@
+package uke3;
 
 class Kommode extends Mobel {
     // private fordi vi ikke skal ha flere underklasser

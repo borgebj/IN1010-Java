@@ -1,3 +1,4 @@
+package uke6.oppgaver.oppgave1;
 
 class Hovedprogram {
 

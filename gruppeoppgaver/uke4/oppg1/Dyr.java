@@ -1,3 +1,4 @@
+package uke4.oppg1;
 
 abstract class Dyr {
 

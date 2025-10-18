@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class SpillBrett extends Application {
+public class SpillBrett_eng extends Application {
 
     VBox rootPane = new VBox();
     GridPane grid = new GridPane();
@@ -267,9 +267,9 @@ public class SpillBrett extends Application {
     }
 
     private static class LagNyBehandler implements EventHandler<ActionEvent> {
-        SpillBrett hoved;
+        SpillBrett_eng hoved;
 
-        public LagNyBehandler(SpillBrett hoved) {
+        public LagNyBehandler(SpillBrett_eng hoved) {
             this.hoved = hoved;
         }
         @Override

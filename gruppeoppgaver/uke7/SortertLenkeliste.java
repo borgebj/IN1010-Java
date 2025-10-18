@@ -1,6 +1,12 @@
+package uke7;
 
 class SortertLenkeliste<T extends Comparable<T>> extends Lenkeliste<T> {
-    private class Node {}
+    private class Node {
+        T data;
+        Node(T data){
+            this.data = data;
+        }
+    }
 
     Node start;
 
@@ -15,5 +21,6 @@ class SortertLenkeliste<T extends Comparable<T>> extends Lenkeliste<T> {
 
     public T fjern(int pos) {
         // passe paa at forrige peker paa neste neste
+        return start.data;
     }
 }

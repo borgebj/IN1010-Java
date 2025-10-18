@@ -1,3 +1,4 @@
+package uke3;
 
 public class Sofa extends Mobel {
     // private fordi vi ikke skal ha flere underklasser

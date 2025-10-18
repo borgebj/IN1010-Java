@@ -1,3 +1,4 @@
+package uke3;
 
 public class Mobel {
     // protected fordi de skal bli brukt av subklasser

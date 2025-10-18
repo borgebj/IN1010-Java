@@ -1,0 +1,56 @@
+Formelle definisjoner
+● En rute er den minste enheten i labyrinten (hver rute er representert ved ett tegn i
+filen).
+
+○ Hvite ruter kan man gå gjennom.
+
+○ Sorte ruter kan man ikke gå gjennom.
+
+● To ruter er naboer dersom de har en felles side.
+
+● En vei er en sekvens av hvite ruter slik at hver rute i sekvensen er nabo med den
+foregående og den etterfølgende ruten, og de to kan ikke være samme rute.
+
+● Hvis det går en vei mellom to ruter, så er rutene tilkoblet hverandre.
+
+● En vei er syklisk hvis minst én av rutene på veien besøkes flere ganger, ellers er den
+asyklisk.
+
+● En labyrint er syklisk hvis det finnes en syklisk vei i den, ellers er den asyklisk.
+
+● En åpning er en hvit rute på kanten av labyrinten.
+
+● En utvei fra en bestemt startrute er en vei fra den valgte startruten til en åpning.
+Side 3 av 11
+
+● Vi bruker koordinater på formen (kolonne, rad) for å identifisere en rutes plassering i
+labyrinten (merk at vi teller fra 0).
+
+● Posisjon (0,0) er øvre venstre hjørne i labyrinten på en tegning. Dette samsvarer
+med hvordan man nummererer pixler i grafiske grensesnitt.
+
+
+
+Mindre formelle definisjoner
+En labyrint er bygd opp av kvadratiske ruter som alle er like store. Hver rute svarer til et tegn
+i filen. En rute kan være hvit, som betyr at man kan gå gjennom den, eller sort, som betyr at
+man ikke kan gå gjennom den. Vi sier at to ruter er naboer hvis de har en felles side. En rute
+har altså inntil 4 naboer.
+
+Vi kan gå mellom et par av hvite ruter som er naboer. Vi kan sette sammen mange slike
+veistykker for å danne en vei. Hvis det går en vei mellom to ruter, så er rutene tilkoblet
+hverandre.
+
+Vi sier at en vei er syklisk hvis en av rutene som ligger på veien besøkes flere ganger, og en
+vei som ikke er syklisk kalles asyklisk.
+
+Vi sier at en labyrint er syklisk dersom det finnes en syklisk vei i den. Dette innebærer at vi
+må gjøre noen ekstra sjekker i koden for å unngå å bli gående i en sirkel. Figur 2 inneholder
+blant annet en syklisk vei rundt midten i labyrinten til høyre. En labyrint som ikke er syklisk,
+kaller vi asyklisk.
+
+Hvite ruter på kanten av labyrinten kalles åpninger, og en vei fra en gitt rute til en åpning
+kalles en utvei. Vi kan referere til en bestemt rute ved å bruke koordinatene slik: (kolonne,
+rad). F.eks. har figur 3 to åpninger; (0, 1) og (12, 11).
+
+- FERDIG -

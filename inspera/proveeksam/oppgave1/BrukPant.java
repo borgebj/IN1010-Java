@@ -1,3 +1,4 @@
+package proveeksam.oppgave1;
 
 abstract class Emballasje {
 
